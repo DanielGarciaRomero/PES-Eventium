@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Eventium.iml" filepath="$PROJECT_DIR$/Eventium.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PES-Eventium.iml" filepath="$PROJECT_DIR$/PES-Eventium.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

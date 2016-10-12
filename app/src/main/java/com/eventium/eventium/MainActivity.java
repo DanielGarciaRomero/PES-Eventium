@@ -1,5 +1,6 @@
 package com.eventium.eventium;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.textView3) {
             Toast.makeText(getBaseContext(), "Has pulsado para registrarte", Toast.LENGTH_LONG).show();
-            //MainActivity.this.startActivity(new Intent(MainActivity.this,IngActivity.class));
+            MainActivity.this.startActivity(new Intent(MainActivity.this, RegistroActivity.class));
         }
         else if (v.getId() == R.id.textView4) {
             Toast.makeText(getBaseContext(), "Has pulsado olvidar contraseña", Toast.LENGTH_LONG).show();
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (v.getId() == R.id.button) {
             Toast.makeText(getBaseContext(), "has pulsado login", Toast.LENGTH_LONG).show();
-            //MainActivity.this.startActivity(new Intent(MainActivity.this, RecActivity.class));
+            //MainActivity.this.startActivity(new Intent(MainActivity.this, RegistroActivity.class));
         }
     }
 }
