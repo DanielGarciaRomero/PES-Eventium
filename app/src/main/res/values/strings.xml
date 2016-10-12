@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Eventium</string>
     <string name="title_activity_eventos">EventosActivity</string>
+    <string name="toolbar_title">Eventium</string>
 </resources>
