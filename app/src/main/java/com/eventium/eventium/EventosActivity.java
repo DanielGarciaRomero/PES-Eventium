@@ -10,8 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
@@ -30,16 +34,20 @@ public class EventosActivity extends AppCompatActivity implements View.OnClickLi
     AdapterImagenesListView adapEvent;
     Toolbar my_toolbar;
     Context context;
+    Button botonFiltrarEventos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eventos);
 
+        botonFiltrarEventos = (Button) findViewById(R.id.botonFiltrarEventos);
+        botonFiltrarEventos.setOnClickListener(this);
+
         my_toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(my_toolbar);
         getSupportActionBar().setTitle(R.string.toolbar_title);
-        my_toolbar.setNavigationIcon(R.mipmap.ic_menu);
+        my_toolbar.setNavigationIcon(R.drawable.ic_menu);
 
         lv = (ListView) findViewById(R.id.listViewEventos);
 
@@ -77,9 +85,9 @@ public class EventosActivity extends AppCompatActivity implements View.OnClickLi
             imagenesRecomendados.add(geller);
         }
 
-        //adapEvent = new AdapterImagenesListView(this, eventos, imagenes);
-        //lv.setAdapter(adapEvent);
         context = this;
+        adapEvent = new AdapterImagenesListView(context, eventosDestacados, imagenesDestacados);
+        lv.setAdapter(adapEvent);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -115,7 +123,27 @@ public class EventosActivity extends AppCompatActivity implements View.OnClickLi
                 res.getDrawable(android.R.drawable.ic_dialog_map));
         tabs.addTab(spec);
 
-        tabs.setCurrentTab(1);
+        tabs.setCurrentTab(0);
+
+        tabs.getTabWidget().getChildAt(0).getLayoutParams().width = 40;
+        tabs.getTabWidget().getChildAt(1).getLayoutParams().width = 80;
+        TabWidget tw = (TabWidget) tabs.findViewById(android.R.id.tabs);
+        View tabView = tw.getChildTabViewAt(0);
+        TextView tv = (TextView)tabView.findViewById(android.R.id.title);
+        tv.setTextSize(12);
+        tabView = tw.getChildTabViewAt(1);
+        tv = (TextView)tabView.findViewById(android.R.id.title);
+        tv.setTextSize(12);
+        tabView = tw.getChildTabViewAt(2);
+        tv = (TextView)tabView.findViewById(android.R.id.title);
+        tv.setTextSize(12);
+
+        // http://stackoverflow.com/questions/14722654/tabwidget-current-tab-bottom-line-color
+        /*
+        for (int i = 0; i < tabs.getTabWidget().getChildCount(); ++i) {
+            tabs.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.tab_selector);
+        }
+        */
 
         tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
@@ -123,12 +151,10 @@ public class EventosActivity extends AppCompatActivity implements View.OnClickLi
                 if (tabId == "mitab1") {
                     adapEvent = new AdapterImagenesListView(context, eventosDestacados, imagenesDestacados);
                     lv.setAdapter(adapEvent);
-                }
-                else if (tabId == "mitab2") {
+                } else if (tabId == "mitab2") {
                     adapEvent = new AdapterImagenesListView(context, eventosRecomendados, imagenesRecomendados);
                     lv.setAdapter(adapEvent);
-                }
-                else if (tabId == "mitab3") {
+                } else if (tabId == "mitab3") {
                     adapEvent = new AdapterImagenesListView(context, eventos, imagenes);
                     lv.setAdapter(adapEvent);
                 }
@@ -138,7 +164,11 @@ public class EventosActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View v) {}
+    public void onClick(View v) {
+        if (v.getId() == R.id.botonFiltrarEventos) {
+            Toast.makeText(getBaseContext(), "Has clicado en filtrar", Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
