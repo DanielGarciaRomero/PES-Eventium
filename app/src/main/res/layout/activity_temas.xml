@@ -1,36 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorFondo">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/my_toolbar"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:id="@+id/row1">
+        android:id="@+id/row1"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_alignParentStart="true">
 
-        <Button
-            android:text="Artistico"
+        <ToggleButton
+            android:text="ARTISTICO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button1"
             android:drawableTop="@drawable/artistico"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="ARTISTICO"
+            android:textOn="ARTISTICO"
+            android:checked="false" />
 
-        <Button
-            android:text="automobilistico"
+        <ToggleButton
+            android:text="AUTOMOBILISTICO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button2"
             android:drawableTop="@drawable/automobilistico"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:textOff="AUTOMOBILISTICO"
+            android:textOn="AUTOMOBILISTICO" />
 
-        <Button
-            android:text="cinematografico"
+        <ToggleButton
+            android:text="CINEMATOGRAFICO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button3"
             android:drawableTop="@drawable/cinematografico"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:textOff="CINEMATOGRAFICO"
+            android:textOn="CINEMATOGRAFICO" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,29 +72,51 @@
         android:layout_below="@+id/row1"
         android:layout_alignParentStart="true">
 
-        <Button
-            android:text="deportivo"
+        <ToggleButton
+            android:text="DEPORTIVO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button4"
             android:drawableTop="@drawable/deportivo"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="DEPORTIVO"
+            android:textOn="DEPORTIVO" />
 
-        <Button
-            android:text="gastronomico"
+        <ToggleButton
+            android:text="GASTRONOMICO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button5"
             android:drawableTop="@drawable/gastronomico"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textOff="GASTRONOMICO"
+            android:textOn="GASTRONOMICO" />
 
-        <Button
-            android:text="literario"
+        <ToggleButton
+            android:text="LITERARIO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button6"
             android:drawableTop="@drawable/literario"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="LITERARIO"
+            android:textOn="LITERARIO" />
     </LinearLayout>
 
     <LinearLayout
@@ -74,29 +127,50 @@
         android:layout_below="@+id/row2"
         android:layout_alignParentStart="true">
 
-        <Button
-            android:text="moda"
+        <ToggleButton
+            android:text="MODA"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button7"
             android:drawableTop="@drawable/moda"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="MODA"
+            android:textOn="MODA" />
 
-        <Button
-            android:text="musical"
+        <ToggleButton
+            android:text="MUSICAL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button8"
             android:drawableTop="@drawable/musical"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="MUSICAL"
+            android:textOn="MUSICAL" />
 
-        <Button
-            android:text="politico"
+        <ToggleButton
+            android:text="POLITICO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button9"
             android:drawableTop="@drawable/politico"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="POLITICO"
+            android:textOn="POLITICO" />
     </LinearLayout>
 
     <LinearLayout
@@ -107,28 +181,72 @@
         android:layout_below="@+id/row3"
         android:layout_alignParentStart="true">
 
-        <Button
-            android:text="teatral"
+        <ToggleButton
+            android:text="TEATRAL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button10"
             android:drawableTop="@drawable/teatral"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="TEATRAL"
+            android:textOn="TEATRAL" />
 
-        <Button
-            android:text="string/tecnologico y cientifico"
+        <ToggleButton
+            android:text="TECNOLOGICO Y CIENTIFICO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button11"
             android:drawableTop="@drawable/tecnologico_y_cientifico"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="TECNOLOGICO Y CIENTIFICO"
+            android:textOn="TECNOLOGICO Y CIENTIFICO" />
 
-        <Button
-            android:text="otros"
+        <ToggleButton
+            android:text="OTROS"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/button12"
             android:drawableTop="@drawable/otros"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#56E394"
+            android:layout_weight="1"
+            android:textOff="OTROS"
+            android:textOn="OTROS" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/row5"
+        android:layout_below="@+id/row4">
+
+
+        <Button
+            android:text="ACEPTAR"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#5FBD88"
+            android:id="@+id/button14"
             android:layout_weight="1" />
     </LinearLayout>
+
+
 </RelativeLayout>
