@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/row1">
+
+        <Button
+            android:text="Artistico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button1"
+            android:drawableTop="@drawable/artistico"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="automobilistico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button2"
+            android:drawableTop="@drawable/automobilistico"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="cinematografico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button3"
+            android:drawableTop="@drawable/cinematografico"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/row2"
+        android:layout_below="@+id/row1"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:text="deportivo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button4"
+            android:drawableTop="@drawable/deportivo"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="gastronomico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button5"
+            android:drawableTop="@drawable/gastronomico"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="literario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button6"
+            android:drawableTop="@drawable/literario"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/row3"
+        android:layout_below="@+id/row2"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:text="moda"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button7"
+            android:drawableTop="@drawable/moda"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="musical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button8"
+            android:drawableTop="@drawable/musical"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="politico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button9"
+            android:drawableTop="@drawable/politico"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/row4"
+        android:layout_below="@+id/row3"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:text="teatral"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button10"
+            android:drawableTop="@drawable/teatral"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="string/tecnologico y cientifico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button11"
+            android:drawableTop="@drawable/tecnologico_y_cientifico"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="otros"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button12"
+            android:drawableTop="@drawable/otros"
+            android:layout_weight="1" />
+    </LinearLayout>
+</RelativeLayout>
