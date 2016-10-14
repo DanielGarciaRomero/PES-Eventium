@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //MainActivity.this.startActivity(new Intent(MainActivity.this, RecActivity.class));
         }
         else if (v.getId() == R.id.button) {
-            Toast.makeText(getBaseContext(), "has pulsado login", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Has pulsado Login", Toast.LENGTH_LONG).show();
             MainActivity.this.startActivity(new Intent(MainActivity.this, TemasActivity.class));
         }
     }

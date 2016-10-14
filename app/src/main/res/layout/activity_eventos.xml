@@ -7,7 +7,7 @@
     android:background="@color/colorFondo">
 
     <include layout="@layout/toolbar"
-     android:id="@+id/my_toolbar"/>
+        android:id="@+id/my_toolbar"/>
 
     <Button
         android:id="@+id/botonFiltrarEventos"

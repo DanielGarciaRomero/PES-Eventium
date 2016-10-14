@@ -21,17 +21,19 @@ import org.w3c.dom.Text;
 
 public class TemasActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private android.widget.Toolbar toolbar;
+    //private android.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temas);
 
+        /*
         Toolbar my_toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(my_toolbar);
         getSupportActionBar().setTitle(R.string.toolbar_title);
         my_toolbar.setNavigationIcon(R.drawable.ic_menu);
+        */
 
         //Categorias
         ToggleButton artistico = (ToggleButton) findViewById(R.id.button1);
@@ -71,7 +73,7 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
         otros.setOnClickListener(this);
 
         Button aceptar = (Button) findViewById(R.id.button14);
-        otros.setOnClickListener(this);
+        aceptar.setOnClickListener(this);
 
         //fin Categorias
     }
@@ -89,7 +91,7 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         else if (v.getId() == R.id.button14){
-            Toast.makeText(getBaseContext(), "has pulsado login", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Has pulsado aceptar", Toast.LENGTH_LONG).show();
             TemasActivity.this.startActivity(new Intent(TemasActivity.this, EventosActivity.class));
         }
     }
