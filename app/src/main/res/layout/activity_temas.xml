@@ -251,12 +251,21 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/row5"
         android:layout_below="@+id/row4">
 
+
+        <TextView
+            android:text="Selecciona tus categorías favoritas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView9"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp" />
 
         <Button
             android:text="ACEPTAR"
