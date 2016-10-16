@@ -1,7 +1,6 @@
 package com.eventium.eventium;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
