@@ -24,15 +24,15 @@ public class UsuariosActivity extends AppCompatActivity implements View.OnClickL
     AdapterImagenesListView adapEvent;
     Toolbar my_toolbar;
     Context context;
-    Button botonFiltrarUsuarios;
+    //Button botonFiltrarUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuarios);
 
-        botonFiltrarUsuarios = (Button) findViewById(R.id.botonFiltrarUsuarios);
-        botonFiltrarUsuarios.setOnClickListener(this);
+        //botonFiltrarUsuarios = (Button) findViewById(R.id.botonFiltrarUsuarios);
+        //botonFiltrarUsuarios.setOnClickListener(this);
 
         my_toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(my_toolbar);
@@ -72,9 +72,11 @@ public class UsuariosActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        /*
         if (v.getId() == R.id.botonFiltrarUsuarios) {
             Toast.makeText(getBaseContext(), "Has clicado en filtrar", Toast.LENGTH_LONG).show();
         }
+        */
     }
 
     @Override
@@ -88,6 +90,9 @@ public class UsuariosActivity extends AppCompatActivity implements View.OnClickL
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             Toast.makeText(getBaseContext(), "Has clicado en el menu", Toast.LENGTH_LONG).show();
+        }
+        if (item.getItemId() == R.id.action_filter) {
+            Toast.makeText(getBaseContext(), "Has clicado en filtrar", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }
