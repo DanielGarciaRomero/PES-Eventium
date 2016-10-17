@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Eventium</string>
-    <string name="title_activity_eventos">EventosActivity</string>
     <string name="toolbar_title">Eventium</string>
+    <string name="search_hint">Busca un evento</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_filter">Filter</string>
 </resources>
