@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/colorFondo">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorToolbar"/>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorToolbar" />
+
+        <TextView
+            android:text="Usuario1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/fotoPerfil"
+            android:layout_toEndOf="@+id/fotoPerfil"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/username"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
+
+        <ImageView
+            android:src="@raw/unavailable"
+            android:layout_alignBottom="@+id/username"
+            android:layout_toEndOf="@+id/username"
+            android:layout_marginStart="33dp"
+            android:id="@+id/verified"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@raw/unavailable"
+            android:id="@+id/fotoPerfil"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="19dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentStart="true" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:layout_marginRight="10dp"
+            android:layout_alignBottom="@+id/fotoPerfil"
+            android:layout_toEndOf="@+id/fotoPerfil" />
+
+        <Button
+            android:text="Seguir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/followbutton"
+            android:layout_alignBottom="@+id/textView14"
+            android:layout_toEndOf="@+id/username" />
+
+        <TextView
+            android:text="Ciudad: ciudad1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="39dp"
+            android:id="@+id/ciudadtext"
+            android:textSize="14sp"
+            android:layout_below="@+id/textView14"
+            android:layout_alignStart="@+id/textView14" />
+
+        <TextView
+            android:text="Email: email@email.com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="76dp"
+            android:id="@+id/textView14"
+            android:layout_below="@+id/fotoPerfil"
+            android:layout_alignStart="@+id/direcciontext" />
+
+        <TextView
+            android:text="Direccion: calle1 nX Xº Xª"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/direcciontext"
+            android:layout_above="@+id/followbutton"
+            android:layout_alignStart="@+id/fotoPerfil" />
+
+        <Button
+            android:text="Reportar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reportbutton"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/followbutton" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mapa"
+            android:text="Siguiendo: XXX"
+            android:id="@+id/siguiendo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/siguiendo"
+            android:text="Seguidores: XXX"
+            android:id="@+id/seguidores"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seguidores"
+            android:text="Temáticas preferidas : XXX"
+            android:id="@+id/tematicas"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tematicas"
+            android:text="Eventos asistidos: XXX"
+            android:id="@+id/asistidos"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/asistidos"
+            android:text="Eventos organizados: XXX"
+            android:id="@+id/organizados"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/organizados"
+            android:text="Opiniones: XXX"
+            android:id="@+id/opiniones"/>
+
+        <ImageView
+            android:src="@raw/unavailable"
+            android:id="@+id/mapa"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="22dp" />
+
+
+    </RelativeLayout>
+    </ScrollView>

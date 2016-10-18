@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (v.getId() == R.id.textView4) {
             Toast.makeText(getBaseContext(), "Has pulsado olvidar contraseña", Toast.LENGTH_LONG).show();
-            //MainActivity.this.startActivity(new Intent(MainActivity.this, RecActivity.class));
+            MainActivity.this.startActivity(new Intent(MainActivity.this, PasswordActivity.class));
         }
         else if (v.getId() == R.id.button) {
             Toast.makeText(getBaseContext(), "Has pulsado Login", Toast.LENGTH_LONG).show();

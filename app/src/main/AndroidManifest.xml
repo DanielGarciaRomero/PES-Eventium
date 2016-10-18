@@ -30,6 +30,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".UsuariosActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".PerfilActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

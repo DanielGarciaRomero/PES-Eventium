@@ -21,21 +21,12 @@ import org.w3c.dom.Text;
 
 public class TemasActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //private android.widget.Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temas);
 
-        /*
-        Toolbar my_toolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(my_toolbar);
-        getSupportActionBar().setTitle(R.string.toolbar_title);
-        my_toolbar.setNavigationIcon(R.drawable.ic_menu);
-        */
 
-        //Categorias
         ToggleButton artistico = (ToggleButton) findViewById(R.id.button1);
         artistico.setOnClickListener(this);
 
@@ -75,7 +66,6 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
         Button aceptar = (Button) findViewById(R.id.button14);
         aceptar.setOnClickListener(this);
 
-        //fin Categorias
     }
 
     @Override

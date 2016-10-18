@@ -18,12 +18,28 @@
         android:layout_below="@+id/my_toolbar"
         android:layout_alignParentStart="true">
      -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/row0"
+        android:layout_alignParentStart="true" >
 
+        <TextView
+            android:text="Selecciona tus tipos de evento favoritos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView9"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp" />
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:id="@+id/row1"
+        android:layout_below="@+id/row0"
         android:layout_alignParentStart="true">
 
         <ToggleButton
@@ -257,15 +273,6 @@
         android:id="@+id/row5"
         android:layout_below="@+id/row4">
 
-
-        <TextView
-            android:text="Selecciona tus categorías favoritas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/textView9"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="18sp" />
 
         <Button
             android:text="ACEPTAR"
