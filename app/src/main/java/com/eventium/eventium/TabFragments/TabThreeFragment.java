@@ -1,5 +1,6 @@
 package com.eventium.eventium.TabFragments;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,9 +14,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.eventium.eventium.CalendarioActivity;
 import com.eventium.eventium.EventosActivity;
 import com.eventium.eventium.R;
+import com.eventium.eventium.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +73,23 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         adapter = new RVAdapter(true);
         adapter.setRVE(mEventModel);
         recyclerview.setAdapter(adapter);
+        recyclerview.addOnItemTouchListener(
+                new RecyclerItemClickListener(EventosActivity.contexto, recyclerview, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        String item = adapter.getItemRVE(position);
+                        Toast.makeText(EventosActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_LONG).show();
+                        //Intent intent = new Intent(getActivity(), CalendarioActivity.class);
+                        //startActivity(intent);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
     }
 
 
@@ -79,6 +100,8 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
 
         final MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setQueryHint("Busca un evento");
+
         searchView.setOnQueryTextListener(this);
 
         MenuItemCompat.setOnActionExpandListener(item,

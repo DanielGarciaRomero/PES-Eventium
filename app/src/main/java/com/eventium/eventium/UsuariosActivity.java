@@ -11,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.eventium.eventium.TabFragments.UserModel;
@@ -57,6 +58,21 @@ public class UsuariosActivity extends AppCompatActivity implements SearchView.On
         adapter= new RVAdapter(false);
         adapter.setRVU(mUserModel);
         rv.setAdapter(adapter);
+        rv.addOnItemTouchListener(
+                new RecyclerItemClickListener(getBaseContext(), rv, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        String item = adapter.getItemRVU(position);
+                        Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
 
     }
 

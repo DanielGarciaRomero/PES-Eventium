@@ -11,8 +11,8 @@ import java.util.List;
 
 public class RVAdapter<T> extends RecyclerView.Adapter<ItemViewHolder> {
 
-    private List<EventModel> eventModel;
-    private List<UserModel> userModel;
+    List<EventModel> eventModel;
+    List<UserModel> userModel;
     boolean RVE;
 
     public RVAdapter(boolean RVE) {
@@ -25,6 +25,14 @@ public class RVAdapter<T> extends RecyclerView.Adapter<ItemViewHolder> {
 
     public void setRVU(List<UserModel> userModel) {
         this.userModel = userModel;
+    }
+
+    public String getItemRVE(int position) {
+        return eventModel.get(position).getTitulo();
+    }
+
+    public String getItemRVU(int position) {
+        return userModel.get(position).getUsername();
     }
 
     @Override

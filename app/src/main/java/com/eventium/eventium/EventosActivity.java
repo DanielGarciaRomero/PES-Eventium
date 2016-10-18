@@ -1,5 +1,6 @@
 package com.eventium.eventium;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -20,6 +21,7 @@ import com.eventium.eventium.TabFragments.TabThreeFragment;
 public class EventosActivity extends AppCompatActivity {
 
     public static String PACKAGE_NAME;
+    public static Context contexto;
     private Toolbar mytoolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -31,6 +33,7 @@ public class EventosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eventos);
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
+        contexto = getBaseContext();
 
         mytoolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mytoolbar);
