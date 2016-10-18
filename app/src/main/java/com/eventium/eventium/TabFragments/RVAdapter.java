@@ -1,6 +1,7 @@
 package com.eventium.eventium.TabFragments;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,36 +9,63 @@ import com.eventium.eventium.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RVAdapter extends RecyclerView.Adapter<ItemViewHolder> {
+public class RVAdapter<T> extends RecyclerView.Adapter<ItemViewHolder> {
 
-    private List<EventModel> mCountryModel;
-    private List<EventModel> mOriginalCountryModel;
+    private List<EventModel> eventModel;
+    private List<UserModel> userModel;
+    boolean RVE;
 
-    public RVAdapter(List<EventModel> mCountryModel) {
-        this.mCountryModel = mCountryModel;
-        this.mOriginalCountryModel = mCountryModel;
+    public RVAdapter(boolean RVE) {
+        this.RVE = RVE;
+    }
+
+    public void setRVE(List<EventModel> eventModel) {
+        this.eventModel = eventModel;
+    }
+
+    public void setRVU(List<UserModel> userModel) {
+        this.userModel = userModel;
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder itemViewHolder, int i) {
-        final EventModel model = mCountryModel.get(i);
-        itemViewHolder.bind(model);
+        if (RVE) {
+            final EventModel model = eventModel.get(i);
+            itemViewHolder.bind(model);
+        }
+        else {
+            final UserModel model = userModel.get(i);
+            itemViewHolder.bind(model);
+        }
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_events_row, viewGroup, false);
+        View view;
+        if (RVE) {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_events_row, viewGroup, false);
+        }
+        else {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_users_row, viewGroup, false);
+        }
         return new ItemViewHolder(view);
     }
 
     @Override
     public int getItemCount() {
-        return mCountryModel.size();
+        if (RVE) return eventModel.size();
+        else return userModel.size();
     }
 
-    public void setFilter(List<EventModel> countryModels){
-        mCountryModel = new ArrayList<>();
-        mCountryModel.addAll(countryModels);
+    public void setFilterRVE(List<EventModel> models){
+        eventModel = new ArrayList<>();
+        eventModel.addAll(models);
+        notifyDataSetChanged();
+    }
+
+    public void setFilterRVU(List<UserModel> models){
+        userModel = new ArrayList<>();
+        userModel.addAll(models);
         notifyDataSetChanged();
     }
 

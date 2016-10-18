@@ -23,7 +23,7 @@ import java.util.List;
 public class TabOneFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private RecyclerView recyclerview;
-    private List<EventModel> mCountryModel;
+    private List<EventModel> mEventModel;
     private RVAdapter adapter;
     ArrayList<String> eventos;
 
@@ -56,14 +56,16 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
         super.onViewCreated(view, savedInstanceState);
 
         setHasOptionsMenu(true);
-        mCountryModel = new ArrayList<>();
+        mEventModel = new ArrayList<>();
         for (int i = 0; i < eventos.size(); ++i) {
             Uri geller = Uri.parse("android.resource://" + EventosActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
-            mCountryModel.add(new EventModel(geller, eventos.get(i), "Barcelona", "dd/mm/aaaa - dd/mm/aaaa", "hh:mm - hh:mm", "XXX €"));
+            mEventModel.add(new EventModel(geller, eventos.get(i), "Barcelona", "dd/mm/aaaa - dd/mm/aaaa", "hh:mm - hh:mm", "XXX €"));
         }
 
-        adapter = new RVAdapter(mCountryModel);
+        adapter = new RVAdapter(true);
+        adapter.setRVE(mEventModel);
         recyclerview.setAdapter(adapter);
+
     }
 
 
@@ -74,6 +76,8 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
 
         final MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setQueryHint("Busca un evento");
+
         searchView.setOnQueryTextListener(this);
 
         MenuItemCompat.setOnActionExpandListener(item,
@@ -81,7 +85,7 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
                         // Do something when collapsed
-                        adapter.setFilter(mCountryModel);
+                        adapter.setFilterRVE(mEventModel);
                         return true; // Return true to collapse action view
                     }
 
@@ -95,8 +99,8 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        final List<EventModel> filteredModelList = filter(mCountryModel, newText);
-        adapter.setFilter(filteredModelList);
+        final List<EventModel> filteredModelList = filter(mEventModel, newText);
+        adapter.setFilterRVE(filteredModelList);
         return true;
     }
 

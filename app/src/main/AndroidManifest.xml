@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.eventium.eventium" >
+    package="com.eventium.eventium">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logoeventium"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,18 +19,17 @@
         </activity>
         <activity
             android:name=".RegistroActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TemasActivity"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".EventosActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".CalendarioActivity" >
-        </activity>
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CalendarioActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UsuariosActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

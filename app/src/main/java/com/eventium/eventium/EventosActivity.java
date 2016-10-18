@@ -2,10 +2,13 @@ package com.eventium.eventium;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +41,7 @@ public class EventosActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -55,6 +59,7 @@ public class EventosActivity extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.action_filter) {
             Toast.makeText(getBaseContext(), "Has clicado en filtrar", Toast.LENGTH_LONG).show();
+            EventosActivity.this.startActivity(new Intent(EventosActivity.this, UsuariosActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
