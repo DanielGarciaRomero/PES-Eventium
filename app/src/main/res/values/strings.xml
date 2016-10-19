@@ -2,6 +2,8 @@
     <string name="app_name">Eventium</string>
     <string name="toolbar_title">Eventium</string>
     <string name="toolbar_users">Usuarios</string>
+    <string name="toolbar_calendario">Calendario</string>
+    <string name="toolbar_saldo">Saldo</string>
     <string name="menu_search">Search</string>
     <string name="menu_filter">Filter</string>
 </resources>

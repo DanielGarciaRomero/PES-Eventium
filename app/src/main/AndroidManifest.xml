@@ -19,19 +19,23 @@
         </activity>
         <activity
             android:name=".RegistroActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TemasActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EventosActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CalendarioActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UsuariosActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PerfilActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CalendarioActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UsuariosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PerfilActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".IngresarActivity"></activity>
     </application>
 
 </manifest>
