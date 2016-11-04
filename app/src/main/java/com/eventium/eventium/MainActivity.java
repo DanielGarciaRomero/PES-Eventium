@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (v.getId() == R.id.button) {
             Toast.makeText(getBaseContext(), "Has pulsado Login", Toast.LENGTH_LONG).show();
-            MainActivity.this.startActivity(new Intent(MainActivity.this, IngresarActivity.class));
+            MainActivity.this.startActivity(new Intent(MainActivity.this, EventosActivity.class));
         }
     }
 }
