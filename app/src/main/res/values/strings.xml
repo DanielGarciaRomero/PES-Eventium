@@ -6,4 +6,14 @@
     <string name="toolbar_saldo">Saldo</string>
     <string name="menu_search">Search</string>
     <string name="menu_filter">Filter</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="menu_drawer_home">HOME</string>
+    <string name="menu_drawer_evento">Crear evento</string>
+    <string name="menu_drawer_usuarios">Usuarios</string>
+    <string name="menu_drawer_perfil">Mi perfil</string>
+    <string name="menu_drawer_calendario">Mi calendario</string>
+    <string name="menu_drawer_saldo">Mi saldo</string>
+    <string name="menu_drawer_ajustes">Ajustes</string>
 </resources>

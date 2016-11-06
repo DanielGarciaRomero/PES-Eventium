@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_drawer_home"
+            android:title="@string/menu_drawer_home"
+            />
+        <item
+            android:id="@+id/nav_evento"
+            android:icon="@drawable/ic_drawer_evento"
+            android:title="@string/menu_drawer_evento"
+            />
+        <item
+            android:id="@+id/nav_usuarios"
+            android:icon="@drawable/ic_drawer_usuarios"
+            android:title="@string/menu_drawer_usuarios"
+            />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_drawer_perfil"
+            android:title="@string/menu_drawer_perfil"
+            />
+        <item
+            android:id="@+id/nav_calendario"
+            android:icon="@drawable/ic_drawer_calendario"
+            android:title="@string/menu_drawer_calendario"
+            />
+        <item
+            android:id="@+id/nav_saldo"
+            android:icon="@drawable/ic_drawer_saldo"
+            android:title="@string/menu_drawer_saldo"
+            />
+        <item
+            android:id="@+id/nav_ajustes"
+            android:icon="@drawable/ic_drawer_ajustes"
+            android:title="@string/menu_drawer_ajustes"
+            />
+    </group>
+
+</menu>

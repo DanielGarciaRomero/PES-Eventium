@@ -18,6 +18,9 @@ import android.widget.Toast;
 
 import com.eventium.eventium.CalendarioActivity;
 import com.eventium.eventium.EventosActivity;
+
+import com.eventium.eventium.NavigationDrawerActivity;
+
 import com.eventium.eventium.R;
 import com.eventium.eventium.RecyclerItemClickListener;
 
@@ -62,7 +65,7 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
         setHasOptionsMenu(true);
         mEventModel = new ArrayList<>();
         for (int i = 0; i < eventos.size(); ++i) {
-            Uri geller = Uri.parse("android.resource://" + EventosActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
+            Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
             mEventModel.add(new EventModel(geller, eventos.get(i), "Barcelona", "dd/mm/aaaa - dd/mm/aaaa", "hh:mm - hh:mm", "XXX €"));
         }
 
@@ -70,11 +73,11 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
         adapter.setRVE(mEventModel);
         recyclerview.setAdapter(adapter);
         recyclerview.addOnItemTouchListener(
-                new RecyclerItemClickListener(EventosActivity.contexto, recyclerview, new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(NavigationDrawerActivity.contexto, recyclerview, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVE(position);
-                        Toast.makeText(EventosActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
                         //Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_LONG).show();
                         //Intent intent = new Intent(getActivity(), CalendarioActivity.class);
                         //startActivity(intent);
@@ -89,10 +92,10 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
 
     }
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
+        menu.clear();
         inflater.inflate(R.menu.menu_eventos, menu);
 
         final MenuItem item = menu.findItem(R.id.action_search);
