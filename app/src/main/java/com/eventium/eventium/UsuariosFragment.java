@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.eventium.eventium.TabFragments.UserModel;
 import com.eventium.eventium.TabFragments.RVAdapter;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,13 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //GET DE USERS
+        HTTPMethods httpMethods = new HTTPMethods(0);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        InputStream aux = httpMethods.getResultado_json();
+
         usernames = new ArrayList<String>();
         usernames.add("abelmenor");
         usernames.add("alvaroma94");

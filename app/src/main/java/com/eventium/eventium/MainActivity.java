@@ -64,8 +64,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prueba.setText(httpMethods.getResultado());*/
 
         //GET DE UN USER
-        HTTPMethods httpMethods = new HTTPMethods(2);
+        /*HTTPMethods httpMethods = new HTTPMethods(2);
         httpMethods.setUser_id(1);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        prueba.setText(httpMethods.getResultado());*/
+
+        //POST DE UN USER
+        HTTPMethods httpMethods = new HTTPMethods(10);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
         prueba.setText(httpMethods.getResultado());
