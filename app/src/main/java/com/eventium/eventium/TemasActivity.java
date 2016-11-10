@@ -82,7 +82,7 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
         }
         else if (v.getId() == R.id.button14){
             Toast.makeText(getBaseContext(), "Has pulsado aceptar", Toast.LENGTH_LONG).show();
-            TemasActivity.this.startActivity(new Intent(TemasActivity.this, EventosActivity.class));
+            TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
         }
     }
 }

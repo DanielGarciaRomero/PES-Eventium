@@ -2,6 +2,8 @@ package com.eventium.eventium;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +20,10 @@ import android.widget.Toast;
 import com.eventium.eventium.TabFragments.UserModel;
 import com.eventium.eventium.TabFragments.RVAdapter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,20 +41,29 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        usernames = new ArrayList<String>();
 
         //GET DE USERS
         HTTPMethods httpMethods = new HTTPMethods(0);
         httpMethods.ejecutarHttpAsyncTask();
-        while (!httpMethods.getFinished());
-        InputStream aux = httpMethods.getResultado_json();
+        while (!httpMethods.getFinished()) ;
+        List<Usuario> list_users = httpMethods.getUsers();
+        if (list_users == null){
+            Toast.makeText(MainActivity.contexto, "No hi ha connexió amb el servidor", Toast.LENGTH_LONG).show();
+        }
+        else {
+            for (int i = 0; i < list_users.size(); ++i) {
+                usernames.add(list_users.get(i).getUsername());
+            }
+        }
 
-        usernames = new ArrayList<String>();
+        /*usernames = new ArrayList<String>();
         usernames.add("abelmenor");
         usernames.add("alvaroma94");
         usernames.add("aridez");
         usernames.add("dagaro");
         usernames.add("link-adri");
-        usernames.add("rodergas");
+        usernames.add("rodergas");*/
     }
 
     @Override
@@ -143,5 +157,4 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
         }
         return filteredModelList;
     }
-
 }

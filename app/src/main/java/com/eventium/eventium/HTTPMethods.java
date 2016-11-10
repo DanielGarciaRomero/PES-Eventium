@@ -1,6 +1,7 @@
 package com.eventium.eventium;
 
 import android.os.AsyncTask;
+import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class HTTPMethods {
 
     public static InputStream resultado_json;
     public static String resultado;
+    public static List<Usuario> users;
     public static Boolean finished;
     public static Integer user_id;
     public static Integer peticion_id;
@@ -42,6 +44,10 @@ public class HTTPMethods {
         else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //get de un user
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/user"); //post de un user
+    }
+
+    public List<Usuario> getUsers(){
+        return users;
     }
 
     public String getResultado(){
@@ -95,7 +101,8 @@ public class HTTPMethods {
 
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
-            resultado_json = inputStream;
+            //resultado_json = inputStream;
+            readJsonStream(inputStream);
 
             // convert inputstream to string
             if(inputStream != null)
@@ -171,8 +178,68 @@ public class HTTPMethods {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(MainActivity.contexto, "Received!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.contexto, "Received!", Toast.LENGTH_LONG).show();
         }
     }
 
+    //JSON USUARIOS
+    public static void readJsonStream(InputStream in) throws IOException {
+        // Nueva instancia JsonReader
+        System.out.println("entro en readJsonStream");
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            // Leer Array
+            //return leerArrayUsuarios(reader);
+            users = leerArrayUsuarios(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
+    public static List leerArrayUsuarios(JsonReader reader) throws IOException {
+        // Lista temporal
+        ArrayList usuarios = new ArrayList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            // Leer objeto
+            usuarios.add(leerUsuario(reader));
+        }
+        reader.endArray();
+        return usuarios;
+    }
+
+    public static Usuario leerUsuario(JsonReader reader) throws IOException {
+        String username = null;
+        String mail = null;
+        String password = null;
+        String pic = null;
+        String id = null;
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "username":
+                    username = reader.nextString();
+                    break;
+                case "mail":
+                    mail = reader.nextString();
+                    break;
+                case "password":
+                    password = reader.nextString();
+                    break;
+                case "pic":
+                    pic = reader.nextString();
+                    break;
+                case "id":
+                    id = reader.nextString();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+            }
+        }
+        reader.endObject();
+        return new Usuario(username, mail, password, pic, id);
+    }
 }
