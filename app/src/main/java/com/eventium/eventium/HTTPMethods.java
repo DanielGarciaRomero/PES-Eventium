@@ -94,7 +94,7 @@ public class HTTPMethods {
             HttpGet httpGet = new HttpGet(url);
             // make GET request to the given URL
             if (peticion_id == 2) {
-                httpGet.setHeader("clave", "alvaroma94");
+                httpGet.setHeader("clave", mail);
                 httpResponse = httpclient.execute(httpGet);
             }
             else httpResponse = httpclient.execute(httpGet);

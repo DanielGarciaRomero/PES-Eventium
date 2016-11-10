@@ -14,22 +14,29 @@ import android.widget.Toast;
 
 public class PasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
+    EditText email;
+    Button aceptar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
 
-        EditText email = (EditText) findViewById(R.id.editText7);
+        email = (EditText) findViewById(R.id.editText7);
         email.setOnClickListener(this);
 
-        Button aceptar = (Button) findViewById(R.id.button13);
+        aceptar = (Button) findViewById(R.id.button13);
         aceptar.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button13) {
-            Toast.makeText(getBaseContext(), "Pronto recibirás el mail", Toast.LENGTH_LONG).show();
+            HTTPMethods httpMethods = new HTTPMethods(2);
+            httpMethods.setMail(email.getText().toString());
+            httpMethods.ejecutarHttpAsyncTask();
+            while (!httpMethods.getFinished());
+            Toast.makeText(getBaseContext(), "Mail enviado", Toast.LENGTH_LONG).show();
             PasswordActivity.this.startActivity(new Intent(PasswordActivity.this, MainActivity.class));
         }
     }
