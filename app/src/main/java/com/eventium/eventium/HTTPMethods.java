@@ -106,7 +106,8 @@ public class HTTPMethods {
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
             //resultado_json = inputStream;
-            readJsonStream(inputStream);
+            if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
+            else if (peticion_id == 3) readJsonStreamEventos(inputStream);
 
             // convert inputstream to string
             if(inputStream != null)
@@ -187,15 +188,27 @@ public class HTTPMethods {
     }
 
     //JSON USUARIOS
-    public static void readJsonStream(InputStream in) throws IOException {
+    public static void readJsonStreamUsuarios(InputStream in) throws IOException {
         // Nueva instancia JsonReader
-        System.out.println("entro en readJsonStream");
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            // Leer Array
+            //return leerArrayUsuarios(reader);
+            //events = leerArrayEventos(reader);
+            users = leerArrayUsuarios(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
+    public static void readJsonStreamEventos(InputStream in) throws IOException {
+        // Nueva instancia JsonReader
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
             // Leer Array
             //return leerArrayUsuarios(reader);
             events = leerArrayEventos(reader);
-            users = leerArrayUsuarios(reader);
+            //users = leerArrayUsuarios(reader);
         } finally {
             reader.close();
         }
