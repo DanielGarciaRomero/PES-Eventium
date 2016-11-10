@@ -18,10 +18,14 @@ import android.widget.Toast;
 
 import com.eventium.eventium.CalendarioActivity;
 
+import com.eventium.eventium.Evento;
+import com.eventium.eventium.HTTPMethods;
+import com.eventium.eventium.MainActivity;
 import com.eventium.eventium.NavigationDrawerActivity;
 
 import com.eventium.eventium.R;
 import com.eventium.eventium.RecyclerItemClickListener;
+import com.eventium.eventium.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +40,28 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         eventos = new ArrayList<String>();
+
+        HTTPMethods httpMethods = new HTTPMethods(3);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished()) ;
+        List<Evento> list_events = httpMethods.getEvents();
+        if (list_events == null){
+            Toast.makeText(MainActivity.contexto, "No hi ha connexió amb el servidor", Toast.LENGTH_LONG).show();
+        }
+        else {
+            for (int i = 0; i < list_events.size(); ++i) {
+                eventos.add(list_events.get(i).getTitle());
+            }
+        }
+
+        /*eventos = new ArrayList<String>();
         eventos.add("Concierto de Estopa");
         eventos.add("Exposicion de Dali");
         eventos.add("Festival de Sitges");
         eventos.add("Maraton de Barcelona");
         eventos.add("Mobile World Congress");
-        eventos.add("Salon del Manga");
+        eventos.add("Salon del Manga");*/
 
     }
 

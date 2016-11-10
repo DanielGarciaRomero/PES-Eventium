@@ -26,6 +26,7 @@ public class HTTPMethods {
     public static InputStream resultado_json;
     public static String resultado;
     public static List<Usuario> users;
+    public static List<Evento> events;
     public static Boolean finished;
     public static Integer user_id;
     public static Integer peticion_id;
@@ -43,12 +44,15 @@ public class HTTPMethods {
         if (peticion_id == 0) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //get de users
         else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //get de un user
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
+        else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/user"); //post de un user
     }
 
     public List<Usuario> getUsers(){
         return users;
     }
+
+    public List<Evento> getEvents() { return events; }
 
     public String getResultado(){
         return resultado;
@@ -190,6 +194,7 @@ public class HTTPMethods {
         try {
             // Leer Array
             //return leerArrayUsuarios(reader);
+            events = leerArrayEventos(reader);
             users = leerArrayUsuarios(reader);
         } finally {
             reader.close();
@@ -206,6 +211,18 @@ public class HTTPMethods {
         }
         reader.endArray();
         return usuarios;
+    }
+
+    public static List leerArrayEventos(JsonReader reader) throws IOException {
+        // Lista temporal
+        ArrayList eventos = new ArrayList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            // Leer objeto
+            eventos.add(leerEvento(reader));
+        }
+        reader.endArray();
+        return eventos;
     }
 
     public static Usuario leerUsuario(JsonReader reader) throws IOException {
@@ -241,5 +258,32 @@ public class HTTPMethods {
         }
         reader.endObject();
         return new Usuario(username, mail, password, pic, id);
+    }
+
+    public static Evento leerEvento(JsonReader reader) throws IOException {
+        String title = null;
+        String id = null;
+        String organizedId = null;
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "title":
+                    title = reader.nextString();
+                    break;
+                case "id":
+                    id = reader.nextString();
+                    break;
+                case "organizedId":
+                    organizedId = reader.nextString();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+            }
+        }
+        reader.endObject();
+        return new Evento(title, id, organizedId);
     }
 }
