@@ -35,12 +35,12 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
     private RecyclerView recyclerview;
     private List<EventModel> mEventModel;
     private RVAdapter adapter;
-    ArrayList<String> eventos;
+    ArrayList<Evento> eventos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        eventos = new ArrayList<String>();
+        eventos = new ArrayList<Evento>();
 
         HTTPMethods httpMethods = new HTTPMethods(3);
         httpMethods.ejecutarHttpAsyncTask();
@@ -51,7 +51,7 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         }
         else {
             for (int i = 0; i < list_events.size(); ++i) {
-                eventos.add(list_events.get(i).getTitle());
+                eventos.add(list_events.get(i));
             }
         }
 
@@ -86,8 +86,11 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         setHasOptionsMenu(true);
         mEventModel = new ArrayList<>();
         for (int i = 0; i < eventos.size(); ++i) {
+            String fechas = eventos.get(i).getFecha_ini() + " - " + eventos.get(i).getFecha_fin();
+            String horas = eventos.get(i).getHora_ini() + " - " + eventos.get(i).getHora_fin();
+            String precio = eventos.get(i).getPrecio() + " €";
             Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
-            mEventModel.add(new EventModel(geller, eventos.get(i), "Barcelona", "dd/mm/aaaa - dd/mm/aaaa", "hh:mm - hh:mm", "XXX €"));
+            mEventModel.add(new EventModel(geller, eventos.get(i).getTitle(), eventos.get(i).getCiudad(), fechas, horas, precio));
         }
 
         adapter = new RVAdapter(true);

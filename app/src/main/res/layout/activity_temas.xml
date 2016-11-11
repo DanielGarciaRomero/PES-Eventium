@@ -2,6 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="8dp"
     android:background="@color/colorFondo">
 
     <!--
@@ -32,6 +35,7 @@
             android:id="@+id/textView9"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="#000000"
             android:textSize="18sp" />
     </LinearLayout>
     <LinearLayout
