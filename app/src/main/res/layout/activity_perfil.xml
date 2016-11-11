@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:scrollbarStyle="insideOverlay">
     <RelativeLayout
         android:layout_width="match_parent" android:layout_height="match_parent"
         android:background="@color/colorFondo">
@@ -59,21 +60,13 @@
             android:layout_alignBottom="@+id/fotoPerfil"
             android:layout_toEndOf="@+id/fotoPerfil" />
 
-        <Button
-            android:text="Seguir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/followbutton"
-            android:layout_alignBottom="@+id/textView14"
-            android:layout_toEndOf="@+id/username" />
-
         <TextView
             android:text="Ciudad: ciudad1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="39dp"
             android:id="@+id/ciudadtext"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:layout_below="@+id/textView14"
             android:layout_alignStart="@+id/textView14" />
 
@@ -81,6 +74,7 @@
             android:text="Email: email@email.com"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:layout_marginTop="76dp"
             android:id="@+id/textView14"
             android:layout_below="@+id/fotoPerfil"
@@ -90,9 +84,78 @@
             android:text="Direccion: calle1 nX Xº Xª"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:id="@+id/direcciontext"
             android:layout_above="@+id/followbutton"
             android:layout_alignStart="@+id/fotoPerfil" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="280dp"
+            android:textSize="20sp"
+            android:text="Siguiendo: XXX"
+            android:id="@+id/siguiendo"
+            android:layout_below="@+id/ciudadtext"
+            android:layout_alignStart="@+id/ciudadtext" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="Seguidores: XXX"
+            android:id="@+id/seguidores"
+            android:layout_below="@+id/siguiendo"
+            android:layout_alignStart="@+id/siguiendo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="Temáticas preferidas : XXX"
+            android:id="@+id/tematicas"
+            android:layout_below="@+id/seguidores"
+            android:layout_alignStart="@+id/seguidores" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="Eventos asistidos: XXX"
+            android:id="@+id/asistidos"
+            android:layout_below="@+id/tematicas"
+            android:layout_alignStart="@+id/tematicas" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="Eventos organizados: XXX"
+            android:id="@+id/organizados"
+            android:layout_below="@+id/asistidos"
+            android:layout_alignStart="@+id/asistidos" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="Opiniones: XXX"
+            android:id="@+id/opiniones"
+            android:layout_below="@+id/organizados"
+            android:layout_alignEnd="@+id/siguiendo" />
+
+        <Button
+            android:text="Seguir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/followbutton"
+            android:layout_alignBottom="@+id/textView14"
+            android:layout_toEndOf="@+id/tematicas" />
 
         <Button
             android:text="Reportar"
@@ -100,59 +163,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/reportbutton"
             android:textSize="12sp"
-            android:layout_centerVertical="true"
+            android:layout_alignBottom="@+id/ciudadtext"
             android:layout_alignStart="@+id/followbutton" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mapa"
-            android:text="Siguiendo: XXX"
-            android:id="@+id/siguiendo"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/siguiendo"
-            android:text="Seguidores: XXX"
-            android:id="@+id/seguidores"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seguidores"
-            android:text="Temáticas preferidas : XXX"
-            android:id="@+id/tematicas"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tematicas"
-            android:text="Eventos asistidos: XXX"
-            android:id="@+id/asistidos"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/asistidos"
-            android:text="Eventos organizados: XXX"
-            android:id="@+id/organizados"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/organizados"
-            android:text="Opiniones: XXX"
-            android:id="@+id/opiniones"/>
-
-        <ImageView
-            android:src="@raw/unavailable"
-            android:id="@+id/mapa"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="22dp" />
 
 
     </RelativeLayout>
