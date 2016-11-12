@@ -277,6 +277,13 @@ public class HTTPMethods {
         String title = null;
         String id = null;
         String organizedId = null;
+        String ciudad = null;
+        String pic = null;
+        String precio = null;
+        String fecha_ini = null;
+        String fecha_fin = null;
+        String hora_ini = null;
+        String hora_fin = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -291,12 +298,33 @@ public class HTTPMethods {
                 case "organizedId":
                     organizedId = reader.nextString();
                     break;
+                case "ciudad":
+                    ciudad = reader.nextString();
+                    break;
+                case "pic":
+                    pic = reader.nextString();
+                    break;
+                case "precio":
+                    precio = reader.nextString();
+                    break;
+                case "fecha_ini":
+                    fecha_ini = reader.nextString();
+                    break;
+                case "fecha_fin":
+                    fecha_fin = reader.nextString();
+                    break;
+                case "hora_ini":
+                    hora_ini = reader.nextString();
+                    break;
+                case "hora_fin":
+                    hora_fin = reader.nextString();
+                    break;
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Evento(title, id, organizedId);
+        return new Evento(title, id, organizedId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin);
     }
 }
