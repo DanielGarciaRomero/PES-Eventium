@@ -41,6 +41,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
         confirmar_contrasena = (EditText) findViewById(R.id.editText6);
         confirmar_contrasena.setOnClickListener(this);
+
     }
 
     @Override
@@ -52,9 +53,10 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             httpMethods.setPassword(contrasena.getText().toString());
 
             BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(getBaseContext(), R.drawable.defaultuserimage);
+            //BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(getBaseContext(), R.drawable.trump);
             Bitmap bitmap = drawable.getBitmap();
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 50, bos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
             byte[] bb = bos.toByteArray();
             String encodedString = Base64.encodeToString(bb, Base64.DEFAULT);
             httpMethods.setPic(encodedString);
