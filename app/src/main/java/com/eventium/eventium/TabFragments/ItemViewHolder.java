@@ -42,7 +42,11 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(UserModel userModel) {
-        imagenU.setImageURI(userModel.getImagen());
+        //imagenU.setImageURI(userModel.getImagen());
+        //Bitmap foto = userModel.getImagen();
+        //foto = Bitmap.createScaledBitmap(foto, 90, 90, true); NO VA
+        //imagenU.setImageBitmap(foto);
+        imagenU.setImageBitmap(userModel.getImagen());
         username.setText(userModel.getUsername());
     }
 

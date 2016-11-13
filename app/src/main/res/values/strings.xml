@@ -16,6 +16,7 @@
     <string name="menu_drawer_calendario">Mi calendario</string>
     <string name="menu_drawer_saldo">Mi saldo</string>
     <string name="menu_drawer_ajustes">Ajustes</string>
+    <string name="menu_drawer_logout">Logout</string>
     <string name="title_activity_httpmethods">HTTPMethodsActivity</string>
     <string name="textoCategorias">Debes elegir una categoría</string>
     <string-array name="Categorias">

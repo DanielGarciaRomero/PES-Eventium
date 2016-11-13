@@ -65,7 +65,10 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
-        <ImageButton android:src="@drawable/unavailable"
+        <ImageButton
+            android:src="@raw/unavailable"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:id="@+id/imageButton"

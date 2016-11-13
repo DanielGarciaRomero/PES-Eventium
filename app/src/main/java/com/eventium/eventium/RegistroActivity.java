@@ -1,12 +1,19 @@
 package com.eventium.eventium;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -43,7 +50,15 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             httpMethods.setUsername(username.getText().toString());
             httpMethods.setMail(email.getText().toString());
             httpMethods.setPassword(contrasena.getText().toString());
-            httpMethods.setPic("");
+
+            BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(getBaseContext(), R.drawable.defaultuserimage);
+            Bitmap bitmap = drawable.getBitmap();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, bos);
+            byte[] bb = bos.toByteArray();
+            String encodedString = Base64.encodeToString(bb, Base64.DEFAULT);
+            httpMethods.setPic(encodedString);
+
             httpMethods.ejecutarHttpAsyncTask();
             while (!httpMethods.getFinished());
             Toast.makeText(getBaseContext(), "Registrado correctamente", Toast.LENGTH_LONG).show();

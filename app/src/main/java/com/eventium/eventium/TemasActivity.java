@@ -73,15 +73,15 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
         if (v instanceof ToggleButton) {
             if (((ToggleButton) v).isChecked()) {
                 v.setBackgroundColor(Color.parseColor("#5FBD88"));
-                Toast.makeText(getBaseContext(), "Has seleccionado la categoria: " + ((ToggleButton) v).getText(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), "Has seleccionado la categoria: " + ((ToggleButton) v).getText(), Toast.LENGTH_LONG).show();
             }
             else {
                 v.setBackgroundColor(Color.parseColor("#56E394"));
-                Toast.makeText(getBaseContext(), "Has deseleccionado la categoria: " + ((ToggleButton) v).getText(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), "Has deseleccionado la categoria: " + ((ToggleButton) v).getText(), Toast.LENGTH_LONG).show();
             }
         }
         else if (v.getId() == R.id.button14){
-            Toast.makeText(getBaseContext(), "Has pulsado aceptar", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getBaseContext(), "Has pulsado aceptar", Toast.LENGTH_LONG).show();
             TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
         }
     }

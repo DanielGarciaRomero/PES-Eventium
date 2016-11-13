@@ -110,6 +110,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             FragmentTransaction = true;
             */
             Toast.makeText(getBaseContext(), "Has clicado en Ajustes", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_logout) {
+            /*
+            Do something
+            */
+            Toast.makeText(getBaseContext(), "Has clicado en Logout", Toast.LENGTH_LONG).show();
         }
 
         if (FragmentTransaction) {

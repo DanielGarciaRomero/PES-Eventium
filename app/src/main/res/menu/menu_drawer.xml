@@ -37,6 +37,11 @@
             android:icon="@drawable/ic_drawer_ajustes"
             android:title="@string/menu_drawer_ajustes"
             />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_drawer_logout"
+            android:title="@string/menu_drawer_logout"
+            />
     </group>
 
 </menu>
