@@ -15,17 +15,23 @@ import android.support.v7.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 /**
  * Created by Abel on 13/10/2016.
  */
 
 public class TemasActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private ArrayList<Integer> categorias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temas);
 
+        categorias = new ArrayList<Integer>();
+        for (int i = 0; i < 12; ++i){categorias.add(i, 0);}
 
         ToggleButton artistico = (ToggleButton) findViewById(R.id.button1);
         artistico.setOnClickListener(this);
@@ -74,15 +80,61 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
             if (((ToggleButton) v).isChecked()) {
                 v.setBackgroundColor(Color.parseColor("#5FBD88"));
                 //Toast.makeText(getBaseContext(), "Has seleccionado la categoria: " + ((ToggleButton) v).getText(), Toast.LENGTH_LONG).show();
+                if (((ToggleButton) v).getTextOff().equals("ARTISTICO")) categorias.set(0, 1);
+                else if (((ToggleButton) v).getText().equals("AUTOMOBILISTICO")) categorias.set(1, 1);
+                else if (((ToggleButton) v).getText().equals("CINEMATOGRAFICO")) categorias.set(2, 1);
+                else if (((ToggleButton) v).getText().equals("DEPORTIVO")) categorias.set(3, 1);
+                else if (((ToggleButton) v).getText().equals("GASTRONOMICO")) categorias.set(4, 1);
+                else if (((ToggleButton) v).getText().equals("LITERARIO")) categorias.set(5, 1);
+                else if (((ToggleButton) v).getText().equals("MODA")) categorias.set(6, 1);
+                else if (((ToggleButton) v).getText().equals("MUSICAL")) categorias.set(7, 1);
+                else if (((ToggleButton) v).getText().equals("POLITICO")) categorias.set(9, 1);
+                else if (((ToggleButton) v).getText().equals("TEATRAL")) categorias.set(10, 1);
+                else if (((ToggleButton) v).getText().equals("TECNOLOGICO Y CIENTIFICO")) categorias.set(11, 1);
+                else if (((ToggleButton) v).getText().equals("OTROS")) categorias.set(8, 1);
             }
             else {
                 v.setBackgroundColor(Color.parseColor("#56E394"));
                 //Toast.makeText(getBaseContext(), "Has deseleccionado la categoria: " + ((ToggleButton) v).getText(), Toast.LENGTH_LONG).show();
+                if (((ToggleButton) v).getTextOff().equals("ARTISTICO")) categorias.set(0, 0);
+                else if (((ToggleButton) v).getText().equals("AUTOMOBILISTICO")) categorias.set(1, 0);
+                else if (((ToggleButton) v).getText().equals("CINEMATOGRAFICO")) categorias.set(2, 0);
+                else if (((ToggleButton) v).getText().equals("DEPORTIVO")) categorias.set(3, 0);
+                else if (((ToggleButton) v).getText().equals("GASTRONOMICO")) categorias.set(4, 0);
+                else if (((ToggleButton) v).getText().equals("LITERARIO")) categorias.set(5, 0);
+                else if (((ToggleButton) v).getText().equals("MODA")) categorias.set(6, 0);
+                else if (((ToggleButton) v).getText().equals("MUSICAL")) categorias.set(7, 0);
+                else if (((ToggleButton) v).getText().equals("POLITICO")) categorias.set(9, 0);
+                else if (((ToggleButton) v).getText().equals("TEATRAL")) categorias.set(10, 0);
+                else if (((ToggleButton) v).getText().equals("TECNOLOGICO Y CIENTIFICO")) categorias.set(11, 0);
+                else if (((ToggleButton) v).getText().equals("OTROS")) categorias.set(8, 0);
             }
         }
         else if (v.getId() == R.id.button14){
             //Toast.makeText(getBaseContext(), "Has pulsado aceptar", Toast.LENGTH_LONG).show();
-            TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
+            /*String aux = artistico.toString() + "," + automobilistico.toString() + "," + cinematografico.toString() + "," +
+                    deportivo.toString() + "," + gastronomico.toString() + "," + literario.toString() + "," +
+                    moda.toString() + "," + musical.toString() + "," + politico.toString() + "," +
+                    teatral.toString() + "," + tecnologico.toString() + "," + otros.toString();*/
+            Boolean primer = true;
+            String aux = "";
+            Integer i;
+            for (i = 0; i < categorias.size(); ++i){
+                if (primer){
+                    if (categorias.get(i) == 1) {aux += i.toString(); primer = false;}
+                }
+                else {
+                    if (categorias.get(i) == 1) aux += "," + i.toString();
+                }
+            }
+
+            /*HTTPMethods httpMethods = new HTTPMethods(15);
+            httpMethods.setCategories(aux);
+            httpMethods.setUser_id(1);
+            httpMethods.ejecutarHttpAsyncTask();
+            while (!httpMethods.getFinished());*/
+            //System.out.println(aux);
+            //TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
         }
     }
 }

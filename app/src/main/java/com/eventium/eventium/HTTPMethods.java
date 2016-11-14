@@ -34,6 +34,7 @@ public class HTTPMethods {
     public static String password;
     public static String mail;
     public static String pic;
+    public static String categories;
 
     public HTTPMethods(Integer id){
         finished = false;
@@ -46,11 +47,14 @@ public class HTTPMethods {
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/user"); //post de un user
+        else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
     }
 
     public List<Usuario> getUsers(){
         return users;
     }
+
+    public void setCategories(String categorias) { categories = categorias; }
 
     public List<Evento> getEvents() { return events; }
 
@@ -141,6 +145,11 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("password", password));
                 nameValuePairs.add(new BasicNameValuePair("mail", mail));
                 nameValuePairs.add(new BasicNameValuePair("pic", pic));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
+            else if (peticion_id == 15){
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("categories", categories));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             httpResponse = httpclient.execute(httpPost);
