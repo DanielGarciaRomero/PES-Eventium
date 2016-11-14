@@ -101,9 +101,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             //Toast.makeText(getBaseContext(), "Has clicado en Mi calendario", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_saldo) {
-            fragment = new SaldoFragment();
-            FragmentTransaction = true;
-            //Toast.makeText(getBaseContext(), "Has clicado en Mi saldo", Toast.LENGTH_LONG).show();
+            //fragment = new SaldoFragment();
+            //FragmentTransaction = true;
+            Toast.makeText(getBaseContext(), "Has clicado en Ingresar saldo", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_ajustes) {
             /*
             fragment = new AjustesFragment();
@@ -111,10 +111,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             */
             Toast.makeText(getBaseContext(), "Has clicado en Ajustes", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_logout) {
-            /*
-            Do something
-            */
-            Toast.makeText(getBaseContext(), "Has clicado en Logout", Toast.LENGTH_LONG).show();
+            fragment = new GaleriaFragment();
+            FragmentTransaction = true;
+            //Toast.makeText(getBaseContext(), "Has clicado en Logout", Toast.LENGTH_LONG).show();
         }
 
         if (FragmentTransaction) {
