@@ -61,8 +61,9 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
         setHasOptionsMenu(true);
         mEventModel = new ArrayList<>();
         for (int i = 0; i < eventos.size(); ++i) {
-            Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
-            mEventModel.add(new EventModel(geller, eventos.get(i), "Barcelona", "dd/mm/aaaa - dd/mm/aaaa", "hh:mm - hh:mm", "XXX €"));
+            //COMENTADO PARA PROBAR TABTHREEFRAGMENT QUE PILLE LA IMAGEN BIEN DEL EVENTO
+            //Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
+            //mEventModel.add(new EventModel(geller, eventos.get(i), "Barcelona", "dd/mm/aaaa - dd/mm/aaaa", "hh:mm - hh:mm", "XXX €"));
         }
 
         adapter = new RVAdapter(true);

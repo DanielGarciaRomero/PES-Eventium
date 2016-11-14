@@ -1,17 +1,19 @@
 package com.eventium.eventium.TabFragments;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class EventModel {
 
-    Uri imagen;
+    //Uri imagen;
+    Bitmap imagen;
     String titulo;
     String ciudad;
     String fechas;
     String horas;
     String precio;
 
-    EventModel(Uri imagen, String titulo, String ciudad, String fechas, String horas, String precio) {
+    EventModel(Bitmap imagen, String titulo, String ciudad, String fechas, String horas, String precio) {
         this.imagen = imagen;
         this.titulo = titulo;
         this.ciudad = ciudad;
@@ -20,7 +22,7 @@ public class EventModel {
         this.precio = precio;
     }
 
-    public Uri getImagen() {
+    public Bitmap getImagen() {
         return imagen;
     }
 

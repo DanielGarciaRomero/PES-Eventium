@@ -33,7 +33,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(EventModel eventModel) {
-        imagenE.setImageURI(eventModel.getImagen());
+        imagenE.setImageBitmap(eventModel.getImagen());
         titulo.setText(eventModel.getTitulo());
         ciudad.setText(eventModel.getCiudad());
         fechas.setText(eventModel.getFechas());
