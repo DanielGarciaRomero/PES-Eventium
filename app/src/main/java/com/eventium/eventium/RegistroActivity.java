@@ -64,7 +64,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             httpMethods.ejecutarHttpAsyncTask();
             while (!httpMethods.getFinished());
             Toast.makeText(getBaseContext(), "Registrado correctamente", Toast.LENGTH_LONG).show();
-            RegistroActivity.this.startActivity(new Intent(RegistroActivity.this, MainActivity.class));
+            RegistroActivity.this.startActivity(new Intent(RegistroActivity.this, TemasActivity.class));
         }
     }
 }

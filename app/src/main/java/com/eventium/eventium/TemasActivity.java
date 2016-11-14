@@ -128,13 +128,14 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
 
-            /*HTTPMethods httpMethods = new HTTPMethods(15);
+            HTTPMethods httpMethods = new HTTPMethods(15);
             httpMethods.setCategories(aux);
+            //User id 1 harcodeado, habra que saber quien soy, token o id
             httpMethods.setUser_id(1);
             httpMethods.ejecutarHttpAsyncTask();
-            while (!httpMethods.getFinished());*/
+            while (!httpMethods.getFinished());
             //System.out.println(aux);
-            //TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
+            TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
         }
     }
 }

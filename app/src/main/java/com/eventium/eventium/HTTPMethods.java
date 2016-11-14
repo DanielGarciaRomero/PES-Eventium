@@ -10,6 +10,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicNameValuePair;
@@ -147,12 +148,39 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("pic", pic));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
-            else if (peticion_id == 15){
+            httpResponse = httpclient.execute(httpPost);
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+            resultado_json = inputStream;
+            // convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+        }
+        catch (Exception e) {
+            Log.d("post", e.getLocalizedMessage());
+        }
+        finished = true;
+        resultado = result;
+
+        return result;
+    }
+
+    public static String PUT(String url){
+        InputStream inputStream = null;
+        String result = "";
+        try{
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpResponse httpResponse;
+            HttpPut httpPut = new HttpPut(url);
+            if (peticion_id == 15){
                 List nameValuePairs = new ArrayList();
                 nameValuePairs.add(new BasicNameValuePair("categories", categories));
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
-            httpResponse = httpclient.execute(httpPost);
+            httpResponse = httpclient.execute(httpPut);
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
             resultado_json = inputStream;
@@ -186,7 +214,8 @@ public class HTTPMethods {
         @Override
         protected String doInBackground(String... urls) {
             if (peticion_id < 10) return GET(urls[0]);
-            else return POST(urls[0]);
+            else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
+            else return PUT(urls[0]);
         }
 
         // onPostExecute displays the results of the AsyncTask.
