@@ -42,7 +42,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp" />
 
-        <ImageView
+        <ImageButton
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@raw/unavailable"
@@ -75,19 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/textView14"
-            android:layout_below="@+id/fotoPerfil"
+            android:layout_below="@+id/direcciontext"
             android:layout_alignStart="@+id/direcciontext" />
-
-        <TextView
-            android:text="Direccion: calle1 nX Xº Xª"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:id="@+id/direcciontext"
-            android:layout_above="@+id/followbutton"
-            android:layout_alignStart="@+id/fotoPerfil" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,22 +140,15 @@
             android:layout_below="@+id/organizados"
             android:layout_alignEnd="@+id/siguiendo" />
 
-        <Button
-            android:text="Seguir"
+        <TextView
+            android:text="Direccion: calle1 nX Xº Xª"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/followbutton"
-            android:layout_alignBottom="@+id/textView14"
-            android:layout_toEndOf="@+id/tematicas" />
-
-        <Button
-            android:text="Reportar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/reportbutton"
-            android:textSize="12sp"
-            android:layout_alignBottom="@+id/ciudadtext"
-            android:layout_alignStart="@+id/followbutton" />
+            android:textSize="20sp"
+            android:id="@+id/direcciontext"
+            android:layout_below="@+id/fotoPerfil"
+            android:layout_alignStart="@+id/fotoPerfil"
+            android:layout_marginTop="20dp" />
 
 
     </RelativeLayout>
