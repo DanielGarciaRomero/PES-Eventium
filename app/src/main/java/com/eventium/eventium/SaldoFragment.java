@@ -1,7 +1,5 @@
 package com.eventium.eventium;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SaldoFragment extends Fragment {
 
@@ -20,12 +19,12 @@ public class SaldoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_saldo, container, false);
-        Button ingresar_saldo = (Button) view.findViewById(R.id.button16);
-        ingresar_saldo.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.activity_ingresar, container, false);
+        Button realizar_ingreso = (Button) view.findViewById(R.id.button15);
+        realizar_ingreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Ir a Ingresar Activity
+                Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado realizar ingreso", Toast.LENGTH_LONG).show();
             }
         });
         return view;
