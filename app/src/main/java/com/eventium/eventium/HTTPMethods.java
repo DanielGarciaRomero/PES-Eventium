@@ -46,6 +46,8 @@ public class HTTPMethods {
     public static String event_ciudad;
     public static String event_pic;
     public static String event_categoria;
+    public static String token_user;
+    public static String code;
 
     public HTTPMethods(Integer id){
         finished = false;
@@ -58,12 +60,16 @@ public class HTTPMethods {
         else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //get de un user
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
-        else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/user"); //post de un user
-        else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/event"); //post de un event
+        else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi id
+        else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
+        else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
+        else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
     }
 
     public List<Usuario> getUsers(){return users;}
+
+    public String getCode(){return code;}
 
     public void setEvent_title(String title){event_title = title;}
 
@@ -115,6 +121,8 @@ public class HTTPMethods {
         mail = correo;
     }
 
+    public void setToken_user(String token){token_user = token;}
+
     public void setPic(String foto){pic = foto;}
 
     public static String GET(String url){
@@ -132,7 +140,12 @@ public class HTTPMethods {
                 httpGet.setHeader("clave", mail);
                 httpResponse = httpclient.execute(httpGet);
             }
+            else if (peticion_id == 4){
+                httpGet.setHeader("token", token_user);
+                httpResponse = httpclient.execute(httpGet);
+            }
             else httpResponse = httpclient.execute(httpGet);
+            code = httpResponse.getStatusLine().toString();
 
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
@@ -189,7 +202,14 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("categoria", event_categoria));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
+            else if (peticion_id == 12){
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("username", username));
+                nameValuePairs.add(new BasicNameValuePair("password", password));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
             httpResponse = httpclient.execute(httpPost);
+            code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
             resultado_json = inputStream;
@@ -222,6 +242,7 @@ public class HTTPMethods {
                 httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             httpResponse = httpclient.execute(httpPut);
+            code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
             resultado_json = inputStream;
