@@ -10,6 +10,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicNameValuePair;
@@ -34,10 +35,22 @@ public class HTTPMethods {
     public static String password;
     public static String mail;
     public static String pic;
+    public static String categories;
+    public static String event_id;
+    public static String event_title;
+    public static String event_fecha_ini;
+    public static String event_fecha_fin;
+    public static String event_hora_ini;
+    public static String event_hora_fin;
+    public static String event_precio;
+    public static String event_ciudad;
+    public static String event_pic;
+    public static String event_categoria;
 
     public HTTPMethods(Integer id){
         finished = false;
         peticion_id = id;
+        event_id = "";
     }
 
     public void ejecutarHttpAsyncTask(){
@@ -46,11 +59,31 @@ public class HTTPMethods {
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/user"); //post de un user
+        else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/event"); //post de un event
+        else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
     }
 
-    public List<Usuario> getUsers(){
-        return users;
-    }
+    public List<Usuario> getUsers(){return users;}
+
+    public void setEvent_title(String title){event_title = title;}
+
+    public void setEvent_fecha_ini(String fecha_ini){event_fecha_ini = fecha_ini;}
+
+    public void setEvent_fecha_fin(String fecha_fin){event_fecha_fin = fecha_fin;}
+
+    public void setEvent_hora_ini(String hora_ini){event_hora_ini = hora_ini;}
+
+    public void setEvent_hora_fin(String hora_fin){event_hora_fin = hora_fin;}
+
+    public void setEvent_precio(String precio){event_precio = precio;}
+
+    public void setEvent_ciudad(String ciudad){event_ciudad = ciudad;}
+
+    public void setEvent_pic(String pic){event_pic = pic;}
+
+    public void setEvent_categoria(String categoria){event_categoria = categoria;}
+
+    public void setCategories(String categorias) { categories = categorias; }
 
     public List<Evento> getEvents() { return events; }
 
@@ -82,9 +115,7 @@ public class HTTPMethods {
         mail = correo;
     }
 
-    public void setPic(String foto){
-        pic = foto;
-    }
+    public void setPic(String foto){pic = foto;}
 
     public static String GET(String url){
         InputStream inputStream = null;
@@ -143,7 +174,54 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("pic", pic));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
+            else if (peticion_id == 11){
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("id", event_id));
+                nameValuePairs.add(new BasicNameValuePair("organizerId", user_id.toString()));
+                nameValuePairs.add(new BasicNameValuePair("title", event_title));
+                nameValuePairs.add(new BasicNameValuePair("hora_ini", event_hora_ini));
+                nameValuePairs.add(new BasicNameValuePair("hora_fin", event_hora_fin));
+                nameValuePairs.add(new BasicNameValuePair("fecha_ini", event_fecha_ini));
+                nameValuePairs.add(new BasicNameValuePair("fecha_fin", event_fecha_fin));
+                nameValuePairs.add(new BasicNameValuePair("precio", event_precio));
+                nameValuePairs.add(new BasicNameValuePair("pic", event_pic));
+                nameValuePairs.add(new BasicNameValuePair("ciudad", event_ciudad));
+                nameValuePairs.add(new BasicNameValuePair("categoria", event_categoria));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
             httpResponse = httpclient.execute(httpPost);
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+            resultado_json = inputStream;
+            // convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+        }
+        catch (Exception e) {
+            Log.d("post", e.getLocalizedMessage());
+        }
+        finished = true;
+        resultado = result;
+
+        return result;
+    }
+
+    public static String PUT(String url){
+        InputStream inputStream = null;
+        String result = "";
+        try{
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpResponse httpResponse;
+            HttpPut httpPut = new HttpPut(url);
+            if (peticion_id == 15){
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("categories", categories));
+                httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
+            httpResponse = httpclient.execute(httpPut);
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
             resultado_json = inputStream;
@@ -177,7 +255,8 @@ public class HTTPMethods {
         @Override
         protected String doInBackground(String... urls) {
             if (peticion_id < 10) return GET(urls[0]);
-            else return POST(urls[0]);
+            else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
+            else return PUT(urls[0]);
         }
 
         // onPostExecute displays the results of the AsyncTask.

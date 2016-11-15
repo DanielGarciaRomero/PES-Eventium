@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorFondo"
-    tools:context=".IngresarActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorToolbar" >
-    </android.support.v7.widget.Toolbar>
+    android:background="@color/colorFondo">
 
     <TextView
+        android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Método de pago: Tarjeta de crédito/débito"
-        android:id="@+id/textView12"
-        android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
@@ -28,10 +18,10 @@
         android:textColor="#000000"/>
 
     <TextView
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Número de la tarjeta"
-        android:id="@+id/textView13"
         android:layout_below="@+id/textView12"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -42,9 +32,11 @@
         android:textColor="#000000"/>
 
     <EditText
+        android:id="@+id/editText8"
+        android:maxLength="16"
+        android:inputType="number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText8"
         android:layout_below="@+id/textView13"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -54,10 +46,10 @@
         android:textColor="#000000"/>
 
     <TextView
+        android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Fecha de caducidad"
-        android:id="@+id/textView14"
         android:layout_below="@+id/editText8"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -68,9 +60,11 @@
         android:textColor="#000000"/>
 
     <EditText
+        android:id="@+id/editText9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText9"
+        android:inputType="number"
+        android:maxLength="2"
         android:layout_below="@+id/textView14"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -80,10 +74,10 @@
         android:textColor="#000000"/>
 
     <TextView
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="/"
-        android:id="@+id/textView15"
         android:layout_below="@+id/textView14"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -94,9 +88,11 @@
         android:textColor="#000000"/>
 
     <EditText
+        android:id="@+id/editText10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText10"
+        android:inputType="number"
+        android:maxLength="2"
         android:layout_below="@+id/textView14"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -106,10 +102,10 @@
         android:textColor="#000000"/>
 
     <TextView
+        android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MM/AA"
-        android:id="@+id/textView16"
         android:layout_below="@+id/textView14"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -119,10 +115,10 @@
         android:layout_marginRight="16dp" />
 
     <TextView
+        android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nº de seguridad de la tarjeta"
-        android:id="@+id/textView17"
         android:layout_below="@+id/textView16"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -133,9 +129,10 @@
         android:textColor="#000000"/>
 
     <EditText
+        android:id="@+id/editText11"
+        android:maxLength="4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText11"
         android:layout_below="@+id/textView17"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -145,10 +142,10 @@
         android:textColor="#000000"/>
 
     <TextView
+        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ingresar cantidad"
-        android:id="@+id/textView18"
         android:layout_below="@+id/editText11"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -159,9 +156,11 @@
         android:textColor="#000000"/>
 
     <EditText
+        android:id="@+id/editText12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText12"
+        android:inputType="number"
+        android:maxLength="3"
         android:layout_below="@+id/textView18"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -171,10 +170,10 @@
         android:textColor="#000000"/>
 
     <TextView
+        android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EUR"
-        android:id="@+id/textView19"
         android:layout_below="@+id/textView18"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -184,10 +183,10 @@
         android:layout_marginRight="16dp"/>
 
     <Button
+        android:id="@+id/button15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Realizar Ingreso"
-        android:id="@+id/button15"
         android:layout_below="@+id/editText12"
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"

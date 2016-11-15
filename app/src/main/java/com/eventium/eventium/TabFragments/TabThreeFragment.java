@@ -1,6 +1,8 @@
 package com.eventium.eventium.TabFragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,8 +92,11 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
             String fechas = eventos.get(i).getFecha_ini() + " - " + eventos.get(i).getFecha_fin();
             String horas = eventos.get(i).getHora_ini() + " - " + eventos.get(i).getHora_fin();
             String precio = eventos.get(i).getPrecio() + " €";
-            Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
-            mEventModel.add(new EventModel(geller, eventos.get(i).getTitle(), eventos.get(i).getCiudad(), fechas, horas, precio));
+            //Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
+            String encodedImage = eventos.get(i).getPic();
+            byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+            mEventModel.add(new EventModel(base64BitmapImage, eventos.get(i).getTitle(), eventos.get(i).getCiudad(), fechas, horas, precio));
         }
 
         adapter = new RVAdapter(true);

@@ -33,7 +33,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(EventModel eventModel) {
-        imagenE.setImageURI(eventModel.getImagen());
+        imagenE.setImageBitmap(eventModel.getImagen());
         titulo.setText(eventModel.getTitulo());
         ciudad.setText(eventModel.getCiudad());
         fechas.setText(eventModel.getFechas());
@@ -42,7 +42,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(UserModel userModel) {
-        imagenU.setImageURI(userModel.getImagen());
+        imagenU.setImageBitmap(userModel.getImagen());
         username.setText(userModel.getUsername());
     }
 

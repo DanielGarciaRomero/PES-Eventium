@@ -1,7 +1,10 @@
 package com.eventium.eventium;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,26 +37,32 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     }
 
     RecyclerView rv;
-    ArrayList<String> usernames;
+    //ArrayList<String> usernames;
     RVAdapter adapter;
     private List<UserModel> mUserModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        usernames = new ArrayList<String>();
+        //usernames = new ArrayList<String>();
 
         //GET DE USERS
         HTTPMethods httpMethods = new HTTPMethods(0);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished()) ;
         List<Usuario> list_users = httpMethods.getUsers();
+        mUserModel = new ArrayList<>();
         if (list_users == null){
             Toast.makeText(MainActivity.contexto, "No hi ha connexió amb el servidor", Toast.LENGTH_LONG).show();
         }
         else {
             for (int i = 0; i < list_users.size(); ++i) {
-                usernames.add(list_users.get(i).getUsername());
+                //usernames.add(list_users.get(i).getUsername());
+                //mUserModel.add(new UserModel(geller, usernames.get(i)));
+                String encodedImage = list_users.get(i).getPic();
+                byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
+                Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+                mUserModel.add(new UserModel(base64BitmapImage, list_users.get(i).getUsername()));
             }
         }
 
@@ -80,13 +89,13 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-
+        /*
         mUserModel = new ArrayList<>();
         for (int i = 0; i < usernames.size(); ++i) {
             Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.defaultuserimage);
             mUserModel.add(new UserModel(geller, usernames.get(i)));
         }
-
+        */
         adapter= new RVAdapter(false);
         adapter.setRVU(mUserModel);
         rv.setAdapter(adapter);

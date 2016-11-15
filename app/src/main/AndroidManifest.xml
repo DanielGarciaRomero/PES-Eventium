@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eventium.eventium">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -27,18 +28,11 @@
             android:name=".TemasActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EventosActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".CalendarioActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".UsuariosActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".PerfilActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".IngresarActivity" />
         <activity
             android:name=".NavigationDrawerActivity"
             android:screenOrientation="portrait" />

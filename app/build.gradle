@@ -23,14 +23,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.google.android.gms:play-services-maps:9.6.1'
-    compile 'com.android.support:support-v4:23.4.0'
     //compile 'org.apache.httpcomponents:httpcore:4.4.1'
     //compile 'org.apache.httpcomponents:httpclient:4.5'
 
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.google.android.gms:play-services-maps:9.8.0'
+    compile 'com.android.support:support-v4:23.4.0'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 }
 
@@ -39,5 +39,8 @@ dependencies {
     exclude 'META-INF/DEPENDENCIES'
     exclude 'META-INF/NOTICE'
 }*/
+
+
+
 
 

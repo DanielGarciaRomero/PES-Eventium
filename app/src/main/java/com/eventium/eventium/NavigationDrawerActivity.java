@@ -82,11 +82,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             fragment = new EventosFragment();
             FragmentTransaction = true;
         } else if (id == R.id.nav_evento) {
-            /*
             fragment = new CrearEventoFragment();
             FragmentTransaction = true;
-            */
-            Toast.makeText(getBaseContext(), "Has clicado en Crear evento", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getBaseContext(), "Has clicado en Crear evento", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_usuarios) {
             fragment = new UsuariosFragment();
             FragmentTransaction = true;
@@ -103,17 +101,19 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             //Toast.makeText(getBaseContext(), "Has clicado en Mi calendario", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_saldo) {
-            /*
             fragment = new SaldoFragment();
             FragmentTransaction = true;
-            */
-            Toast.makeText(getBaseContext(), "Has clicado en Mi saldo", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getBaseContext(), "Has clicado en Ingresar saldo", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_ajustes) {
             /*
             fragment = new AjustesFragment();
             FragmentTransaction = true;
             */
             Toast.makeText(getBaseContext(), "Has clicado en Ajustes", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_logout) {
+            fragment = new GaleriaFragment();
+            FragmentTransaction = true;
+            //Toast.makeText(getBaseContext(), "Has clicado en Logout", Toast.LENGTH_LONG).show();
         }
 
         if (FragmentTransaction) {

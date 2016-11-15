@@ -14,7 +14,26 @@
     <string name="menu_drawer_usuarios">Usuarios</string>
     <string name="menu_drawer_perfil">Mi perfil</string>
     <string name="menu_drawer_calendario">Mi calendario</string>
-    <string name="menu_drawer_saldo">Mi saldo</string>
+    <string name="menu_drawer_saldo">Ingresar saldo</string>
     <string name="menu_drawer_ajustes">Ajustes</string>
+    <string name="menu_drawer_logout">Logout</string>
     <string name="title_activity_httpmethods">HTTPMethodsActivity</string>
+    <string name="textoCategorias">Debes elegir una categoría</string>
+    <string-array name="Categorias">
+        <item>Artistico</item>
+        <item>Automobilistico</item>
+        <item>Cinematografico</item>
+        <item>Deportivo</item>
+        <item>Gastronomico</item>
+        <item>Literario</item>
+        <item>Moda</item>
+        <item>Musical</item>
+        <item>Politico</item>
+        <item>Teatral</item>
+        <item>Tecnologico y cientifico</item>
+        <item>Otros</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
