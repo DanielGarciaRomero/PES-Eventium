@@ -130,7 +130,16 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
 
             HTTPMethods httpMethods = new HTTPMethods(15);
             httpMethods.setCategories(aux);
-            //User id 1 harcodeado, habra que saber quien soy, token o id
+
+            /*HTTPMethods httpMethods1 = new HTTPMethods(4);
+            httpMethods1.setToken_user(MainActivity.token);
+            httpMethods1.ejecutarHttpAsyncTask();
+            while (!httpMethods1.getFinished());
+            System.out.println(MainActivity.token);
+            String id_user = httpMethods1.getResultado();
+            System.out.println(id_user);*/
+            //Habra que hacer substring y quedarnos con el user bien
+
             httpMethods.setUser_id(1);
             httpMethods.ejecutarHttpAsyncTask();
             while (!httpMethods.getFinished());

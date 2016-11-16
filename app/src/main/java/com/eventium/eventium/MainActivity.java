@@ -19,11 +19,16 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static Context contexto;
+    public static String token;
+    EditText user;
+    EditText contra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        token = null;
 
         TextView registro = (TextView) findViewById(R.id.textView3);
         registro.setOnClickListener(this);
@@ -34,8 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button login = (Button) findViewById(R.id.button);
         login.setOnClickListener(this);
 
-        EditText user = (EditText) findViewById(R.id.editText);
+        user = (EditText) findViewById(R.id.editText);
         user.setOnClickListener(this);
+
+        contra = (EditText) findViewById(R.id.editText2);
+        contra.setOnClickListener(this);
 
         TextView prueba = (TextView) findViewById(R.id.textView20);
         prueba.setOnClickListener(this);
@@ -89,8 +97,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             MainActivity.this.startActivity(new Intent(MainActivity.this, PasswordActivity.class));
         }
         else if (v.getId() == R.id.button) {
-            //Toast.makeText(getBaseContext(), "Has pulsado Login", Toast.LENGTH_LONG).show();
-            MainActivity.this.startActivity(new Intent(MainActivity.this, NavigationDrawerActivity.class));
+            if (user.getText().toString().equals("") || contra.getText().toString().equals(""))
+                Toast.makeText(getBaseContext(), "No puedes dejar ningún campo en blanco", Toast.LENGTH_LONG).show();
+            else {
+                HTTPMethods httpMethods = new HTTPMethods(12);
+                httpMethods.setUsername(user.getText().toString());
+                httpMethods.setPassword(contra.getText().toString());
+                httpMethods.ejecutarHttpAsyncTask();
+                while (!httpMethods.getFinished());
+                if (httpMethods.getCode().equals("HTTP/1.0 200 OK")){
+                    String aux = httpMethods.getResultado();
+                    System.out.println(aux);
+                    String aux2 = aux.substring(11, aux.length() - 2);
+                    token = aux2;
+                    System.out.println(aux2);
+                    MainActivity.this.startActivity(new Intent(MainActivity.this, NavigationDrawerActivity.class));
+                }
+                else if (httpMethods.getCode().equals("HTTP/1.0 404 NOT FOUND")){
+                    Toast.makeText(getBaseContext(), "Username y/o contraseña inválidos", Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
 }
