@@ -15,19 +15,19 @@
         android:background="@color/colorFondo">
 
         <TextView
+            android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Título del evento:"
+            android:text="Título del evento"
             android:textColor="#000000"
             android:textSize="18dp"
-            android:id="@+id/textView24"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editText13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText13"
             android:colorControlActivated="@color/colorToolbar"
             android:layout_below="@+id/textView24"
             android:layout_alignParentStart="true"
@@ -35,108 +35,107 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Categoría:"
+            android:text="Categoría"
             android:textColor="#000000"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="80dp"
             android:textSize="18dp"
-            android:id="@+id/textView25"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <Spinner
+            android:id="@+id/spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner"
             android:layout_below="@+id/textView25"
             android:layout_alignParentStart="true"
+            android:background="#BAEBCF"
             android:prompt="@string/textoCategorias"
             android:entries="@array/Categorias"/>
 
         <TextView
+            android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Foto principal:"
+            android:text="Foto principal"
             android:textColor="#000000"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="168dp"
             android:textSize="18dp"
-            android:id="@+id/textView26"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <ImageButton
-            android:src="@raw/unavailable"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
             android:id="@+id/imageButton"
+            android:src="@raw/unavailable"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_below="@+id/textView26"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="25dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¿Dónde?"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:layout_marginTop="345dp"
-            android:textSize="18dp"
-            android:id="@+id/textView27"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ciudad:"
-            android:textColor="#000000"
-            android:layout_marginTop="380dp"
-            android:textSize="18dp"
             android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ciudad"
+            android:textColor="#000000"
+            android:layout_marginTop="360dp"
+            android:textSize="18dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editText14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText14"
             android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textView27"
+            android:layout_marginTop="348dp"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="65dp"
             android:layout_alignParentEnd="true"
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/textViewDir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¿Cuándo?"
-            android:textStyle="bold"
+            android:text="Dirección"
             android:textColor="#000000"
-            android:layout_marginTop="420dp"
+            android:layout_marginTop="410dp"
             android:textSize="18dp"
-            android:id="@+id/textView29"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fecha de inicio - Fecha de fin"
-            android:textColor="#000000"
-            android:layout_marginTop="450dp"
-            android:textSize="18dp"
-            android:id="@+id/textView30"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editTextDir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:colorControlActivated="@color/colorToolbar"
+            android:layout_marginTop="398dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="85dp"
+            android:layout_alignParentEnd="true"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha inicial - Fecha final"
+            android:textColor="#000000"
+            android:layout_marginTop="460dp"
+            android:textSize="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
             android:id="@+id/editText15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:colorControlActivated="@color/colorToolbar"
             android:layout_below="@+id/textView30"
             android:layout_alignParentStart="true"
@@ -145,21 +144,21 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
             android:textColor="#000000"
-            android:layout_marginTop="485dp"
+            android:layout_marginTop="490dp"
             android:textSize="18dp"
-            android:id="@+id/textView31"
             android:layout_marginLeft="105dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editText16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText16"
             android:colorControlActivated="@color/colorToolbar"
             android:layout_below="@+id/textView30"
             android:layout_alignParentStart="true"
@@ -169,31 +168,31 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/textView32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="dd/mm/aaaa"
-            android:layout_marginTop="485dp"
+            android:layout_marginTop="463dp"
             android:textSize="15dp"
-            android:id="@+id/textView32"
             android:layout_marginLeft="240dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hora de inicio - Hora de fin"
+            android:text="Hora inicial - Hora final"
             android:textColor="#000000"
-            android:layout_marginTop="520dp"
+            android:layout_marginTop="540dp"
             android:textSize="18dp"
-            android:id="@+id/textView33"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editText17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText17"
             android:colorControlActivated="@color/colorToolbar"
             android:layout_below="@+id/textView33"
             android:layout_alignParentStart="true"
@@ -202,21 +201,21 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/textView34"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
             android:textColor="#000000"
-            android:layout_marginTop="555dp"
+            android:layout_marginTop="570dp"
             android:textSize="18dp"
-            android:id="@+id/textView34"
             android:layout_marginLeft="105dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editText18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText18"
             android:colorControlActivated="@color/colorToolbar"
             android:layout_below="@+id/textView33"
             android:layout_alignParentStart="true"
@@ -226,31 +225,31 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/textView35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="hh:mm"
-            android:layout_marginTop="555dp"
+            android:layout_marginTop="543dp"
             android:textSize="15dp"
-            android:id="@+id/textView35"
             android:layout_marginLeft="240dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Precio:"
+            android:text="Precio"
             android:textColor="#000000"
-            android:layout_marginTop="595dp"
+            android:layout_marginTop="622dp"
             android:textSize="18dp"
-            android:id="@+id/textView36"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:id="@+id/editText19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText19"
             android:colorControlActivated="@color/colorToolbar"
             android:layout_below="@+id/textView36"
             android:layout_alignParentStart="true"
@@ -259,23 +258,23 @@
             android:textColor="#000000" />
 
         <TextView
+            android:id="@+id/textView37"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="EUR"
-            android:layout_marginTop="625dp"
+            android:layout_marginTop="652dp"
             android:textSize="18dp"
-            android:id="@+id/textView37"
             android:layout_marginLeft="75dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <Button
+            android:id="@+id/button17"
             android:text="Crear evento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="670dp"
-            android:id="@+id/button17"
+            android:layout_marginTop="700dp"
             android:background="#5FBD88" />
 
     </RelativeLayout>
