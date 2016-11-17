@@ -92,7 +92,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             FragmentTransaction = true;
             //Toast.makeText(getBaseContext(), "Has clicado en Usuarios", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_perfil) {
-            fragment = new PerfilFragment();
+            fragment = new MiPerfilFragment();
             FragmentTransaction = true;
             //Toast.makeText(getBaseContext(), "Has clicado en Mi perfil", Toast.LENGTH_LONG).show();
         }

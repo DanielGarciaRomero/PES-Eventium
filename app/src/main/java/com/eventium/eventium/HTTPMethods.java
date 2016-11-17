@@ -26,6 +26,7 @@ public class HTTPMethods {
 
     public static InputStream resultado_json;
     public static String resultado;
+    public static Usuario user;
     public static List<Usuario> users;
     public static List<Evento> events;
     public static Boolean finished;
@@ -57,7 +58,8 @@ public class HTTPMethods {
 
     public void ejecutarHttpAsyncTask(){
         if (peticion_id == 0) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //get de users
-        else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //get de un user
+        //else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //get de un user
+        else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + username); //get de un user
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
         else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi id
@@ -92,6 +94,8 @@ public class HTTPMethods {
     public void setCategories(String categorias) { categories = categorias; }
 
     public List<Evento> getEvents() { return events; }
+
+    public Usuario getUser() { return user; }
 
     public String getResultado(){
         return resultado;
@@ -136,6 +140,9 @@ public class HTTPMethods {
             HttpResponse httpResponse;
             HttpGet httpGet = new HttpGet(url);
             // make GET request to the given URL
+            /*if (peticion_id == 1) {
+                httpResponse = httpclient.execute(httpGet);
+            }*/
             if (peticion_id == 2) {
                 httpGet.setHeader("clave", mail);
                 httpResponse = httpclient.execute(httpGet);
@@ -150,7 +157,8 @@ public class HTTPMethods {
             // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
             //resultado_json = inputStream;
-            if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
+            if (peticion_id == 1) readJsonStreamUsuario(inputStream);
+            else if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
             else if (peticion_id == 3) readJsonStreamEventos(inputStream);
 
             // convert inputstream to string
@@ -296,6 +304,16 @@ public class HTTPMethods {
             //return leerArrayUsuarios(reader);
             //events = leerArrayEventos(reader);
             users = leerArrayUsuarios(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
+    public static void readJsonStreamUsuario(InputStream in) throws IOException {
+        //Nueva instancia JsonReader
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            user = leerUsuario(reader);
         } finally {
             reader.close();
         }

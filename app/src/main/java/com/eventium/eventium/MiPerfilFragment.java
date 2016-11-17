@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -18,6 +19,8 @@ public class MiPerfilFragment extends Fragment  {
     private Toolbar mytoolbar;
     private TabLayout tabLayout;
 
+    TextView name;
+
     public MiPerfilFragment() {
         // Required empty public constructor
     }
@@ -27,6 +30,7 @@ public class MiPerfilFragment extends Fragment  {
         if (savedInstanceState == null) {
             tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         }
+        name = (TextView)view.findViewById(R.id.username);
         view.findViewById(R.id.followbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +43,19 @@ public class MiPerfilFragment extends Fragment  {
                 Toast.makeText(MainActivity.contexto, "Has pulsado Report", Toast.LENGTH_LONG).show();
             }
         });
+
+        System.out.println("hola1");
+        HTTPMethods httpMethods = new HTTPMethods(1);
+        httpMethods.setUsername("user50");
+        httpMethods.ejecutarHttpAsyncTask();
+        System.out.println("hola2");
+        while (!httpMethods.getFinished());
+        System.out.println("hola3");
+        if (httpMethods.getCode().equals("HTTP/1.0 200 OK")){
+            Usuario user = httpMethods.getUser();
+            name.setText(user.getUsername());
+        }
+
         return view;
     }
 
