@@ -7,14 +7,16 @@ public class Usuario {
     private String password;
     private String pic;
     private String id;
+    private Boolean isVerified;
 
-    public Usuario(String username, String saldo, String mail, String password, String pic, String id) {
+    public Usuario(String username, String saldo, String mail, String password, String pic, String id, Boolean isVerified) {
         this.username = username;
         this.saldo = saldo;
         this.mail = mail;
         this.password = password;
         this.pic = pic;
         this.id = id;
+        this.isVerified = isVerified;
     }
 
     public String getUsername() {
@@ -60,4 +62,8 @@ public class Usuario {
     public String getSaldo() {return saldo;}
 
     public void setSaldo(String saldo) {this.saldo = saldo;}
+
+    public Boolean getIsVerified() {return isVerified;}
+
+    public void setIsVerified(Boolean isVerified) {this.isVerified = isVerified;}
 }

@@ -3,6 +3,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbarStyle="insideOverlay">
@@ -34,15 +35,16 @@
             android:textStyle="normal|bold" />
 
         <ImageView
-            android:src="@raw/unavailable"
             android:layout_alignBottom="@+id/username"
             android:layout_toEndOf="@+id/username"
             android:layout_marginStart="33dp"
+            android:src="@drawable/verified"
             android:id="@+id/verified"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:visibility="visible" />
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@raw/unavailable"
@@ -67,8 +69,8 @@
             android:layout_marginTop="20dp"
             android:id="@+id/ciudadtext"
             android:textSize="20sp"
-            android:layout_below="@+id/textView14"
-            android:layout_alignStart="@+id/textView14" />
+            android:layout_below="@+id/emailtext"
+            android:layout_alignStart="@+id/emailtext" />
 
         <TextView
             android:text="Email: email@email.com"
@@ -76,7 +78,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="20dp"
-            android:id="@+id/textView14"
+            android:id="@+id/emailtext"
             android:layout_below="@+id/direcciontext"
             android:layout_alignStart="@+id/direcciontext" />
 

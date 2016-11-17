@@ -367,6 +367,7 @@ public class HTTPMethods {
         String pic = null;
         String id = null;
         String saldo = null;
+        Boolean isVerified = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -390,13 +391,18 @@ public class HTTPMethods {
                 case "id":
                     id = reader.nextString();
                     break;
+                case "verified":
+                    //System.out.println("hola1");
+                    isVerified = reader.nextBoolean();
+                    //System.out.println("hola2");
+                    break;
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Usuario(username, saldo, mail, password, pic, id);
+        return new Usuario(username, saldo, mail, password, pic, id, isVerified);
     }
 
     public static Evento leerEvento(JsonReader reader) throws IOException {

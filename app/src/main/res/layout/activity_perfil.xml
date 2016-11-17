@@ -67,8 +67,8 @@
             android:layout_marginTop="20dp"
             android:id="@+id/ciudadtext"
             android:textSize="20sp"
-            android:layout_below="@+id/textView14"
-            android:layout_alignStart="@+id/textView14" />
+            android:layout_below="@+id/emailtext"
+            android:layout_alignStart="@+id/emailtext" />
 
         <TextView
             android:text="Email: email@email.com"
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="76dp"
-            android:id="@+id/textView14"
+            android:id="@+id/emailtext"
             android:layout_below="@+id/fotoPerfil"
             android:layout_alignStart="@+id/direcciontext" />
 
@@ -154,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/followbutton"
-            android:layout_alignBottom="@+id/textView14"
+            android:layout_alignBottom="@+id/emailtext"
             android:layout_toEndOf="@+id/tematicas" />
 
         <Button
