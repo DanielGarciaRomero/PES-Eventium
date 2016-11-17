@@ -60,8 +60,7 @@ public class CrearEventoFragment extends Fragment {
             public void onClick(View v) {
                 HTTPMethods httpMethods = new HTTPMethods(11);
 
-                //hardcodeado, habra que pasar el token cuando lo cambien
-                httpMethods.setUser_id(1);
+                httpMethods.setToken_user(NavigationDrawerActivity.token);
 
                 httpMethods.setEvent_title(titulo.getText().toString());
                 httpMethods.setEvent_categoria(categoria.getSelectedItem().toString());

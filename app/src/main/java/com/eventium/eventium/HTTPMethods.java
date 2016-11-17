@@ -49,9 +49,12 @@ public class HTTPMethods {
     public static String event_categoria;
     public static String token_user;
     public static String code;
+    public static String destacado;
 
     public HTTPMethods(Integer id){
         finished = false;
+        //hardcoded para crear evento de momento
+        destacado = "false";
         peticion_id = id;
         event_id = "";
     }
@@ -196,9 +199,9 @@ public class HTTPMethods {
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             else if (peticion_id == 11){
+                httpPost.setHeader("token", token_user);
                 List nameValuePairs = new ArrayList();
-                nameValuePairs.add(new BasicNameValuePair("id", event_id));
-                nameValuePairs.add(new BasicNameValuePair("organizerId", user_id.toString()));
+                //nameValuePairs.add(new BasicNameValuePair("organizerId", user_id.toString()));
                 nameValuePairs.add(new BasicNameValuePair("title", event_title));
                 nameValuePairs.add(new BasicNameValuePair("hora_ini", event_hora_ini));
                 nameValuePairs.add(new BasicNameValuePair("hora_fin", event_hora_fin));
@@ -208,6 +211,7 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("pic", event_pic));
                 nameValuePairs.add(new BasicNameValuePair("ciudad", event_ciudad));
                 nameValuePairs.add(new BasicNameValuePair("categoria", event_categoria));
+                nameValuePairs.add(new BasicNameValuePair("destacado", destacado));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             else if (peticion_id == 12){
