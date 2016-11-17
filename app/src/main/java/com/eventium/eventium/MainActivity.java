@@ -57,33 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getBaseContext().getResources().getDisplayMetrics());
 
         contexto = getBaseContext();
-
-        //GET DE USERS
-        /*HTTPMethods httpMethods = new HTTPMethods(0);
-        httpMethods.ejecutarHttpAsyncTask();
-        while (!httpMethods.getFinished());
-        prueba.setText(httpMethods.getResultado());*/
-
-        //GET DE UN USER
-        /*HTTPMethods httpMethods = new HTTPMethods(1);
-        httpMethods.setUser_id(1);
-        httpMethods.ejecutarHttpAsyncTask();
-        while (!httpMethods.getFinished());
-        prueba.setText(httpMethods.getResultado());*/
-
-        //GET DE UN USER
-        /*HTTPMethods httpMethods = new HTTPMethods(2);
-        httpMethods.setUser_id(1);
-        httpMethods.ejecutarHttpAsyncTask();
-        while (!httpMethods.getFinished());
-        prueba.setText(httpMethods.getResultado());*/
-
-        //POST DE UN USER
-        /*HTTPMethods httpMethods = new HTTPMethods(10);
-        httpMethods.ejecutarHttpAsyncTask();
-        while (!httpMethods.getFinished());
-        prueba.setText(httpMethods.getResultado());*/
-
     }
 
     @Override
@@ -107,10 +80,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 while (!httpMethods.getFinished());
                 if (httpMethods.getCode().equals("HTTP/1.0 200 OK")){
                     String aux = httpMethods.getResultado();
-                    System.out.println(aux);
+                    //System.out.println(aux);
                     String aux2 = aux.substring(11, aux.length() - 2);
                     token = aux2;
-                    System.out.println(aux2);
+                    //System.out.println(aux2);
                     MainActivity.this.startActivity(new Intent(MainActivity.this, NavigationDrawerActivity.class));
                 }
                 else if (httpMethods.getCode().equals("HTTP/1.0 404 NOT FOUND")){

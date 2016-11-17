@@ -24,6 +24,8 @@ import java.io.ByteArrayOutputStream;
 
 public class CrearEventoFragment extends Fragment {
 
+    ImageButton arrowSpinner;
+
     public CrearEventoFragment() {
         // Required empty public constructor
     }
@@ -43,6 +45,14 @@ public class CrearEventoFragment extends Fragment {
         final EditText hora_ini = (EditText) view.findViewById(R.id.editText17);
         final EditText hora_fin = (EditText) view.findViewById(R.id.editText18);
         final EditText precio = (EditText) view.findViewById(R.id.editText19);
+
+        arrowSpinner = (ImageButton) view.findViewById(R.id.arrowSpinner);
+        arrowSpinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categoria.performClick();
+            }
+        });
 
         Button crear_evento = (Button) view.findViewById(R.id.button17);
         crear_evento.setOnClickListener(new View.OnClickListener() {

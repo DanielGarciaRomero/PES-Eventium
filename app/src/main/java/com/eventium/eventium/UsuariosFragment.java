@@ -5,14 +5,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.net.Uri;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,10 +20,6 @@ import android.widget.Toast;
 import com.eventium.eventium.TabFragments.UserModel;
 import com.eventium.eventium.TabFragments.RVAdapter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,42 +30,27 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     }
 
     RecyclerView rv;
-    //ArrayList<String> usernames;
     RVAdapter adapter;
     private List<UserModel> mUserModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //usernames = new ArrayList<String>();
 
         //GET DE USERS
         HTTPMethods httpMethods = new HTTPMethods(0);
         httpMethods.ejecutarHttpAsyncTask();
-        while (!httpMethods.getFinished()) ;
+        while (!httpMethods.getFinished());
         List<Usuario> list_users = httpMethods.getUsers();
         mUserModel = new ArrayList<>();
-        if (list_users == null){
-            Toast.makeText(MainActivity.contexto, "No hi ha connexió amb el servidor", Toast.LENGTH_LONG).show();
-        }
-        else {
+        if (list_users != null) {
             for (int i = 0; i < list_users.size(); ++i) {
-                //usernames.add(list_users.get(i).getUsername());
-                //mUserModel.add(new UserModel(geller, usernames.get(i)));
                 String encodedImage = list_users.get(i).getPic();
                 byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
                 Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
                 mUserModel.add(new UserModel(base64BitmapImage, list_users.get(i).getUsername()));
             }
         }
-
-        /*usernames = new ArrayList<String>();
-        usernames.add("abelmenor");
-        usernames.add("alvaroma94");
-        usernames.add("aridez");
-        usernames.add("dagaro");
-        usernames.add("link-adri");
-        usernames.add("rodergas");*/
     }
 
     @Override
@@ -89,13 +67,7 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        /*
-        mUserModel = new ArrayList<>();
-        for (int i = 0; i < usernames.size(); ++i) {
-            Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.defaultuserimage);
-            mUserModel.add(new UserModel(geller, usernames.get(i)));
-        }
-        */
+
         adapter= new RVAdapter(false);
         adapter.setRVU(mUserModel);
         rv.setAdapter(adapter);
