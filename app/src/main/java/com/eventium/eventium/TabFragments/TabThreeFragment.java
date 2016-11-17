@@ -49,23 +49,11 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished()) ;
         List<Evento> list_events = httpMethods.getEvents();
-        if (list_events == null){
-            Toast.makeText(MainActivity.contexto, "No hi ha connexió amb el servidor", Toast.LENGTH_LONG).show();
-        }
-        else {
+        if (list_events != null) {
             for (int i = 0; i < list_events.size(); ++i) {
                 eventos.add(list_events.get(i));
             }
         }
-
-        /*eventos = new ArrayList<String>();
-        eventos.add("Concierto de Estopa");
-        eventos.add("Exposicion de Dali");
-        eventos.add("Festival de Sitges");
-        eventos.add("Maraton de Barcelona");
-        eventos.add("Mobile World Congress");
-        eventos.add("Salon del Manga");*/
-
     }
 
     @Override
