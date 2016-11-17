@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,6 +34,7 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     RecyclerView rv;
     RVAdapter adapter;
     private List<UserModel> mUserModel;
+    private String myUsername;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,9 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
                 mUserModel.add(new UserModel(base64BitmapImage, list_users.get(i).getUsername()));
             }
         }
+
+        //GET DE MI USER PARA NO ACCEDER A MI PROPIO PERFIL
+
     }
 
     @Override
@@ -77,6 +83,15 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVU(position);
                         Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("user", item);
+                        Fragment fragment = new PerfilFragment();
+                        fragment.setArguments(bundle);
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.contenedor_principal, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                     }
 
                     @Override

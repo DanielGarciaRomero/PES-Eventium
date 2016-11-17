@@ -44,7 +44,7 @@
             android:layout_height="30dp"
             android:visibility="visible" />
 
-        <android.support.v7.widget.AppCompatImageView
+        <ImageButton
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@raw/unavailable"
@@ -60,7 +60,8 @@
             android:id="@+id/ratingBar"
             android:layout_marginRight="10dp"
             android:layout_alignBottom="@+id/fotoPerfil"
-            android:layout_toEndOf="@+id/fotoPerfil" />
+            android:layout_toEndOf="@+id/fotoPerfil"
+            android:isIndicator="true" />
 
         <TextView
             android:text="Ciudad: ciudad1"

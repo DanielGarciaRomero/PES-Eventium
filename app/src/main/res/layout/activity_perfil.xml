@@ -58,7 +58,8 @@
             android:id="@+id/ratingBar"
             android:layout_marginRight="10dp"
             android:layout_alignBottom="@+id/fotoPerfil"
-            android:layout_toEndOf="@+id/fotoPerfil" />
+            android:layout_toEndOf="@+id/fotoPerfil"
+            android:isIndicator="true"/>
 
         <TextView
             android:text="Ciudad: ciudad1"
