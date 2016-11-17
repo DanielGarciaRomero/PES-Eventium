@@ -1,5 +1,6 @@
 package com.eventium.eventium;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -136,8 +137,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             */
             Toast.makeText(getBaseContext(), "Has clicado en Ajustes", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_logout) {
-            fragment = new GaleriaFragment();
-            FragmentTransaction = true;
+            //fragment = new GaleriaFragment();
+            //FragmentTransaction = true;
+            MainActivity.token = null;
+            RegistroActivity.token = null;
+            NavigationDrawerActivity.this.startActivity(new Intent(NavigationDrawerActivity.this, MainActivity.class));
             //Toast.makeText(getBaseContext(), "Has clicado en Logout", Toast.LENGTH_LONG).show();
         }
 
