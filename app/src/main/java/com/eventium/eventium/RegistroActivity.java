@@ -17,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static String token;
     EditText username;
     EditText email;
     EditText contrasena;
@@ -26,6 +27,8 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+        token = null;
 
         Button crear_cuenta = (Button) findViewById(R.id.button2);
         crear_cuenta.setOnClickListener(this);
@@ -69,6 +72,9 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     httpMethods.ejecutarHttpAsyncTask();
                     while (!httpMethods.getFinished()) ;
                     if (httpMethods.getCode().equals("HTTP/1.0 201 CREATED")){
+                        String aux = httpMethods.getResultado();
+                        String aux2 = aux.substring(11, aux.length() - 2);
+                        token = aux2;
                         //Toast.makeText(getBaseContext(), "Registrado correctamente", Toast.LENGTH_LONG).show();
                         RegistroActivity.this.startActivity(new Intent(RegistroActivity.this, TemasActivity.class));
                     }

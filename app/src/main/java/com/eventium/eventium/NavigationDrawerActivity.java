@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +25,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 {
     public static String PACKAGE_NAME;
     public static Context contexto;
+    public static String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +46,35 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         View hView =  navigationView.getHeaderView(0);
+
+        if (MainActivity.token != null) token = MainActivity.token;
+        else token = RegistroActivity.token;
+
+        HTTPMethods httpMethods = new HTTPMethods(4);
+        httpMethods.setToken_user(token);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        String aux = httpMethods.getResultado();
+        String aux2 = aux.substring(14, aux.length() - 2);
+
+        HTTPMethods httpMethods1 = new HTTPMethods(1);
+        httpMethods1.setUsername(aux2);
+        httpMethods1.ejecutarHttpAsyncTask();
+        while (!httpMethods1.getFinished());
+        Usuario user = httpMethods1.getUser();
+
         TextView nav_username = (TextView) hView.findViewById(R.id.textViewNaviDrawer1);
-        nav_username.setText("Dagaro");
+        nav_username.setText(user.getUsername());
         TextView nav_useremail = (TextView) hView.findViewById(R.id.textViewNaviDrawer2);
-        nav_useremail.setText("danielchanante@gmail.com");
+        nav_useremail.setText(user.getMail());
+        TextView nav_usersaldo = (TextView) hView.findViewById(R.id.textViewNaviDrawer3);
+        nav_usersaldo.setText("Saldo : " + user.getSaldo() +  " €");
         ImageView nav_userimage = (ImageView) hView.findViewById(R.id.imageViewNaviDrawer);
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.raw.zuckerberg);
-        RoundImage roundedImage = new RoundImage(bm);
+        //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.raw.zuckerberg);
+        String nav_userpic = user.getPic();
+        byte[] decodedImage = Base64.decode(nav_userpic, Base64.DEFAULT);
+        Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+        RoundImage roundedImage = new RoundImage(base64BitmapImage);
         nav_userimage.setImageDrawable(roundedImage);
 
         navigationView.setNavigationItemSelectedListener(this);

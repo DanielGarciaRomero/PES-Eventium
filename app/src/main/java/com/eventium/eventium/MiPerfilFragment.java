@@ -44,13 +44,13 @@ public class MiPerfilFragment extends Fragment  {
             }
         });
 
-        System.out.println("hola1");
+        //System.out.println("hola1");
         HTTPMethods httpMethods = new HTTPMethods(1);
         httpMethods.setUsername("user50");
         httpMethods.ejecutarHttpAsyncTask();
-        System.out.println("hola2");
+        //System.out.println("hola2");
         while (!httpMethods.getFinished());
-        System.out.println("hola3");
+        //System.out.println("hola3");
         if (httpMethods.getCode().equals("HTTP/1.0 200 OK")){
             Usuario user = httpMethods.getUser();
             name.setText(user.getUsername());

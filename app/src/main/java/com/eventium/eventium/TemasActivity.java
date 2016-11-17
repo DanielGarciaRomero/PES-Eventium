@@ -112,10 +112,6 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
         }
         else if (v.getId() == R.id.button14){
             //Toast.makeText(getBaseContext(), "Has pulsado aceptar", Toast.LENGTH_LONG).show();
-            /*String aux = artistico.toString() + "," + automobilistico.toString() + "," + cinematografico.toString() + "," +
-                    deportivo.toString() + "," + gastronomico.toString() + "," + literario.toString() + "," +
-                    moda.toString() + "," + musical.toString() + "," + politico.toString() + "," +
-                    teatral.toString() + "," + tecnologico.toString() + "," + otros.toString();*/
             Boolean primer = true;
             String aux = "";
             Integer i;
@@ -128,22 +124,26 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
 
-            HTTPMethods httpMethods = new HTTPMethods(15);
-            httpMethods.setCategories(aux);
-
-            /*HTTPMethods httpMethods1 = new HTTPMethods(4);
-            httpMethods1.setToken_user(MainActivity.token);
-            httpMethods1.ejecutarHttpAsyncTask();
-            while (!httpMethods1.getFinished());
-            System.out.println(MainActivity.token);
-            String id_user = httpMethods1.getResultado();
-            System.out.println(id_user);*/
-            //Habra que hacer substring y quedarnos con el user bien
-
-            httpMethods.setUser_id(1);
+            HTTPMethods httpMethods = new HTTPMethods(4);
+            httpMethods.setToken_user(RegistroActivity.token);
             httpMethods.ejecutarHttpAsyncTask();
             while (!httpMethods.getFinished());
-            //System.out.println(aux);
+            String aux3 = httpMethods.getResultado();
+            String aux2 = aux3.substring(14, aux3.length() - 2);
+
+            HTTPMethods httpMethods1 = new HTTPMethods(1);
+            httpMethods1.setUsername(aux2);
+            httpMethods1.ejecutarHttpAsyncTask();
+            while (!httpMethods1.getFinished());
+            Usuario user = httpMethods1.getUser();
+            String aux4 = user.getId();
+
+            HTTPMethods httpMethods2 = new HTTPMethods(15);
+            httpMethods2.setCategories(aux);
+            httpMethods2.setUser_id(Integer.parseInt(aux4));
+            httpMethods2.ejecutarHttpAsyncTask();
+            while (!httpMethods2.getFinished());
+
             TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
         }
     }

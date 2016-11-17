@@ -62,7 +62,7 @@ public class HTTPMethods {
         else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + username); //get de un user
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
-        else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi id
+        else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi username
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
@@ -362,6 +362,7 @@ public class HTTPMethods {
         String password = null;
         String pic = null;
         String id = null;
+        String saldo = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -369,6 +370,9 @@ public class HTTPMethods {
             switch (name) {
                 case "username":
                     username = reader.nextString();
+                    break;
+                case "saldo":
+                    saldo = reader.nextString();
                     break;
                 case "mail":
                     mail = reader.nextString();
@@ -388,7 +392,7 @@ public class HTTPMethods {
             }
         }
         reader.endObject();
-        return new Usuario(username, mail, password, pic, id);
+        return new Usuario(username, saldo, mail, password, pic, id);
     }
 
     public static Evento leerEvento(JsonReader reader) throws IOException {

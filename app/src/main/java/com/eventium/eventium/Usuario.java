@@ -2,13 +2,15 @@ package com.eventium.eventium;
 
 public class Usuario {
     private String username;
+    private String saldo;
     private String mail;
     private String password;
     private String pic;
     private String id;
 
-    public Usuario(String username, String mail, String password, String pic, String id) {
+    public Usuario(String username, String saldo, String mail, String password, String pic, String id) {
         this.username = username;
+        this.saldo = saldo;
         this.mail = mail;
         this.password = password;
         this.pic = pic;
@@ -54,4 +56,8 @@ public class Usuario {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getSaldo() {return saldo;}
+
+    public void setSaldo(String saldo) {this.saldo = saldo;}
 }
