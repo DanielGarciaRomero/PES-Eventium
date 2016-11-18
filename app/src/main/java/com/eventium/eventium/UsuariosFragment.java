@@ -56,6 +56,11 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
         }
 
         //GET DE MI USER PARA NO ACCEDER A MI PROPIO PERFIL
+        httpMethods = new HTTPMethods(4);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        myUsername = httpMethods.getResultado();
+        myUsername = myUsername.substring(14, myUsername.length()-2);
 
     }
 
@@ -83,15 +88,18 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVU(position);
                         Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        Fragment fragment;
+                        if(!item.equals(myUsername)) fragment = new PerfilFragment();
+                        else fragment = new MiPerfilFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("user", item);
-                        Fragment fragment = new PerfilFragment();
                         fragment.setArguments(bundle);
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.contenedor_principal, fragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
+
                     }
 
                     @Override

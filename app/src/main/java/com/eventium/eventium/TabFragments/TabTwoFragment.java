@@ -16,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.eventium.eventium.CalendarioActivity;
-
 import com.eventium.eventium.NavigationDrawerActivity;
 
 
@@ -81,9 +79,6 @@ public class TabTwoFragment extends Fragment implements SearchView.OnQueryTextLi
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVE(position);
                         Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
-                        //Toast.makeText(getBaseContext(), "Position = " + position, Toast.LENGTH_LONG).show();
-                        //Intent intent = new Intent(getActivity(), CalendarioActivity.class);
-                        //startActivity(intent);
                     }
 
                     @Override

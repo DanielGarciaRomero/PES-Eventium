@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,9 +27,6 @@ import android.widget.Toast;
  */
 
 public class PerfilFragment extends Fragment  {
-
-    private Toolbar mytoolbar;
-    private TabLayout tabLayout;
 
     TextView name;
     TextView mail;
@@ -65,7 +64,7 @@ public class PerfilFragment extends Fragment  {
         fotoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.contexto, "Has pulsado la imagen", Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.contexto, "Has pulsado la imagen", Toast.LENGTH_LONG).show();
                 //lo dejo por si hay que ampliarla o algo
             }
         });
@@ -88,7 +87,17 @@ public class PerfilFragment extends Fragment  {
         return view;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        //inflater.inflate(R.menu.menu_saldo, menu);
+    }
 
     @Override
     public void onDestroyView() {
