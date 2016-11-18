@@ -2,32 +2,20 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbarStyle="insideOverlay">
     <RelativeLayout
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorFondo">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorToolbar"/>
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorToolbar" />
 
         <TextView
             android:text="Usuario1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/fotoPerfil"
-            android:layout_toEndOf="@+id/fotoPerfil"
+            android:layout_alignTop="@+id/fotoMiPerfil"
+            android:layout_toEndOf="@+id/fotoMiPerfil"
             android:layout_marginStart="40dp"
             android:layout_marginTop="15dp"
             android:id="@+id/username"
@@ -45,10 +33,11 @@
             android:visibility="visible" />
 
         <ImageButton
+            android:id="@+id/fotoMiPerfil"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@raw/unavailable"
-            android:id="@+id/fotoPerfil"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
             android:layout_marginStart="16dp"
             android:layout_marginTop="19dp"
             android:layout_below="@+id/toolbar"
@@ -59,8 +48,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/ratingBar"
             android:layout_marginRight="10dp"
-            android:layout_alignBottom="@+id/fotoPerfil"
-            android:layout_toEndOf="@+id/fotoPerfil"
+            android:layout_alignBottom="@+id/fotoMiPerfil"
+            android:layout_toEndOf="@+id/fotoMiPerfil"
             android:isIndicator="true" />
 
         <TextView
@@ -149,8 +138,8 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:id="@+id/direcciontext"
-            android:layout_below="@+id/fotoPerfil"
-            android:layout_alignStart="@+id/fotoPerfil"
+            android:layout_below="@+id/fotoMiPerfil"
+            android:layout_alignStart="@+id/fotoMiPerfil"
             android:layout_marginTop="20dp" />
 
 

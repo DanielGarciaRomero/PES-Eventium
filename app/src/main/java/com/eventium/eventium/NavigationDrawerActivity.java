@@ -19,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 
-import com.eventium.eventium.TabFragments.PasswordFragment;
-
 
 public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
