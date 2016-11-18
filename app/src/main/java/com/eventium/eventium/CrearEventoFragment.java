@@ -47,11 +47,13 @@ public class CrearEventoFragment extends Fragment {
         final EditText titulo = (EditText) view.findViewById(R.id.editText13);
         final Spinner categoria = (Spinner) view.findViewById(R.id.spinner);
         final EditText ciudad = (EditText) view.findViewById(R.id.editText14);
+        final EditText direccion = (EditText) view.findViewById(R.id.editTextDir);
         final EditText fecha_ini = (EditText) view.findViewById(R.id.editText15);
         final EditText fecha_fin = (EditText) view.findViewById(R.id.editText16);
         final EditText hora_ini = (EditText) view.findViewById(R.id.editText17);
         final EditText hora_fin = (EditText) view.findViewById(R.id.editText18);
         final EditText precio = (EditText) view.findViewById(R.id.editText19);
+        final EditText entradas = (EditText) view.findViewById(R.id.editTextEntradas);
 
         arrowSpinner = (ImageButton) view.findViewById(R.id.arrowSpinner);
         arrowSpinner.setOnClickListener(new View.OnClickListener() {
@@ -81,26 +83,29 @@ public class CrearEventoFragment extends Fragment {
         crear_evento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HTTPMethods httpMethods = new HTTPMethods(11);
-
-                httpMethods.setToken_user(NavigationDrawerActivity.token);
-
-                httpMethods.setEvent_title(titulo.getText().toString());
-                httpMethods.setEvent_categoria(categoria.getSelectedItem().toString());
-
-                httpMethods.setEvent_pic(encodedString);
-
-                httpMethods.setEvent_ciudad(ciudad.getText().toString());
-                httpMethods.setEvent_fecha_ini(fecha_ini.getText().toString());
-                httpMethods.setEvent_fecha_fin(fecha_fin.getText().toString());
-                httpMethods.setEvent_hora_ini(hora_ini.getText().toString());
-                httpMethods.setEvent_hora_fin(hora_fin.getText().toString());
-                httpMethods.setEvent_precio(precio.getText().toString());
-
-                httpMethods.ejecutarHttpAsyncTask();
-                while (!httpMethods.getFinished());
-                Toast.makeText(MainActivity.contexto, "Evento creado correctamente", Toast.LENGTH_LONG).show();
-
+                if (titulo.getText().toString().equals("") || entradas.getText().toString().equals("")
+                        || ciudad.getText().toString().equals("") || direccion.getText().toString().equals("")
+                        || fecha_ini.getText().toString().equals("") || fecha_fin.getText().toString().equals("")
+                        || hora_ini.getText().toString().equals("") || hora_fin.getText().toString().equals("")
+                        || precio.getText().toString().equals(""))
+                    Toast.makeText(NavigationDrawerActivity.contexto, "No puedes dejar ningún campo en blanco", Toast.LENGTH_LONG).show();
+                else {
+                    // falta detectar errores de fechas y horas tambien
+                    HTTPMethods httpMethods = new HTTPMethods(11);
+                    httpMethods.setToken_user(NavigationDrawerActivity.token);
+                    httpMethods.setEvent_title(titulo.getText().toString());
+                    httpMethods.setEvent_categoria(categoria.getSelectedItem().toString());
+                    httpMethods.setEvent_pic(encodedString);
+                    httpMethods.setEvent_ciudad(ciudad.getText().toString());
+                    httpMethods.setEvent_fecha_ini(fecha_ini.getText().toString());
+                    httpMethods.setEvent_fecha_fin(fecha_fin.getText().toString());
+                    httpMethods.setEvent_hora_ini(hora_ini.getText().toString());
+                    httpMethods.setEvent_hora_fin(hora_fin.getText().toString());
+                    httpMethods.setEvent_precio(precio.getText().toString());
+                    httpMethods.ejecutarHttpAsyncTask();
+                    while (!httpMethods.getFinished());
+                    Toast.makeText(MainActivity.contexto, "Evento creado correctamente", Toast.LENGTH_LONG).show();
+                }
             }
         });
         return view;
