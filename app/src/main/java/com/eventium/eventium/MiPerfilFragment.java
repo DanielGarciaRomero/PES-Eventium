@@ -115,7 +115,7 @@ public class MiPerfilFragment extends Fragment  {
                     Bitmap bm = BitmapFactory.decodeFile(path);
                     fotoMiPerfil.setImageBitmap(bm);
                     // PUT de /users/<id>
-                    HTTPMethods httpMethods = new HTTPMethods(13);
+                    HTTPMethods httpMethods = new HTTPMethods(16);
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                     byte[] bb = bos.toByteArray();
@@ -124,6 +124,8 @@ public class MiPerfilFragment extends Fragment  {
                     httpMethods.setUser_id(Integer.parseInt(idUsuario));
                     httpMethods.ejecutarHttpAsyncTask();
                     while (!httpMethods.getFinished());
+                    NavigationDrawerActivity.change_image = true;
+                    NavigationDrawerActivity.userimage = bm;
                     Toast.makeText(NavigationDrawerActivity.contexto, "Imagen modificada correctamente", Toast.LENGTH_LONG).show();
                     // No se modifica, manana se arregla
                 }

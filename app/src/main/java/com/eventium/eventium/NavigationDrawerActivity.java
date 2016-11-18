@@ -26,6 +26,15 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     public static Context contexto;
     public static String token;
 
+    public static Bitmap userimage;
+    public static String usersaldo;
+
+    TextView nav_usersaldo;
+    ImageView nav_userimage;
+
+    public static Boolean change_image;
+    public static Boolean change_saldo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +42,26 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        change_image = false;
+        change_saldo = false;
+
         PACKAGE_NAME = getApplicationContext().getPackageName();
         contexto = getBaseContext();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+                    public void onDrawerOpened(View drawerView){
+                        super.onDrawerOpened(drawerView);
+                        if (change_image) {
+                            RoundImage roundedImage = new RoundImage(userimage);
+                            nav_userimage.setImageDrawable(roundedImage);
+                        }
+                        /*if (change_saldo) {
+                            nav_usersaldo.setText("Saldo : " + usersaldo +  " €");
+                        }*/
+                    }
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -66,9 +89,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         nav_username.setText(user.getUsername());
         TextView nav_useremail = (TextView) hView.findViewById(R.id.textViewNaviDrawer2);
         nav_useremail.setText(user.getMail());
-        TextView nav_usersaldo = (TextView) hView.findViewById(R.id.textViewNaviDrawer3);
+        nav_usersaldo = (TextView) hView.findViewById(R.id.textViewNaviDrawer3);
         nav_usersaldo.setText("Saldo : " + user.getSaldo() +  " €");
-        ImageView nav_userimage = (ImageView) hView.findViewById(R.id.imageViewNaviDrawer);
+        nav_userimage = (ImageView) hView.findViewById(R.id.imageViewNaviDrawer);
         //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.raw.zuckerberg);
         String nav_userpic = user.getPic();
         byte[] decodedImage = Base64.decode(nav_userpic, Base64.DEFAULT);
