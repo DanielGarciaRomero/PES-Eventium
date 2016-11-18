@@ -28,15 +28,12 @@ import java.io.ByteArrayInputStream;
 
 public class MiPerfilFragment extends Fragment  {
 
-    private Toolbar mytoolbar;
-    private TabLayout tabLayout;
-
     TextView name;
     TextView mail;
     //TextView city;
     //TextView direction;
     ImageView verified;
-    ImageButton fotoPerfil;
+    ImageButton fotoMiPerfil;
     RatingBar reputacion;
 
     public MiPerfilFragment() {
@@ -45,14 +42,11 @@ public class MiPerfilFragment extends Fragment  {
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_miperfil, container, false);
-        if (savedInstanceState == null) {
-            tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
-        }
         name = (TextView)view.findViewById(R.id.username);
         mail = (TextView)view.findViewById(R.id.emailtext);
         verified = (ImageView)view.findViewById(R.id.verified);
-        fotoPerfil = (ImageButton)view.findViewById(R.id.fotoPerfil);
-        fotoPerfil.setOnClickListener(new View.OnClickListener() {
+        fotoMiPerfil = (ImageButton)view.findViewById(R.id.fotoMiPerfil);
+        fotoMiPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.contexto, "Has pulsado la imagen", Toast.LENGTH_LONG).show();
@@ -60,12 +54,15 @@ public class MiPerfilFragment extends Fragment  {
         });
         reputacion = (RatingBar)view.findViewById(R.id.ratingBar);
 
-
         HTTPMethods httpMethods = new HTTPMethods(4);
+        httpMethods.setToken_user(NavigationDrawerActivity.token);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
         String username = httpMethods.getResultado();
         System.out.println(username);
+        username = username.substring(14, username.length() - 2); // bug arreglado
+        System.out.println(username);
+
         httpMethods = new HTTPMethods(1);
         httpMethods.setUsername(username);
         httpMethods.ejecutarHttpAsyncTask();
@@ -75,7 +72,7 @@ public class MiPerfilFragment extends Fragment  {
             mail.setText("Email: " + user.getMail());
             byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
             Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            fotoPerfil.setImageBitmap(profilePic);
+            fotoMiPerfil.setImageBitmap(profilePic);
             if(!user.getIsVerified()) {
                 verified.setVisibility(View.INVISIBLE);
             }
