@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("entro");
-
         token = null;
 
         TextView registro = (TextView) findViewById(R.id.textView3);
