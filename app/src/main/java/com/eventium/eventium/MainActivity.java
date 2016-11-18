@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contra = (EditText) findViewById(R.id.editText2);
         contra.setOnClickListener(this);
 
-        TextView prueba = (TextView) findViewById(R.id.textView20);
-        prueba.setOnClickListener(this);
-
         String languageToLoad  = "es"; // your language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
