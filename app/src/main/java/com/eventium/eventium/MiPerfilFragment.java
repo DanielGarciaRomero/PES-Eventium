@@ -30,6 +30,8 @@ import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Abel on 11/11/2016.
@@ -42,12 +44,15 @@ public class MiPerfilFragment extends Fragment  {
 
     TextView name;
     TextView mail;
+    TextView tematicas;
     //TextView city;
     //TextView direction;
     ImageView verified;
     ImageButton fotoMiPerfil;
     RatingBar reputacion;
     String idUsuario;
+    String categorias;
+
 
     public MiPerfilFragment() {
         // Required empty public constructor
@@ -58,6 +63,7 @@ public class MiPerfilFragment extends Fragment  {
         name = (TextView)view.findViewById(R.id.username);
         mail = (TextView)view.findViewById(R.id.emailtext);
         verified = (ImageView)view.findViewById(R.id.verified);
+        tematicas = (TextView)view.findViewById(R.id.tematicas);
         fotoMiPerfil = (ImageButton)view.findViewById(R.id.fotoMiPerfil);
         fotoMiPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,31 +75,82 @@ public class MiPerfilFragment extends Fragment  {
         });
         reputacion = (RatingBar)view.findViewById(R.id.ratingBar);
 
+
         HTTPMethods httpMethods = new HTTPMethods(4);
         httpMethods.setToken_user(NavigationDrawerActivity.token);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
         String username = httpMethods.getResultado();
-        //System.out.println(username);
         username = username.substring(14, username.length() - 2);
-        //System.out.println(username);
 
         httpMethods = new HTTPMethods(1);
         httpMethods.setUsername(username);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
-            Usuario user = httpMethods.getUser();
+        Usuario user = httpMethods.getUser();
 
-            idUsuario = user.getId();
+        idUsuario = user.getId();
 
-            name.setText(user.getUsername());
-            mail.setText("Email: " + user.getMail());
-            byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
-            Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            fotoMiPerfil.setImageBitmap(profilePic);
-            if(!user.getIsVerified()) {
-                verified.setVisibility(View.INVISIBLE);
+        name.setText(user.getUsername());
+        mail.setText("Email: " + user.getMail());
+        byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
+        Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        fotoMiPerfil.setImageBitmap(profilePic);
+        if(!user.getIsVerified()) {
+            verified.setVisibility(View.INVISIBLE);
+        }
+
+        int idInt = Integer.parseInt(idUsuario);
+        categorias = "";
+        httpMethods = new HTTPMethods(5);
+        httpMethods.setUser_id(idInt);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        String cats = httpMethods.getCategories();
+
+        List<String> categoriasList = Arrays.asList(cats.split(","));
+        for (String aux : categoriasList) {
+            switch (aux) {
+                case "0":
+                    categorias += "Artístico, ";
+                    break;
+                case "1":
+                    categorias += "Automobilístico, ";
+                    break;
+                case "2":
+                    categorias += "Cinematográfico, ";
+                    break;
+                case "3":
+                    categorias += "Deportivo, ";
+                    break;
+                case "4":
+                    categorias += "Gastronómico, ";
+                    break;
+                case "5":
+                    categorias += "Literario, ";
+                    break;
+                case "6":
+                    categorias += "Moda, ";
+                    break;
+                case "7":
+                    categorias += "Musical, ";
+                    break;
+                case "8":
+                    categorias += "Político, ";
+                    break;
+                case "9":
+                    categorias += "Teatral, ";
+                    break;
+                case "10":
+                    categorias += "Tecnológico y científico, ";
+                    break;
+                case "11":
+                    categorias += "Otros, ";
+                    break;
             }
+        }
+        categorias = categorias.substring(0,categorias.length()-2);
+        tematicas.setText("Temáticas preferidas: " + categorias);
 
         return view;
     }

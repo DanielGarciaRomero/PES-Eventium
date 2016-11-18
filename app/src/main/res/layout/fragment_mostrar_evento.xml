@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@color/colorFondo">
+
+
+        <TextView
+            android:text="Titulo del evento placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:id="@+id/tituloEvento"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tituloEvento"
+            android:layout_marginTop="10dp"
+            android:textSize="18dp"
+            android:text="Categoría: "
+            android:id="@+id/categoriaEvento"/>
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_below="@+id/categoriaEvento"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:src="@raw/unavailable"
+            android:id="@+id/fotoEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción: "
+            android:textSize="18dp"
+            android:layout_below="@+id/fotoEvento"
+            android:layout_marginTop="40dp"
+            android:id="@+id/descripcionEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Organizado por: "
+            android:textSize="18dp"
+            android:layout_below="@+id/descripcionEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/organizadorEvento"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ciudad: "
+            android:textSize="18dp"
+            android:layout_below="@+id/organizadorEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/ciudadEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dirección: "
+            android:textSize="18dp"
+            android:layout_below="@+id/ciudadEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/direccionEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha: "
+            android:textSize="18dp"
+            android:layout_below="@+id/direccionEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/fechaEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora: "
+            android:textSize="18dp"
+            android:layout_below="@+id/fechaEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/horaEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio: "
+            android:textSize="18dp"
+            android:layout_below="@+id/horaEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/precioEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aqui irá el mapa"
+            android:textSize="18dp"
+            android:layout_below="@+id/precioEvento"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:id="@+id/mapaEvento"/>
+
+        <ToggleButton
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:textOff="No asistiré"
+            android:textOn="Asistiré"
+            android:layout_below="@+id/mapaEvento"
+            android:layout_marginTop="30dp"
+            android:background="#56E394"
+            android:id="@+id/botonAsistir"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asistentes: "
+            android:textSize="18dp"
+            android:layout_below="@+id/mapaEvento"
+            android:layout_toRightOf="@+id/botonAsistir"
+            android:layout_marginTop="39dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/asistentesEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Opiniones: "
+            android:textSize="18dp"
+            android:layout_below="@+id/botonAsistir"
+            android:layout_marginTop="20dp"
+            android:id="@+id/opinionesEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Patrocinadores: "
+            android:textSize="18dp"
+            android:layout_below="@+id/opinionesEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/patrocinadoresEvento"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Promocionar"
+            android:layout_below="@+id/patrocinadoresEvento"
+            android:layout_marginTop="30dp"
+            android:background="#56E394"
+            android:id="@+id/botonPromocionar"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Reportar"
+            android:layout_below="@+id/patrocinadoresEvento"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:background="#56E394"
+            android:id="@+id/botonReportar"/>
+
+    </RelativeLayout>
+
+</ScrollView>

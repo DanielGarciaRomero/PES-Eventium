@@ -66,6 +66,7 @@ public class HTTPMethods {
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
         else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi username
+        else if (peticion_id == 5) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //get categorias de un user
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
@@ -107,6 +108,8 @@ public class HTTPMethods {
         return resultado;
     }
 
+    public String getCategories() {return categories;}
+
     public InputStream getResultado_json(){
         return resultado_json;
     }
@@ -146,9 +149,6 @@ public class HTTPMethods {
             HttpResponse httpResponse;
             HttpGet httpGet = new HttpGet(url);
             // make GET request to the given URL
-            /*if (peticion_id == 1) {
-                httpResponse = httpclient.execute(httpGet);
-            }*/
             if (peticion_id == 2) {
                 httpGet.setHeader("clave", mail);
                 httpResponse = httpclient.execute(httpGet);
@@ -166,6 +166,7 @@ public class HTTPMethods {
             if (peticion_id == 1) readJsonStreamUsuario(inputStream);
             else if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
             else if (peticion_id == 3) readJsonStreamEventos(inputStream);
+            else if (peticion_id == 5) readJsonStreamCategorias(inputStream);
 
             // convert inputstream to string
             if(inputStream != null)
@@ -344,6 +345,17 @@ public class HTTPMethods {
         }
     }
 
+    public static void readJsonStreamCategorias(InputStream in) throws IOException {
+        // Nueva instancia JsonReader
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            categories = leerCategorias(reader);
+
+        } finally {
+            reader.close();
+        }
+    }
+
     public static List leerArrayUsuarios(JsonReader reader) throws IOException {
         // Lista temporal
         ArrayList usuarios = new ArrayList();
@@ -400,9 +412,7 @@ public class HTTPMethods {
                     id = reader.nextString();
                     break;
                 case "verified":
-                    //System.out.println("hola1");
                     isVerified = reader.nextBoolean();
-                    //System.out.println("hola2");
                     break;
                 default:
                     reader.skipValue();
@@ -466,5 +476,34 @@ public class HTTPMethods {
         }
         reader.endObject();
         return new Evento(title, id, organizedId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin);
+    }
+
+    public static String leerCategorias(JsonReader reader) throws IOException {
+        String cats = "";
+        String id;
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "id":
+                    id = reader.nextString();
+                    break;
+                case "categories":
+                    reader.beginArray();
+                    Boolean primer = true;
+                    while (reader.hasNext()) {
+                        if (primer) {
+                            cats += reader.nextString();
+                            primer = false;
+                        } else {
+                            cats += "," + reader.nextString();
+                        }
+                    }
+                    reader.endArray();
+                    break;
+            }
+        }
+        reader.endObject();
+        return cats;
     }
 }
