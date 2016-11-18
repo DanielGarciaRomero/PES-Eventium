@@ -143,8 +143,8 @@ public class PerfilFragment extends Fragment  {
                     break;
             }
         }
-        categorias = categorias.substring(0,categorias.length()-2);
-        System.out.println(categorias);
+        if (categorias.length() != 0) categorias = categorias.substring(0,categorias.length()-2);
+        else categorias = "Ninguna";
         tematicas.setText("Temáticas preferidas: " + categorias);
         return view;
     }

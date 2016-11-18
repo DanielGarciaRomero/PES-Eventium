@@ -75,7 +75,8 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:id="@+id/direcciontext"
-            android:layout_above="@+id/followbutton"
+            android:layout_below="@+id/fotoPerfil"
+            android:layout_marginTop="20dp"
             android:layout_alignStart="@+id/fotoPerfil" />
 
         <TextView
@@ -103,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
-            android:text="Temáticas preferidas : XXX"
+            android:text="Temáticas preferidas: XXX"
             android:id="@+id/tematicas"
             android:layout_below="@+id/seguidores"
             android:layout_alignStart="@+id/seguidores" />
@@ -144,7 +145,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/followbutton"
             android:layout_alignBottom="@+id/emailtext"
-            android:layout_toEndOf="@+id/tematicas" />
+            android:layout_alignParentRight="true" />
 
         <Button
             android:text="Reportar"
