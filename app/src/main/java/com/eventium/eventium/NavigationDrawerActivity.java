@@ -57,9 +57,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                             RoundImage roundedImage = new RoundImage(userimage);
                             nav_userimage.setImageDrawable(roundedImage);
                         }
-                        /*if (change_saldo) {
+                        if (change_saldo) {
                             nav_usersaldo.setText("Saldo : " + usersaldo +  " €");
-                        }*/
+                        }
                     }
         };
         drawer.setDrawerListener(toggle);

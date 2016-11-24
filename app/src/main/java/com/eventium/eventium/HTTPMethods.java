@@ -50,6 +50,9 @@ public class HTTPMethods {
     public static String token_user;
     public static String code;
     public static String destacado;
+    public static String CardNumber;
+    public static String cvc;
+    public static String money;
 
     public HTTPMethods(Integer id){
         finished = false;
@@ -70,11 +73,16 @@ public class HTTPMethods {
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
-
+        else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
         else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de la imagen de user
-
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
     }
+
+    public void setCardNumber(String cNumber){CardNumber = cNumber;}
+
+    public void setCvc(String c){cvc = c;}
+
+    public void setMoney(String m){money = m;}
 
     public List<Usuario> getUsers(){return users;}
 
@@ -260,6 +268,14 @@ public class HTTPMethods {
             else if (peticion_id == 16){
                 List nameValuePairs = new ArrayList();
                 nameValuePairs.add(new BasicNameValuePair("pic", pic));
+                httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
+            else if (peticion_id == 17){
+                httpPut.setHeader("token", token_user);
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("card", CardNumber));
+                nameValuePairs.add(new BasicNameValuePair("cvc", cvc));
+                nameValuePairs.add(new BasicNameValuePair("money", money));
                 httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             httpResponse = httpclient.execute(httpPut);
