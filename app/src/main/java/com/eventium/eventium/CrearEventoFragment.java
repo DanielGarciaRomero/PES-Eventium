@@ -1,5 +1,9 @@
 package com.eventium.eventium;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -90,25 +94,121 @@ public class CrearEventoFragment extends Fragment {
                         || precio.getText().toString().equals(""))
                     Toast.makeText(NavigationDrawerActivity.contexto, "No puedes dejar ningún campo en blanco", Toast.LENGTH_LONG).show();
                 else {
-                    // falta detectar errores de fechas y horas tambien
-                    HTTPMethods httpMethods = new HTTPMethods(11);
-                    httpMethods.setToken_user(NavigationDrawerActivity.token);
-                    httpMethods.setEvent_title(titulo.getText().toString());
-                    httpMethods.setEvent_categoria(categoria.getSelectedItem().toString());
-                    httpMethods.setEvent_pic(encodedString);
-                    httpMethods.setEvent_ciudad(ciudad.getText().toString());
-                    httpMethods.setEvent_fecha_ini(fecha_ini.getText().toString());
-                    httpMethods.setEvent_fecha_fin(fecha_fin.getText().toString());
-                    httpMethods.setEvent_hora_ini(hora_ini.getText().toString());
-                    httpMethods.setEvent_hora_fin(hora_fin.getText().toString());
-                    httpMethods.setEvent_precio(precio.getText().toString());
-                    httpMethods.ejecutarHttpAsyncTask();
-                    while (!httpMethods.getFinished());
-                    Toast.makeText(MainActivity.contexto, "Evento creado correctamente", Toast.LENGTH_LONG).show();
+                    try {
+                        String dataIni = fecha_ini.getText().toString();
+                        String dataFi = fecha_fin.getText().toString();
+                        if (dataIni.length() != 10 || dataFi.length() != 10 || dataIni.charAt(2) != '/' || dataIni.charAt(5) != '/'
+                                || dataFi.charAt(2) != '/' || dataFi.charAt(5) != '/')
+                            Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
+                        else {
+                            if (!fechasValidas(dataIni, dataFi)) {
+                                Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                String horaIni = hora_ini.getText().toString();
+                                String horaFi = hora_fin.getText().toString();
+                                if (horaIni.length() != 5 || horaFi.length() != 5 || horaIni.charAt(2) != ':' || horaFi.charAt(2) != ':')
+                                    Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
+                                else {
+                                    if (!horasValidas(horaIni, horaFi)) {
+                                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        HTTPMethods httpMethods = new HTTPMethods(11);
+                                        httpMethods.setToken_user(NavigationDrawerActivity.token);
+                                        httpMethods.setEvent_title(titulo.getText().toString());
+                                        httpMethods.setEvent_categoria(categoria.getSelectedItem().toString());
+                                        httpMethods.setEvent_pic(encodedString);
+                                        httpMethods.setEvent_ciudad(ciudad.getText().toString());
+                                        httpMethods.setEvent_fecha_ini(fecha_ini.getText().toString());
+                                        httpMethods.setEvent_fecha_fin(fecha_fin.getText().toString());
+                                        httpMethods.setEvent_hora_ini(hora_ini.getText().toString());
+                                        httpMethods.setEvent_hora_fin(hora_fin.getText().toString());
+                                        httpMethods.setEvent_precio(precio.getText().toString());
+                                        httpMethods.ejecutarHttpAsyncTask();
+                                        while (!httpMethods.getFinished());
+                                        Toast.makeText(MainActivity.contexto, "Evento creado correctamente", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    } catch (ParseException e) {
+                        // Nothing to do
+                    } catch (hoursException e) {
+                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
+                    } catch (datesException e) {
+                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
         return view;
+    }
+
+    public class datesException extends Exception {
+        public datesException(String msg) {
+            super(msg);
+        }
+    }
+
+    public class hoursException extends Exception {
+        public hoursException(String msg) {
+            super(msg);
+        }
+    }
+
+    public boolean fechasValidas(String dataIni, String dataFi) throws ParseException, datesException
+    {
+        try {
+            String s = dataIni.substring(0, 2); int diaIni = Integer.parseInt(s);
+            s = dataFi.substring(0, 2); int diaFi = Integer.parseInt(s);
+            s = dataIni.substring(3, 5); int mesIni = Integer.parseInt(s);
+            s = dataFi.substring(3, 5); int mesFi = Integer.parseInt(s);
+            s = dataIni.substring(6, 10); int anyIni = Integer.parseInt(s);
+            s = dataFi.substring(6, 10); int anyFi = Integer.parseInt(s);
+            if (diaIni <= 0 || diaFi <= 0 || diaIni > 31 || diaFi > 31 || mesIni <= 0 || mesFi <= 0 || mesIni > 12
+                    || mesFi > 12 || anyIni < 2016 || anyFi < 2016) return false;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            s = anyIni + "-" + mesIni + "-" + diaIni;
+            Date date1 = sdf.parse(s);
+            s = anyFi + "-" + mesFi + "-" + diaFi;
+            Date date2 = sdf.parse(s);
+            Date currentDate = new Date();
+            currentDate = sdf.parse(sdf.format(currentDate)); // para que no tenga en cuenta la
+                                                              // diferencia de los getTime
+                                                              // sin esto, si pongo 23/11/2016 en el
+                                                              // emulador, dice que es before y devuelve false
+            //System.out.println(sdf.format(currentDate)); 2016-11-23
+            //System.out.println(sdf.format(date1)); 2016-11-23
+            //System.out.println(date1.getTime()); 1479877200000
+            //System.out.println(currentDate.getTime()); 1479877200000
+            //if (date1.compareTo(currentDate) < 0 || date1.compareTo(date2) > 0) return false;
+            if (date1.before(currentDate) || date1.after(date2)) return false;
+            return true;
+        }
+        catch(NumberFormatException e){
+            throw new datesException("");
+        }
+    }
+
+    public boolean horasValidas(String horaIni, String horaFi) throws ParseException, hoursException
+    {
+        try {
+            String s = horaIni.substring(0, 2); int hIni = Integer.parseInt(s);
+            s = horaFi.substring(0, 2); int hFi = Integer.parseInt(s);
+            s = horaIni.substring(3, 5); int minIni = Integer.parseInt(s);
+            s = horaFi.substring(3, 5); int minFi = Integer.parseInt(s);
+            if (hIni < 0 || hFi < 0 || hIni > 23 || hFi > 23 || minIni < 0 || minFi < 0 || minIni > 59 || minFi > 59)
+                return false;
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Date date1 = sdf.parse(horaIni);
+            Date date2 = sdf.parse(horaFi);
+            if (date1.compareTo(date2) > 0) return false;
+            return true;
+        }
+        catch(NumberFormatException e){
+            throw new hoursException("");
+        }
     }
 
     @Override
