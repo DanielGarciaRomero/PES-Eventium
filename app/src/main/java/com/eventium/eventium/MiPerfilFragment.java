@@ -69,7 +69,7 @@ public class MiPerfilFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.contexto, "Has pulsado la imagen", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, IMAGE_GALLERY_REQUEST);
             }
         });

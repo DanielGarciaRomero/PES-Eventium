@@ -7,11 +7,32 @@
     android:orientation="vertical"
     android:background="@color/colorFondo">
 
-    <CalendarView
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:id="@+id/textView14" />
+
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="fill_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:layout_height="match_parent"
-        android:id="@+id/calendar"
-        android:showWeekNumber="false"
-        android:selectedWeekBackgroundColor="#D0FCE2"/>
+        app:compactCalendarTextSize="12sp"
+        app:compactCalendarBackgroundColor="@color/colorFondo"
+        app:compactCalendarTextColor="#000"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorFondo"
+        app:compactCalendarCurrentDayBackgroundColor="@color/colorToolbar"
+        app:compactCalendarMultiEventIndicatorColor="#fff" />
+
+
 
 </LinearLayout>
