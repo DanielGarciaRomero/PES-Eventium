@@ -29,10 +29,8 @@
         app:compactCalendarTextSize="12sp"
         app:compactCalendarBackgroundColor="@color/colorFondo"
         app:compactCalendarTextColor="#000"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorFondo"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@android:color/transparent"
         app:compactCalendarCurrentDayBackgroundColor="@color/colorToolbar"
         app:compactCalendarMultiEventIndicatorColor="#fff" />
-
-
 
 </LinearLayout>
