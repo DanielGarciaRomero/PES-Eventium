@@ -46,7 +46,7 @@ public class HTTPMethods {
     public static String event_precio;
     public static String event_ciudad;
     public static String event_pic;
-    public static String event_categoria;
+    public static Integer event_categoria;
     public static String token_user;
     public static String code;
     public static String destacado;
@@ -104,7 +104,48 @@ public class HTTPMethods {
 
     public void setEvent_pic(String pic){event_pic = pic;}
 
-    public void setEvent_categoria(String categoria){event_categoria = categoria;}
+    public void setEvent_categoria(String categoria){
+        switch (categoria) {
+            case "Artistico":
+                event_categoria = 0;
+                break;
+            case "Automobilistico":
+                event_categoria = 1;
+                break;
+            case "Cinematografico":
+                event_categoria = 2;
+                break;
+            case "Deportivo":
+                event_categoria = 3;
+                break;
+            case "Gastronomico":
+                event_categoria = 4;
+                break;
+            case "Literario":
+                event_categoria = 5;
+                break;
+            case "Moda":
+                event_categoria = 6;
+                break;
+            case "Musical":
+                event_categoria = 7;
+                break;
+            case "Politico":
+                event_categoria = 8;
+                break;
+            case "Teatral":
+                event_categoria = 9;
+                break;
+            case "Tecnologico y cientifico":
+                event_categoria = 10;
+                break;
+            case "Otros":
+                event_categoria = 11;
+                break;
+
+
+        }
+    }
 
     public void setCategories(String categorias) { categories = categorias; }
 
@@ -222,7 +263,7 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("precio", event_precio));
                 nameValuePairs.add(new BasicNameValuePair("pic", event_pic));
                 nameValuePairs.add(new BasicNameValuePair("ciudad", event_ciudad));
-                nameValuePairs.add(new BasicNameValuePair("categoria", event_categoria));
+                nameValuePairs.add(new BasicNameValuePair("categoria", event_categoria.toString()));
                 nameValuePairs.add(new BasicNameValuePair("destacado", destacado));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
