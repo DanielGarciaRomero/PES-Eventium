@@ -30,6 +30,7 @@ public class HTTPMethods {
     public static Evento event;
     public static List<Usuario> users;
     public static List<Evento> events;
+    public static List<Calendario> calendarios;
     public static Boolean finished;
     public static Integer user_id;
     public static Integer peticion_id;
@@ -72,6 +73,7 @@ public class HTTPMethods {
         else if (peticion_id == 5) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //get categorias de un user
         else if (peticion_id == 6) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //get follows de un user
         else if (peticion_id == 7) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //get de un evento
+        else if (peticion_id == 8) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //get calendario de un user
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
@@ -81,6 +83,8 @@ public class HTTPMethods {
     }
 
     public void setCardNumber(String cNumber){CardNumber = cNumber;}
+
+    public List<Calendario> getCalendarios(){return calendarios;}
 
     public void setCvc(String c){cvc = c;}
 
@@ -212,6 +216,10 @@ public class HTTPMethods {
                 httpGet.setHeader("token", token_user);
                 httpResponse = httpclient.execute(httpGet);
             }
+            else if (peticion_id == 8) {
+                httpGet.setHeader("token", token_user);
+                httpResponse = httpclient.execute(httpGet);
+            }
             else httpResponse = httpclient.execute(httpGet);
             code = httpResponse.getStatusLine().toString();
 
@@ -223,6 +231,7 @@ public class HTTPMethods {
             else if (peticion_id == 3) readJsonStreamEventos(inputStream);
             else if (peticion_id == 5) readJsonStreamCategorias(inputStream);
             else if (peticion_id == 7) readJsonStreamEvento(inputStream);
+            else if (peticion_id == 8) readJsonStreamCalendario(inputStream);
 
             // convert inputstream to string
             if(inputStream != null)
@@ -386,6 +395,19 @@ public class HTTPMethods {
         }
     }
 
+    public static void readJsonStreamCalendario(InputStream in) throws IOException {
+        // Nueva instancia JsonReader
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            // Leer Array
+            //return leerArrayUsuarios(reader);
+            //events = leerArrayEventos(reader);
+            calendarios = leerArrayCalendario(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
     public static void readJsonStreamUsuario(InputStream in) throws IOException {
         //Nueva instancia JsonReader
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
@@ -454,6 +476,18 @@ public class HTTPMethods {
         return eventos;
     }
 
+    public static List leerArrayCalendario(JsonReader reader) throws IOException {
+        // Lista temporal
+        ArrayList calendarios = new ArrayList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            // Leer objeto
+            calendarios.add(leerCalendario(reader));
+        }
+        reader.endArray();
+        return calendarios;
+    }
+
     public static Usuario leerUsuario(JsonReader reader) throws IOException {
         String username = null;
         String mail = null;
@@ -495,6 +529,29 @@ public class HTTPMethods {
         }
         reader.endObject();
         return new Usuario(username, saldo, mail, password, pic, id, isVerified);
+    }
+
+    public static Calendario leerCalendario(JsonReader reader) throws IOException {
+        Integer eventid = null;
+        Integer userid = null;
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "eventid":
+                    eventid = reader.nextInt();
+                    break;
+                case "userid":
+                    userid = reader.nextInt();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+            }
+        }
+        reader.endObject();
+        return new Calendario(eventid, userid);
     }
 
     public static Evento leerEvento(JsonReader reader) throws IOException {
