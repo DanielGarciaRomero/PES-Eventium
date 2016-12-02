@@ -153,11 +153,20 @@
             android:layout_marginTop="20dp"
             android:id="@+id/patrocinadoresEvento"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entradas: "
+            android:textSize="18dp"
+            android:layout_below="@+id/patrocinadoresEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/webEntradas"/>
+
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="Promocionar"
-            android:layout_below="@+id/patrocinadoresEvento"
+            android:layout_below="@+id/webEntradas"
             android:layout_marginTop="30dp"
             android:background="#56E394"
             android:id="@+id/botonPromocionar"/>
@@ -166,11 +175,13 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="Reportar"
-            android:layout_below="@+id/patrocinadoresEvento"
+            android:layout_below="@+id/webEntradas"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="30dp"
             android:background="#56E394"
             android:id="@+id/botonReportar"/>
+
+
 
     </RelativeLayout>
 

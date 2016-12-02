@@ -64,12 +64,12 @@ public class HTTPMethods {
 
     public void ejecutarHttpAsyncTask(){
         if (peticion_id == 0) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //get de users
-        //else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //get de un user
         else if (peticion_id == 1) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + username); //get de un user
         else if (peticion_id == 2) new HttpAsyncTask().execute("http://10.4.41.168:5000/mail"); //recuperar contraseña
         else if (peticion_id == 3) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //get de eventos
         else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi username
         else if (peticion_id == 5) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //get categorias de un user
+        else if (peticion_id == 6) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //get follows de un user
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
