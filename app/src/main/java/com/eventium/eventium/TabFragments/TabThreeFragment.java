@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import com.eventium.eventium.Evento;
 import com.eventium.eventium.HTTPMethods;
 import com.eventium.eventium.MainActivity;
+import com.eventium.eventium.MostrarEventoFragment;
 import com.eventium.eventium.NavigationDrawerActivity;
 
 import com.eventium.eventium.R;
@@ -82,7 +85,8 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
             String encodedImage = eventos.get(i).getPic();
             byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
             Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
-            mEventModel.add(new EventModel(base64BitmapImage, eventos.get(i).getTitle(), eventos.get(i).getCiudad(), fechas, horas, precio));
+            //aqui cambios
+            mEventModel.add(new EventModel(base64BitmapImage, eventos.get(i).getTitle(), eventos.get(i).getCiudad(), fechas, horas, precio, eventos.get(i).getId()));
         }
 
         adapter = new RVAdapter(true);
@@ -94,6 +98,15 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVE(position);
                         Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        Fragment fragment = new MostrarEventoFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("event", item);
+                        fragment.setArguments(bundle);
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.contenedor_principal, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                     }
 
                     @Override

@@ -27,6 +27,7 @@ public class HTTPMethods {
     public static InputStream resultado_json;
     public static String resultado;
     public static Usuario user;
+    public static Evento event;
     public static List<Usuario> users;
     public static List<Evento> events;
     public static Boolean finished;
@@ -70,6 +71,7 @@ public class HTTPMethods {
         else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi username
         else if (peticion_id == 5) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //get categorias de un user
         else if (peticion_id == 6) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //get follows de un user
+        else if (peticion_id == 7) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //get de un evento
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
@@ -153,6 +155,8 @@ public class HTTPMethods {
 
     public Usuario getUser() { return user; }
 
+    public Evento getEvent() { return event; }
+
     public String getResultado(){
         return resultado;
     }
@@ -166,6 +170,8 @@ public class HTTPMethods {
     public Boolean getFinished(){
         return finished;
     }
+
+    public void setEvent_id(String id) { event_id = id; }
 
     public void setUser_id(Integer id){
         user_id = id;
@@ -216,6 +222,7 @@ public class HTTPMethods {
             else if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
             else if (peticion_id == 3) readJsonStreamEventos(inputStream);
             else if (peticion_id == 5) readJsonStreamCategorias(inputStream);
+            else if (peticion_id == 7) readJsonStreamEvento(inputStream);
 
             // convert inputstream to string
             if(inputStream != null)
@@ -402,6 +409,16 @@ public class HTTPMethods {
         }
     }
 
+    public static void readJsonStreamEvento (InputStream in) throws  IOException {
+
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            event = leerEvento(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
     public static void readJsonStreamCategorias(InputStream in) throws IOException {
         // Nueva instancia JsonReader
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
@@ -491,6 +508,9 @@ public class HTTPMethods {
         String fecha_fin = null;
         String hora_ini = null;
         String hora_fin = null;
+        String categoria = null;
+        String descripcion = null;
+        String direccion = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -526,13 +546,22 @@ public class HTTPMethods {
                 case "hora_fin":
                     hora_fin = reader.nextString();
                     break;
+                case "categoria":
+                    categoria = reader.nextString();
+                    break;
+                case "descripccion":
+                    descripcion = reader.nextString();
+                    break;
+                case "direccion":
+                    direccion = reader.nextString();
+                    break;
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Evento(title, id, organizedId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin);
+        return new Evento(title, id, organizedId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria, descripcion, direccion);
     }
 
     public static String leerCategorias(JsonReader reader) throws IOException {

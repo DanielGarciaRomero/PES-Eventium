@@ -123,7 +123,7 @@
             android:layout_below="@+id/mapaEvento"
             android:layout_marginTop="30dp"
             android:background="#56E394"
-            android:id="@+id/botonAsistir"/>
+            android:id="@+id/botonAsistir" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

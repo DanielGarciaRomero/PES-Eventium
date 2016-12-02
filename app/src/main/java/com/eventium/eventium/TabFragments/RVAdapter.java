@@ -28,7 +28,7 @@ public class RVAdapter<T> extends RecyclerView.Adapter<ItemViewHolder> {
     }
 
     public String getItemRVE(int position) {
-        return eventModel.get(position).getTitulo();
+        return eventModel.get(position).getId();
     }
 
     public String getItemRVU(int position) {

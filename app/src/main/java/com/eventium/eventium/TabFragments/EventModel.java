@@ -12,14 +12,16 @@ public class EventModel {
     String fechas;
     String horas;
     String precio;
+    String id;
 
-    EventModel(Bitmap imagen, String titulo, String ciudad, String fechas, String horas, String precio) {
+    EventModel(Bitmap imagen, String titulo, String ciudad, String fechas, String horas, String precio, String id) {
         this.imagen = imagen;
         this.titulo = titulo;
         this.ciudad = ciudad;
         this.fechas = fechas;
         this.horas = horas;
         this.precio = precio;
+        this.id = id;
     }
 
     public Bitmap getImagen() {
@@ -45,5 +47,7 @@ public class EventModel {
     public String getPrecio() {
         return precio;
     }
+
+    public String getId() { return id;}
 
 }
