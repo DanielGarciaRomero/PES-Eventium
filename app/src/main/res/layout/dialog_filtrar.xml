@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/filtrar_tv_cat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categorias"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Art"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Artístico"
+            android:textSize="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/filtrar_tv_cat" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Automobilístico"
+            android:textSize="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/filtrar_tv_cat" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Cine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cinematográfico"
+            android:textSize="13dp"
+            android:layout_below="@+id/filtrar_checkBox_Art" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Depor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deportivo"
+            android:textSize="13dp"
+            android:layout_alignStart="@+id/filtrar_checkBox_Auto"
+            android:layout_below="@+id/filtrar_checkBox_Auto" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Gastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gastronómico"
+            android:textSize="13dp"
+            android:layout_below="@+id/filtrar_checkBox_Cine" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Liter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Literario"
+            android:layout_alignStart="@+id/filtrar_checkBox_Auto"
+            android:layout_below="@+id/filtrar_checkBox_Depor" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Moda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moda"
+            android:textSize="13dp"
+            android:layout_below="@+id/filtrar_checkBox_Gastro" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Musical"
+            android:textSize="13dp"
+            android:layout_alignStart="@+id/filtrar_checkBox_Auto"
+            android:layout_below="@+id/filtrar_checkBox_Liter" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Poli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Político"
+            android:textSize="13dp"
+            android:layout_below="@+id/filtrar_checkBox_Moda" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Teatral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teatral"
+            android:textSize="13dp"
+            android:layout_alignStart="@+id/filtrar_checkBox_Auto"
+            android:layout_below="@+id/filtrar_checkBox_Music" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Tecno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tecnológico y \n científico"
+            android:textSize="13dp"
+            android:paddingTop="5dp"
+            android:layout_below="@+id/filtrar_checkBox_Poli" />
+
+        <CheckBox
+            android:id="@+id/filtrar_checkBox_Otros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Otros"
+            android:textSize="13dp"
+            android:layout_alignStart="@+id/filtrar_checkBox_Auto"
+            android:layout_below="@+id/filtrar_checkBox_Teatral" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_ciudad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ciudad"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/filtrar_checkBox_Tecno" />
+
+        <EditText
+            android:id="@+id/filtrar_et_ciudad"
+            android:inputType="textNoSuggestions"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:colorControlActivated="@android:color/black"
+            android:layout_below="@+id/filtrar_tv_ciudad"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_fechaIni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha inicial"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/filtrar_et_ciudad" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_fechaFi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha final"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/filtrar_et_ciudad" />
+
+        <TextView
+            android:id="@+id/filtrar_fechaIni_text"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/filtrar_tv_fechaIni"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/filtrar_fechaFi_text"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/filtrar_tv_fechaFi"
+            android:layout_alignStart="@+id/filtrar_tv_fechaFi"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_horaIni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora inicial"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/filtrar_fechaIni_text" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_horaFi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora final"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_alignStart="@+id/filtrar_tv_fechaFi"
+            android:layout_below="@+id/filtrar_fechaFi_text" />
+
+        <TextView
+            android:id="@+id/filtrar_horaIni_text"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/filtrar_tv_horaIni"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/filtrar_horaFi_text"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/filtrar_tv_horaFi"
+            android:layout_alignStart="@+id/filtrar_tv_horaFi"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_precioMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio mínimo"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/filtrar_horaIni_text" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_precioMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio máximo"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_alignStart="@+id/filtrar_tv_fechaFi"
+            android:layout_below="@+id/filtrar_horaFi_text" />
+
+        <EditText
+            android:id="@+id/filtrar_et_precioMin"
+            android:maxLength="4"
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:colorControlActivated="@android:color/black"
+            android:layout_below="@+id/filtrar_tv_precioMin"
+            android:layout_alignParentStart="true"
+            android:textColor="#000000"
+            android:layout_alignEnd="@+id/filtrar_tv_precioMin" />
+
+        <EditText
+            android:id="@+id/filtrar_et_precioMax"
+            android:maxLength="4"
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:colorControlActivated="@android:color/black"
+            android:layout_below="@+id/filtrar_tv_precioMax"
+            android:textColor="#000000"
+            android:layout_alignStart="@+id/filtrar_tv_precioMax"
+            android:layout_alignEnd="@+id/filtrar_tv_precioMax" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_filtrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FILTRAR"
+            android:textColor="#007D71"
+            android:textSize="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/filtrar_et_precioMin" />
+
+        <TextView
+            android:id="@+id/filtrar_tv_cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCELAR"
+            android:textColor="#007D71"
+            android:textSize="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignEnd="@+id/filtrar_et_precioMax"
+            android:layout_below="@+id/filtrar_et_precioMax" />
+
+    </RelativeLayout>
+
+</ScrollView>
