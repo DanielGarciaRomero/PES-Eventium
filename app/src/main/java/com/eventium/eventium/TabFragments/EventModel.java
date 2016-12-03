@@ -14,7 +14,7 @@ public class EventModel {
     String precio;
     String id;
 
-    EventModel(Bitmap imagen, String titulo, String ciudad, String fechas, String horas, String precio, String id) {
+    public EventModel(Bitmap imagen, String titulo, String ciudad, String fechas, String horas, String precio, String id) {
         this.imagen = imagen;
         this.titulo = titulo;
         this.ciudad = ciudad;

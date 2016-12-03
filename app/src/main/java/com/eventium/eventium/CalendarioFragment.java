@@ -1,12 +1,15 @@
 package com.eventium.eventium;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,7 +47,7 @@ public class CalendarioFragment extends Fragment {
     private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMMM - yyyy", Locale.getDefault());
     Integer idUsuario;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_calendario, container, false);
 
@@ -55,7 +58,7 @@ public class CalendarioFragment extends Fragment {
             calendar = (CompactCalendarView) view.findViewById(R.id.compactcalendar_view);
             calendar.setUseThreeLetterAbbreviation(true);
 
-            Date date = new Date();
+            final Date date = new Date();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             df.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
             //System.out.println("HOLA" + date.getTime());
@@ -120,28 +123,39 @@ public class CalendarioFragment extends Fragment {
                 }
             }
 
-            //He indicado que asistire a 3 eventos con fechas iniciales tal
-            /*SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-            String fecha1 = "2016/11/12";
-            fecha1 = fecha1.substring(0,4) + "-" + fecha1.substring(5,7) + "-" + fecha1.substring(8,10);
-            Date date1 = df2.parse(fecha1);
-            System.out.println(df2.format(date1));
-            System.out.println(date1.getTime());
-            Event ev1 = new Event(Color.rgb(95, 189, 136), date1.getTime(), "HOLA");
-            calendar.addEvent(ev1);*/
-
             calendar.setListener(new CompactCalendarView.CompactCalendarViewListener() {
                 @Override
                 public void onDayClick(Date dateClicked) {
+                    Boolean trobat = false;
                     Context context = NavigationDrawerActivity.contexto;
 
+                    String año = dateClicked.toString().substring(24,28);
+                    String mes = dateClicked.toString().substring(4,7);
+                    String dia = dateClicked.toString().substring(8,10);
+                    if (mes.equals("Jan")) mes = "01";
+                    else if (mes.equals("Feb")) mes = "02";
+                    else if (mes.equals("Mar")) mes = "03";
+                    else if (mes.equals("Apr")) mes = "04";
+                    else if (mes.equals("May")) mes = "05";
+                    else if (mes.equals("Jun")) mes = "06";
+                    else if (mes.equals("Jul")) mes = "07";
+                    else if (mes.equals("Aug")) mes = "08";
+                    else if (mes.equals("Sep")) mes = "09";
+                    else if (mes.equals("Oct")) mes = "10";
+                    else if (mes.equals("Nov")) mes = "11";
+                    else if (mes.equals("Dec")) mes = "12";
+                    String fecha = año + "/" + mes + "/" + dia;
 
+                    for (int i = 0; i < eventos.size(); ++i){
+                        if (eventos.get(i).getFecha_ini().equals(fecha)){
+                            Toast.makeText(context, "Hay un evento", Toast.LENGTH_SHORT).show();
+                            trobat = true;
 
-                    if (dateClicked.toString().compareTo("Fri Oct 21 00:00:00 EDT 2016") == 0) {
-                        Toast.makeText(context, "HOLA", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "No Events Planned por this day", Toast.LENGTH_SHORT).show();
+                            MyDialogFragment dialogFragment = new MyDialogFragment ();
+                            dialogFragment.show(getActivity().getFragmentManager(), "hola");
+                        }
                     }
+                    if (!trobat) Toast.makeText(context, "No hay evento", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
