@@ -8,6 +8,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.util.EventLog;
@@ -146,16 +148,21 @@ public class CalendarioFragment extends Fragment {
                     else if (mes.equals("Dec")) mes = "12";
                     String fecha = año + "/" + mes + "/" + dia;
 
+                    ArrayList<Evento> eventosdeldia;
+                    eventosdeldia = new ArrayList<Evento>();
                     for (int i = 0; i < eventos.size(); ++i){
                         if (eventos.get(i).getFecha_ini().equals(fecha)){
                             Toast.makeText(context, "Hay un evento", Toast.LENGTH_SHORT).show();
                             trobat = true;
-
-                            MyDialogFragment dialogFragment = new MyDialogFragment ();
-                            dialogFragment.show(getActivity().getFragmentManager(), "hola");
+                            eventosdeldia.add(eventos.get(i));
                         }
                     }
-                    if (!trobat) Toast.makeText(context, "No hay evento", Toast.LENGTH_SHORT).show();
+                    if (trobat){
+                        NavigationDrawerActivity.events = eventosdeldia;
+                        MyDialogFragment dialogFragment = new MyDialogFragment ();
+                        dialogFragment.show(getActivity().getFragmentManager(), "hola");
+                    }
+                    else Toast.makeText(context, "No hay evento", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

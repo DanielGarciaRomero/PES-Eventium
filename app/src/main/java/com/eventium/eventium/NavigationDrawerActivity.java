@@ -25,6 +25,7 @@ import android.widget.Toast;
 import android.content.Context;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -36,6 +37,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
     public static Bitmap userimage;
     public static String usersaldo;
+
+    public static ArrayList<Evento> events;
 
     TextView nav_usersaldo;
     ImageView nav_userimage;
