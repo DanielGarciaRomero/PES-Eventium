@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -44,7 +45,45 @@ public class MostrarEventoFragment extends Fragment {
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
         //aqui irá el mapa//
+
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
+        asistir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //Obtengo el username con el token
+                HTTPMethods httpMethods1 = new HTTPMethods(4);
+                httpMethods1.setToken_user(NavigationDrawerActivity.token);
+                httpMethods1.ejecutarHttpAsyncTask();
+                while (!httpMethods1.getFinished());
+                String username = httpMethods1.getResultado();
+                username = username.substring(14, username.length() - 2);
+
+                //Obtengo el usuario con el username
+                HTTPMethods httpMethods2 = new HTTPMethods(1);
+                httpMethods2.setUsername(username);
+                httpMethods2.ejecutarHttpAsyncTask();
+                while (!httpMethods2.getFinished());
+                Usuario user = httpMethods2.getUser();
+
+                Integer idUsuario = Integer.parseInt(user.getId());
+
+                if (isChecked) {
+                    HTTPMethods httpMethods3 = new HTTPMethods(13);
+                    httpMethods3.setToken_user(NavigationDrawerActivity.token);
+                    httpMethods3.setUser_id(idUsuario);
+                    httpMethods3.setEvent_id(eventID);
+                    httpMethods3.ejecutarHttpAsyncTask();
+                    while (!httpMethods3.getFinished());
+                } else {
+                    HTTPMethods httpMethods3 = new HTTPMethods(20);
+                    httpMethods3.setToken_user(NavigationDrawerActivity.token);
+                    httpMethods3.setUser_id(idUsuario);
+                    httpMethods3.setEvent_id(eventID);
+                    httpMethods3.ejecutarHttpAsyncTask();
+                    while (!httpMethods3.getFinished());
+                }
+            }
+        });
+
         final TextView asistentes = (TextView) view.findViewById(R.id.asistentesEvento);
         //aqui irán las opiniones//
         final TextView patrocinadores = (TextView) view.findViewById(R.id.patrocinadoresEvento);

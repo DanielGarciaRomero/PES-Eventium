@@ -8,6 +8,7 @@ import android.widget.Toast;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -77,9 +78,11 @@ public class HTTPMethods {
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
+        else if (peticion_id == 13) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //post de calendar - asistire
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
         else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de la imagen de user
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
+        else if (peticion_id == 20) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar/" + event_id); //post de calendar - asistire
     }
 
     public void setCardNumber(String cNumber){CardNumber = cNumber;}
@@ -289,6 +292,12 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("password", password));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
+            else if (peticion_id == 13){
+                httpPost.setHeader("token", token_user);
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("eventId", event_id));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
             httpResponse = httpclient.execute(httpPost);
             code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
@@ -355,6 +364,46 @@ public class HTTPMethods {
         return result;
     }
 
+    public static String DELETE(String url){
+        InputStream inputStream = null;
+        String result = "";
+        try{
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpResponse httpResponse;
+            HttpDelete httpDelete = new HttpDelete(url);
+            if (peticion_id == 20){
+                httpDelete.setHeader("token", token_user);
+            }
+            httpResponse = httpclient.execute(httpDelete);
+            code = httpResponse.getStatusLine().toString();
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+            resultado_json = inputStream;
+            // convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+        }
+        catch (Exception e) {
+            Log.d("post", e.getLocalizedMessage());
+        }
+        finished = true;
+        resultado = result;
+
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
@@ -371,7 +420,8 @@ public class HTTPMethods {
         protected String doInBackground(String... urls) {
             if (peticion_id < 10) return GET(urls[0]);
             else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
-            else return PUT(urls[0]);
+            else if (peticion_id >= 15 && peticion_id < 20) return PUT(urls[0]);
+            else return DELETE(urls[0]);
         }
 
         // onPostExecute displays the results of the AsyncTask.
