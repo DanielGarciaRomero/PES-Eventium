@@ -110,7 +110,7 @@ public class CrearEventoFragment extends Fragment {
                                 if (horaIni.length() != 5 || horaFi.length() != 5 || horaIni.charAt(2) != ':' || horaFi.charAt(2) != ':')
                                     Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
                                 else {
-                                    if (!horasValidas(horaIni, horaFi)) {
+                                    if (!horasValidas(horaIni, horaFi, dataIni, dataFi)) {
                                         Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
                                     }
                                     else {
@@ -174,15 +174,7 @@ public class CrearEventoFragment extends Fragment {
             s = anyFi + "-" + mesFi + "-" + diaFi;
             Date date2 = sdf.parse(s);
             Date currentDate = new Date();
-            currentDate = sdf.parse(sdf.format(currentDate)); // para que no tenga en cuenta la
-                                                              // diferencia de los getTime
-                                                              // sin esto, si pongo 23/11/2016 en el
-                                                              // emulador, dice que es before y devuelve false
-            //System.out.println(sdf.format(currentDate)); 2016-11-23
-            //System.out.println(sdf.format(date1)); 2016-11-23
-            //System.out.println(date1.getTime()); 1479877200000
-            //System.out.println(currentDate.getTime()); 1479877200000
-            //if (date1.compareTo(currentDate) < 0 || date1.compareTo(date2) > 0) return false;
+            currentDate = sdf.parse(sdf.format(currentDate));
             if (date1.before(currentDate) || date1.after(date2)) return false;
             return true;
         }
@@ -191,7 +183,7 @@ public class CrearEventoFragment extends Fragment {
         }
     }
 
-    public boolean horasValidas(String horaIni, String horaFi) throws ParseException, hoursException
+    public boolean horasValidas(String horaIni, String horaFi, String dataIni, String dataFi) throws ParseException, hoursException
     {
         try {
             String s = horaIni.substring(0, 2); int hIni = Integer.parseInt(s);
@@ -201,9 +193,11 @@ public class CrearEventoFragment extends Fragment {
             if (hIni < 0 || hFi < 0 || hIni > 23 || hFi > 23 || minIni < 0 || minFi < 0 || minIni > 59 || minFi > 59)
                 return false;
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Date date1 = sdf.parse(horaIni);
-            Date date2 = sdf.parse(horaFi);
-            if (date1.compareTo(date2) > 0) return false;
+            Date hora1 = sdf.parse(horaIni);
+            Date hora2 = sdf.parse(horaFi);
+            if (dataIni.equals(dataFi)) {
+                if (hora1.compareTo(hora2) > 0) return false;
+            }
             return true;
         }
         catch(NumberFormatException e){

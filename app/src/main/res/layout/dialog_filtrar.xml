@@ -169,6 +169,9 @@
             android:textSize="16dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="35dp"
+
+            android:layout_alignStart="@+id/filtrar_checkBox_Otros"
+
             android:layout_marginTop="20dp"
             android:layout_below="@+id/filtrar_et_ciudad" />
 
@@ -305,7 +308,7 @@
             android:textColor="#007D71"
             android:textSize="16dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="25dp"
             android:layout_alignEnd="@+id/filtrar_et_precioMax"
             android:layout_below="@+id/filtrar_et_precioMax" />
 

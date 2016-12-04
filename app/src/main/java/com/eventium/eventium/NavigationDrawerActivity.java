@@ -1,7 +1,6 @@
 package com.eventium.eventium;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,8 +16,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,10 +25,14 @@ import android.content.Context;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
+import java.util.TimeZone;
 
-
-public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener
 {
     public static String PACKAGE_NAME;
     public static Context contexto;
@@ -52,6 +55,12 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     TextView textHoraFi;
     TextView textFiltrar;
     TextView textCancelar;
+    int seletedPicker; // 0 -> fechaIni, 1 -> fechaFi, 2-> horaIni, 3-> horaFi
+    String fechaIni, fechaFi, horaIni, horaFi;
+    CheckBox checkbox;
+    EditText etciudad, etprecioMin, etprecioMax;
+    String categoriasMarcadas, ciudad, precioMin, precioMax;
+    View viewFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +119,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         nav_usersaldo = (TextView) hView.findViewById(R.id.textViewNaviDrawer3);
         nav_usersaldo.setText("Saldo : " + user.getSaldo() +  " €");
         nav_userimage = (ImageView) hView.findViewById(R.id.imageViewNaviDrawer);
-        //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.raw.zuckerberg);
         String nav_userpic = user.getPic();
         byte[] decodedImage = Base64.decode(nav_userpic, Base64.DEFAULT);
         Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
@@ -176,8 +184,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             */
             Toast.makeText(getBaseContext(), "Has clicado en Ajustes", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_logout) {
-            //fragment = new GaleriaFragment();
-            //FragmentTransaction = true;
             MainActivity.token = null;
             RegistroActivity.token = null;
             NavigationDrawerActivity.this.startActivity(new Intent(NavigationDrawerActivity.this, MainActivity.class));
@@ -199,57 +205,196 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         return true;
     }
 
-    public void createLoginDialogo() {
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        //Toast.makeText(this, "Dia seleccionado: " + dayOfMonth + "/" + (monthOfYear+1) + "/" + year, Toast.LENGTH_SHORT).show();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        cal.set(Calendar.MONTH, monthOfYear);
+        String s = new SimpleDateFormat("E d MMM yyyy").format(cal.getTime());
+        if (seletedPicker == 0) {
+            textFechaIni.setText(s);
+            fechaIni = year + "/" + (monthOfYear+1) + "/" + dayOfMonth;
+        }
+        else if (seletedPicker == 1) {
+            textFechaFi.setText(s);
+            fechaFi = year + "/" + (monthOfYear+1) + "/" + dayOfMonth;
+        }
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+        //Toast.makeText(this, "Hora seleccionada: " + hourOfDay + ":" + minute, Toast.LENGTH_SHORT).show();
+        if (seletedPicker == 2) {
+            if (hourOfDay < 10) horaIni = "0" + hourOfDay + ":";
+            else horaIni = hourOfDay + ":";
+            if (minute < 10) horaIni += "0" + minute;
+            else horaIni += minute;
+            textHoraIni.setText(horaIni);
+        }
+        else if (seletedPicker == 3) {
+            if (hourOfDay < 10) horaFi = "0" + hourOfDay + ":";
+            else horaFi = hourOfDay + ":";
+            if (minute < 10) horaFi += "0" + minute;
+            else horaFi += minute;
+            textHoraFi.setText(horaFi);
+        }
+    }
+
+    public void createFilterDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_filtrar, null);
-        builder.setView(v);
+        viewFilter = inflater.inflate(R.layout.dialog_filtrar, null);
+        builder.setView(viewFilter);
         final AlertDialog dialog = builder.create();
 
-        textFechaIni = (TextView) v.findViewById(R.id.filtrar_fechaIni_text);
-        textFechaFi = (TextView) v.findViewById(R.id.filtrar_fechaFi_text);
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("E MMM d yyyy");
-        textFechaIni.setText(format.format(c.getTime()));
-        textFechaFi.setText(format.format(c.getTime()));
-
-        textHoraIni = (TextView) v.findViewById(R.id.filtrar_horaIni_text);
-        textHoraFi = (TextView) v.findViewById(R.id.filtrar_horaFi_text);
-        format = new SimpleDateFormat("HH:mm a");
-        textHoraIni.setText(format.format(c.getTime()));
-        textHoraFi.setText(format.format(c.getTime()));
+        textFechaIni = (TextView) viewFilter.findViewById(R.id.filtrar_fechaIni_text);
+        textFechaFi = (TextView) viewFilter.findViewById(R.id.filtrar_fechaFi_text);
+        fechaIni = "dd/mm/aaaa";
+        fechaFi = "dd/mm/aaaa";
+        textFechaIni.setText(fechaIni);
+        textFechaFi.setText(fechaFi);
 
         textFechaIni.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /*
-                        NO FUNCIONA DE MOMENTO
-                        final Calendar c = Calendar.getInstance();
-                        DatePickerDialog dpd = new DatePickerDialog(getBaseContext(),
-                                new DatePickerDialog.OnDateSetListener() {
-
-                                    @Override
-                                    public void onDateSet(DatePicker view, int year,
-                                                          int monthOfYear, int dayOfMonth) {
-                                        textFecha.setText(dayOfMonth + "-"
-                                                + (monthOfYear + 1) + "-" + year);
-
-                                    }
-                                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
-                        dpd.show();
-                        */
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+                        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                                NavigationDrawerActivity.this,
+                                c.get(Calendar.YEAR),
+                                c.get(Calendar.MONTH),
+                                c.get(Calendar.DAY_OF_MONTH)
+                        );
+                        seletedPicker = 0;
+                        dpd.show(getFragmentManager(), "DatePickerDialog");
                     }
                 }
         );
 
-        textFiltrar = (TextView) v.findViewById(R.id.filtrar_tv_filtrar);
-        textCancelar = (TextView) v.findViewById(R.id.filtrar_tv_cancelar);
+        textFechaFi.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+                        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                                NavigationDrawerActivity.this,
+                                c.get(Calendar.YEAR),
+                                c.get(Calendar.MONTH),
+                                c.get(Calendar.DAY_OF_MONTH)
+                        );
+                        seletedPicker = 1;
+                        dpd.show(getFragmentManager(), "DatePickerDialog");
+                    }
+                }
+        );
+
+        textHoraIni = (TextView) viewFilter.findViewById(R.id.filtrar_horaIni_text);
+        textHoraFi = (TextView) viewFilter.findViewById(R.id.filtrar_horaFi_text);
+        horaIni = "hh:mm";
+        horaFi = "hh:mm";
+        textHoraIni.setText(horaIni);
+        textHoraFi.setText(horaFi);
+
+        textHoraIni.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+                        TimePickerDialog dpd = TimePickerDialog.newInstance(
+                                NavigationDrawerActivity.this,
+                                c.get(Calendar.HOUR),
+                                c.get(Calendar.MINUTE),
+                                true);
+                        seletedPicker = 2;
+                        dpd.show(getFragmentManager(), "Timepickerdialog");
+                    }
+                }
+        );
+
+        textHoraFi.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance( TimeZone.getTimeZone("Europe/Madrid") );
+                        TimePickerDialog dpd = TimePickerDialog.newInstance(
+                                NavigationDrawerActivity.this,
+                                c.get(Calendar.HOUR),
+                                c.get(Calendar.MINUTE),
+                                true);
+                        seletedPicker = 3;
+                        dpd.show(getFragmentManager(), "Timepickerdialog");
+                    }
+                }
+        );
+
+        textFiltrar = (TextView) viewFilter.findViewById(R.id.filtrar_tv_filtrar);
+        textCancelar = (TextView) viewFilter.findViewById(R.id.filtrar_tv_cancelar);
         textFiltrar.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // ...
+                        // Hacer la peticion y decirle al tab de TODOS (TabThreeFragment) que muestre los eventos
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Art);
+                        categoriasMarcadas = "";
+                        if (checkbox.isChecked()) categoriasMarcadas = "0,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Auto);
+                        if (checkbox.isChecked()) categoriasMarcadas += "1,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Cine);
+                        if (checkbox.isChecked()) categoriasMarcadas += "2,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Depor);
+                        if (checkbox.isChecked()) categoriasMarcadas += "3,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Gastro);
+                        if (checkbox.isChecked()) categoriasMarcadas += "4,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Liter);
+                        if (checkbox.isChecked()) categoriasMarcadas += "5,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Moda);
+                        if (checkbox.isChecked()) categoriasMarcadas += "6,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Music);
+                        if (checkbox.isChecked()) categoriasMarcadas += "7,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Otros);
+                        if (checkbox.isChecked()) categoriasMarcadas += "8,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Poli);
+                        if (checkbox.isChecked()) categoriasMarcadas += "9,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Teatral);
+                        if (checkbox.isChecked()) categoriasMarcadas += "10,";
+                        checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Tecno);
+                        if (checkbox.isChecked()) categoriasMarcadas += "11";
+                        int length = categoriasMarcadas.length();
+                        if (length > 0) {
+                            char c = categoriasMarcadas.charAt(length-1);
+                            if (c == ',') categoriasMarcadas = categoriasMarcadas.substring(0,length-1);
+                            System.out.println("Enviar categoriasMarcadas = " + categoriasMarcadas);
+                        }
+                        else System.out.println("No enviar categoriasMarcadas");
+
+                        etciudad = (EditText) viewFilter.findViewById(R.id.filtrar_et_ciudad);
+                        ciudad = etciudad.getText().toString();
+                        etprecioMin = (EditText) viewFilter.findViewById(R.id.filtrar_et_precioMin);
+                        precioMin = etprecioMin.getText().toString();
+                        etprecioMax = (EditText) viewFilter.findViewById(R.id.filtrar_et_precioMax);
+                        precioMax = etprecioMax.getText().toString();
+
+                        if (ciudad.equals("")) System.out.println("No enviar ciudad");
+                        else System.out.println("Enviar ciudad = " + ciudad);
+                        if (precioMin.equals("")) System.out.println("No enviar precioMin");
+                        else System.out.println("Enviar precioMin = " + precioMin);
+                        if (precioMax.equals("")) System.out.println("No enviar precioMax");
+                        else System.out.println("Enviar precioMax = " + precioMax);
+                        if (fechaIni.equals("dd/mm/aaaa")) System.out.println("No enviar fechaIni");
+                        else System.out.println("Enviar fechaIni = " + fechaIni);
+                        if (fechaFi.equals("dd/mm/aaaa")) System.out.println("No enviar fechaFi");
+                        else System.out.println("Enviar fechaFi = " + fechaFi);
+                        if (horaIni.equals("hh:mm")) System.out.println("No enviar horaIni");
+                        else System.out.println("Enviar horaIni = " + horaIni);
+                        if (horaFi.equals("hh:mm")) System.out.println("No enviar horaFi");
+                        else System.out.println("Enviar horaFi = " + horaFi);
+
                         dialog.dismiss();
                     }
                 }
@@ -258,36 +403,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // ...
                         dialog.dismiss();
                     }
                 }
         );
-
-        /*
-        Button filtrar = (Button) v.findViewById(R.id.filtrar_filtrar);
-        Button cancelar = (Button) v.findViewById(R.id.filtrar_cancelar);
-
-        filtrar.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // ...
-                        dialog.dismiss();
-                    }
-                }
-        );
-
-        cancelar.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // ...
-                        dialog.dismiss();
-                    }
-                }
-        );
-        */
 
         dialog.show();
     }
@@ -296,9 +415,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_filter) {
             //Toast.makeText(getBaseContext(), "Has clicado en filtrar eventos", Toast.LENGTH_LONG).show();
-
-            createLoginDialogo();
-
+            createFilterDialog();
         }
         if (item.getItemId() == R.id.action_filter2) {
             Toast.makeText(getBaseContext(), "Has clicado en filtrar usuarios", Toast.LENGTH_LONG).show();
