@@ -56,6 +56,7 @@ public class HTTPMethods {
     public static String CardNumber;
     public static String cvc;
     public static String money;
+    public static String direccionFiltraje;
 
     public HTTPMethods(Integer id){
         finished = false;
@@ -75,6 +76,7 @@ public class HTTPMethods {
         else if (peticion_id == 6) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //get follows de un user
         else if (peticion_id == 7) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //get de un evento
         else if (peticion_id == 8) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //get calendario de un user
+        else if (peticion_id == 9) new HttpAsyncTask().execute(direccionFiltraje);
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
@@ -84,6 +86,8 @@ public class HTTPMethods {
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
         else if (peticion_id == 20) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar/" + event_id); //post de calendar - asistire
     }
+
+    public void setDireccionFiltraje(String direccion){direccionFiltraje = direccion;}
 
     public void setCardNumber(String cNumber){CardNumber = cNumber;}
 

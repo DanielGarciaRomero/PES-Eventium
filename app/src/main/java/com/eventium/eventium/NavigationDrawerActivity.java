@@ -340,6 +340,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                     @Override
                     public void onClick(View v) {
                         // Hacer la peticion y decirle al tab de TODOS (TabThreeFragment) que muestre los eventos
+                        String direccionFiltraje = "http://10.4.41.168:5000/events?";
+                        boolean first = true;
+
                         checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Art);
                         categoriasMarcadas = "";
                         if (checkbox.isChecked()) categoriasMarcadas = "0,";
@@ -367,11 +370,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                         if (checkbox.isChecked()) categoriasMarcadas += "11";
                         int length = categoriasMarcadas.length();
                         if (length > 0) {
-                            char c = categoriasMarcadas.charAt(length-1);
-                            if (c == ',') categoriasMarcadas = categoriasMarcadas.substring(0,length-1);
-                            System.out.println("Enviar categoriasMarcadas = " + categoriasMarcadas);
+                            char c = categoriasMarcadas.charAt(length - 1);
+                            if (c == ',')
+                                categoriasMarcadas = categoriasMarcadas.substring(0, length - 1);
+                            if (first) {
+                                direccionFiltraje += "categoria=" + categoriasMarcadas;
+                                first = false;
+                            } else direccionFiltraje += "&categoria=" + categoriasMarcadas;
                         }
-                        else System.out.println("No enviar categoriasMarcadas");
 
                         etciudad = (EditText) viewFilter.findViewById(R.id.filtrar_et_ciudad);
                         ciudad = etciudad.getText().toString();
@@ -380,20 +386,64 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                         etprecioMax = (EditText) viewFilter.findViewById(R.id.filtrar_et_precioMax);
                         precioMax = etprecioMax.getText().toString();
 
-                        if (ciudad.equals("")) System.out.println("No enviar ciudad");
-                        else System.out.println("Enviar ciudad = " + ciudad);
-                        if (precioMin.equals("")) System.out.println("No enviar precioMin");
-                        else System.out.println("Enviar precioMin = " + precioMin);
-                        if (precioMax.equals("")) System.out.println("No enviar precioMax");
-                        else System.out.println("Enviar precioMax = " + precioMax);
-                        if (fechaIni.equals("dd/mm/aaaa")) System.out.println("No enviar fechaIni");
-                        else System.out.println("Enviar fechaIni = " + fechaIni);
-                        if (fechaFi.equals("dd/mm/aaaa")) System.out.println("No enviar fechaFi");
-                        else System.out.println("Enviar fechaFi = " + fechaFi);
-                        if (horaIni.equals("hh:mm")) System.out.println("No enviar horaIni");
-                        else System.out.println("Enviar horaIni = " + horaIni);
-                        if (horaFi.equals("hh:mm")) System.out.println("No enviar horaFi");
-                        else System.out.println("Enviar horaFi = " + horaFi);
+                        if (!ciudad.equals("")) {
+                            if (first) {
+                                direccionFiltraje += "ciudad=" + ciudad;
+                                first = false;
+                            } else direccionFiltraje += "&ciudad=" + ciudad;
+                        }
+
+                        if (!precioMin.equals("")) {
+                            if (first) {
+                                direccionFiltraje += "precioMin=" + precioMin;
+                                first = false;
+                            } else direccionFiltraje += "&precioMin=" + precioMin;
+                        }
+
+                        if (!precioMax.equals("")){
+                            if (first) {
+                                direccionFiltraje += "precioMax=" + precioMax;
+                                first = false;
+                            } else direccionFiltraje += "&precioMax=" + precioMax;
+                        }
+
+                        if (!fechaIni.equals("dd/mm/aaaa")){
+                            if (first) {
+                                direccionFiltraje += "fecha_ini=" + fechaIni;
+                                first = false;
+                            } else direccionFiltraje += "&fecha_ini=" + fechaIni;
+                        }
+
+                        if (!fechaFi.equals("dd/mm/aaaa")) {
+                            if (first) {
+                                direccionFiltraje += "fecha_fin=" + fechaFi;
+                                first = false;
+                            } else direccionFiltraje += "&fecha_fin=" + fechaFi;
+                        }
+
+                        if (!horaIni.equals("hh:mm")) {
+                            if (first) {
+                                direccionFiltraje += "hora_ini=" + horaIni;
+                                first = false;
+                            } else direccionFiltraje += "&hora_ini=" + horaIni;
+                        }
+
+                        if (!horaFi.equals("hh:mm")){
+                            if (first) {
+                                direccionFiltraje += "hora_fin=" + horaFi;
+                                first = false;
+                            } else direccionFiltraje += "&hora_fin=" + horaFi;
+                        }
+
+                        System.out.println(direccionFiltraje);
+
+                        HTTPMethods httpMethods = new HTTPMethods(9);
+                        httpMethods.setDireccionFiltraje(direccionFiltraje);
+                        httpMethods.ejecutarHttpAsyncTask();
+                        while (!httpMethods.getFinished());
+                        String resultado = httpMethods.getResultado();
+
+                        System.out.println(resultado);
 
                         dialog.dismiss();
                     }
