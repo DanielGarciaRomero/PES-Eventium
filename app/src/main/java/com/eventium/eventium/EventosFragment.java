@@ -17,8 +17,8 @@ import com.eventium.eventium.TabFragments.TabThreeFragment;
 public class EventosFragment extends Fragment {
 
     private Toolbar mytoolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public static TabLayout tabLayout;
+    public static ViewPager viewPager;
 
     public EventosFragment() {
         // Required empty public constructor
@@ -32,6 +32,29 @@ public class EventosFragment extends Fragment {
             viewPager = (ViewPager) view.findViewById(R.id.viewpager);
             poblarViewPager(viewPager);
             tabLayout.setupWithViewPager(viewPager);
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    //System.out.println("TabSelected = " + tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    //System.out.println("TabUnselected = " + tab.getPosition());
+                    if (NavigationDrawerActivity.filtrar && tab.getPosition() == 2) {
+                        NavigationDrawerActivity.filtrar = false;
+                        TabThreeFragment frag3 = (TabThreeFragment) viewPager.getAdapter().instantiateItem(viewPager, 2);
+                        frag3.mostrarEventosTodos();
+                    }
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                    //System.out.println("TabReselected = " + tab.getPosition());
+                }
+            });
+
+
         }
         return view;
     }

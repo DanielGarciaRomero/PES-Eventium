@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.content.Context;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.eventium.eventium.TabFragments.TabThreeFragment;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
@@ -37,6 +39,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     public static String PACKAGE_NAME;
     public static Context contexto;
     public static String token;
+    public static Boolean filtrar;
+    public static String direccionFiltraje;
 
     public static Bitmap userimage;
     public static String usersaldo;
@@ -71,6 +75,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
         change_image = false;
         change_saldo = false;
+        filtrar = false;
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
         contexto = getBaseContext();
@@ -339,8 +344,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Hacer la peticion y decirle al tab de TODOS (TabThreeFragment) que muestre los eventos
-                        String direccionFiltraje = "http://10.4.41.168:5000/events?";
+                        filtrar = true;
+
+                        direccionFiltraje = "http://10.4.41.168:5000/events?";
                         boolean first = true;
 
                         checkbox = (CheckBox) viewFilter.findViewById(R.id.filtrar_checkBox_Art);
@@ -435,18 +441,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                             } else direccionFiltraje += "&hora_fin=" + horaFi;
                         }
 
-                        System.out.println(direccionFiltraje);
-
-                        HTTPMethods httpMethods = new HTTPMethods(9);
-                        httpMethods.setDireccionFiltraje(direccionFiltraje);
-                        httpMethods.ejecutarHttpAsyncTask();
-                        while (!httpMethods.getFinished());
-                        String resultado = httpMethods.getResultado();
-
-                        System.out.println(resultado);
-
                         dialog.dismiss();
+
+                        EventosFragment.tabLayout.getTabAt(2).select();
+                        ViewPager vp = EventosFragment.viewPager;
+                        TabThreeFragment frag3 = (TabThreeFragment) vp.getAdapter().instantiateItem(vp, 2);
+                        frag3.mostrarEventosFiltrados();
                     }
+
                 }
         );
         textCancelar.setOnClickListener(
@@ -464,7 +466,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_filter) {
-            //Toast.makeText(getBaseContext(), "Has clicado en filtrar eventos", Toast.LENGTH_LONG).show();
             createFilterDialog();
         }
         if (item.getItemId() == R.id.action_filter2) {

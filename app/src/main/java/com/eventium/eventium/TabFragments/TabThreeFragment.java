@@ -1,9 +1,7 @@
 package com.eventium.eventium.TabFragments;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,13 +21,11 @@ import android.widget.Toast;
 
 import com.eventium.eventium.Evento;
 import com.eventium.eventium.HTTPMethods;
-import com.eventium.eventium.MainActivity;
 import com.eventium.eventium.MostrarEventoFragment;
 import com.eventium.eventium.NavigationDrawerActivity;
 
 import com.eventium.eventium.R;
 import com.eventium.eventium.RecyclerItemClickListener;
-import com.eventium.eventium.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +53,56 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         }
     }
 
+    public void mostrarEventosFiltrados()
+    {
+        //System.out.println("Entro en mostrarEventosFiltrados");
+        String direccionFiltraje = NavigationDrawerActivity.direccionFiltraje;
+        HTTPMethods httpMethods = new HTTPMethods(9);
+        httpMethods.setDireccionFiltraje(direccionFiltraje);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        //System.out.println(httpMethods.getResultado());
+        List<Evento> list_events = httpMethods.getEvents();
+        ArrayList<Evento> eventosFiltrados = new ArrayList<Evento>();
+        if (list_events != null) {
+            for (int i = 0; i < list_events.size(); ++i) {
+                eventosFiltrados.add(list_events.get(i));
+            }
+        }
+        mEventModel = new ArrayList<>();
+        for (int i = 0; i < eventosFiltrados.size(); ++i) {
+            String fechas = eventosFiltrados.get(i).getFecha_ini() + " - " + eventosFiltrados.get(i).getFecha_fin();
+            String horas = eventosFiltrados.get(i).getHora_ini() + " - " + eventosFiltrados.get(i).getHora_fin();
+            String precio = eventosFiltrados.get(i).getPrecio() + " €";
+            String encodedImage = eventosFiltrados.get(i).getPic();
+            byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+            mEventModel.add(new EventModel(base64BitmapImage, eventosFiltrados.get(i).getTitle(), eventosFiltrados.get(i).getCiudad(), fechas, horas, precio, eventosFiltrados.get(i).getId()));
+        }
+        adapter = new RVAdapter(true);
+        adapter.setRVE(mEventModel);
+        recyclerview.setAdapter(adapter);
+    }
+
+    public void mostrarEventosTodos()
+    {
+        //System.out.println("Entro en mostrarEventosTodos");
+        mEventModel = new ArrayList<>();
+        for (int i = 0; i < eventos.size(); ++i) {
+            String fechas = eventos.get(i).getFecha_ini() + " - " + eventos.get(i).getFecha_fin();
+            String horas = eventos.get(i).getHora_ini() + " - " + eventos.get(i).getHora_fin();
+            String precio = eventos.get(i).getPrecio() + " €";
+            String encodedImage = eventos.get(i).getPic();
+            byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
+            Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+            mEventModel.add(new EventModel(base64BitmapImage, eventos.get(i).getTitle(), eventos.get(i).getCiudad(), fechas, horas, precio, eventos.get(i).getId()));
+        }
+
+        adapter = new RVAdapter(true);
+        adapter.setRVE(mEventModel);
+        recyclerview.setAdapter(adapter);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,11 +127,9 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
             String fechas = eventos.get(i).getFecha_ini() + " - " + eventos.get(i).getFecha_fin();
             String horas = eventos.get(i).getHora_ini() + " - " + eventos.get(i).getHora_fin();
             String precio = eventos.get(i).getPrecio() + " €";
-            //Uri geller = Uri.parse("android.resource://" + NavigationDrawerActivity.PACKAGE_NAME + "/" + R.raw.unavailable);
             String encodedImage = eventos.get(i).getPic();
             byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
             Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
-            //aqui cambios
             mEventModel.add(new EventModel(base64BitmapImage, eventos.get(i).getTitle(), eventos.get(i).getCiudad(), fechas, horas, precio, eventos.get(i).getId()));
         }
 

@@ -236,6 +236,9 @@ public class HTTPMethods {
             if (peticion_id == 1) readJsonStreamUsuario(inputStream);
             else if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
             else if (peticion_id == 3) readJsonStreamEventos(inputStream);
+
+            else if (peticion_id == 9) readJsonStreamEventos(inputStream);
+
             else if (peticion_id == 5) readJsonStreamCategorias(inputStream);
             else if (peticion_id == 7) readJsonStreamEvento(inputStream);
             else if (peticion_id == 8) readJsonStreamCalendario(inputStream);
@@ -398,15 +401,6 @@ public class HTTPMethods {
 
         return result;
     }
-
-
-
-
-
-
-
-
-
 
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
