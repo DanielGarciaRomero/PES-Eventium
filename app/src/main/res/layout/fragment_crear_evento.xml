@@ -15,7 +15,7 @@
         android:background="@color/colorFondo">
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/tv_crear_evento_titulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Título del evento"
@@ -25,20 +25,20 @@
             android:layout_alignParentStart="true" />
 
         <EditText
-            android:id="@+id/editText13"
+            android:id="@+id/crear_evento_titulo"
             android:inputType="textNoSuggestions"
             android:ellipsize="end"
             android:singleLine="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textView24"
+            android:layout_below="@+id/tv_crear_evento_titulo"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView25"
+            android:id="@+id/tv_crear_evento_categoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Categoría"
@@ -51,11 +51,10 @@
         <LinearLayout
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView25"
+            android:layout_below="@+id/tv_crear_evento_categoria"
             android:layout_marginTop="15dp"
             android:background="@drawable/selector_spinner"
             android:orientation="horizontal">
-
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="345dp"
@@ -83,7 +82,7 @@
             android:src="@drawable/arrow_dropdown" />
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/tv_crear_evento_foto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Foto principal"
@@ -100,12 +99,12 @@
             android:scaleType="fitXY"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_below="@+id/textView26"
+            android:layout_below="@+id/tv_crear_evento_foto"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp" />
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/tv_crear_evento_ciudad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ciudad"
@@ -116,7 +115,7 @@
             android:layout_alignParentStart="true" />
 
         <EditText
-            android:id="@+id/editText14"
+            android:id="@+id/crear_evento_ciudad"
             android:inputType="textNoSuggestions"
             android:ellipsize="end"
             android:singleLine="true"
@@ -130,7 +129,7 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textViewDir"
+            android:id="@+id/tv_crear_evento_direccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dirección"
@@ -141,7 +140,7 @@
             android:layout_alignParentStart="true" />
 
         <EditText
-            android:id="@+id/editTextDir"
+            android:id="@+id/crear_evento_direccion"
             android:inputType="textNoSuggestions"
             android:ellipsize="end"
             android:singleLine="true"
@@ -155,203 +154,166 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/tv_crear_evento_fechaIni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha inicial  -  Fecha final"
+            android:text="Fecha inicial"
             android:textColor="#000000"
-            android:layout_marginTop="460dp"
+            android:layout_marginTop="462dp"
             android:textSize="18dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
-        <EditText
-            android:id="@+id/editText15"
-            android:inputType="textNoSuggestions"
-            android:maxLength="10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textView30"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="220dp"
-            android:layout_alignParentEnd="true"
-            android:textColor="#000000" />
-
         <TextView
-            android:id="@+id/textView31"
+            android:id="@+id/tv_crear_evento_fechaFi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="Fecha final"
             android:textColor="#000000"
-            android:layout_marginTop="492dp"
             android:textSize="18dp"
-            android:layout_marginLeft="110dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="462dp" />
 
-        <EditText
-            android:id="@+id/editText16"
-            android:inputType="textNoSuggestions"
-            android:maxLength="10"
-            android:paddingLeft="10dp"
+        <TextView
+            android:id="@+id/crear_evento_fechaIni"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textView30"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginRight="102dp"
-            android:layout_marginLeft="115dp"
-            android:layout_alignParentEnd="true"
-            android:textColor="#000000" />
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_crear_evento_fechaIni"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView32"
+            android:id="@+id/crear_evento_fechaFi"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DD/MM/AAAA"
-            android:layout_marginTop="496dp"
-            android:textSize="15dp"
-            android:layout_marginLeft="230dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_crear_evento_fechaFi"
+            android:layout_alignStart="@+id/tv_crear_evento_fechaFi"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView33"
+            android:id="@+id/tv_crear_evento_horaIni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hora inicial    -   Hora final"
+            android:text="Hora inicial"
             android:textColor="#000000"
-            android:layout_marginTop="540dp"
             android:textSize="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:id="@+id/editText17"
-            android:inputType="textNoSuggestions"
-            android:maxLength="5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textView33"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="220dp"
-            android:layout_alignParentEnd="true"
-            android:textColor="#000000" />
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/crear_evento_fechaIni" />
 
         <TextView
-            android:id="@+id/textView34"
+            android:id="@+id/tv_crear_evento_horaFi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="Hora final"
             android:textColor="#000000"
-            android:layout_marginTop="572dp"
             android:textSize="18dp"
-            android:layout_marginLeft="109dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_alignStart="@+id/crear_evento_fechaFi"
+            android:layout_below="@+id/crear_evento_fechaFi" />
 
-        <EditText
-            android:id="@+id/editText18"
-            android:inputType="textNoSuggestions"
-            android:maxLength="5"
-            android:paddingLeft="15dp"
+        <TextView
+            android:id="@+id/crear_evento_horaIni"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textView33"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginRight="102dp"
-            android:layout_marginLeft="115dp"
-            android:layout_alignParentEnd="true"
-            android:textColor="#000000" />
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_crear_evento_horaIni"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView35"
+            android:id="@+id/crear_evento_horaFi"
+            style="@android:style/Widget.DeviceDefault.Light.Spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HH:MM"
-            android:layout_marginTop="576dp"
-            android:textSize="15dp"
-            android:layout_marginLeft="230dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_crear_evento_horaFi"
+            android:layout_alignStart="@+id/tv_crear_evento_horaFi"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/textView36"
+            android:id="@+id/tv_crear_evento_precio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Precio"
             android:textColor="#000000"
-            android:layout_marginTop="622dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/crear_evento_horaIni"
             android:textSize="18dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <EditText
-            android:id="@+id/editText19"
+            android:id="@+id/crear_evento_precio"
             android:maxLength="4"
             android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textView36"
+            android:layout_below="@+id/tv_crear_evento_precio"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="260dp"
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textView37"
+            android:id="@+id/tv_crear_evento_EUR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="EUR"
-            android:layout_marginTop="652dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="70dp"
             android:textSize="18dp"
-            android:layout_marginLeft="75dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@+id/tv_crear_evento_precio" />
 
         <TextView
-            android:id="@+id/textViewEntradas"
+            android:id="@+id/tv_crear_evento_entradas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Entradas disponibles en"
             android:textColor="#000000"
-            android:layout_marginTop="705dp"
-            android:textSize="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_below="@+id/crear_evento_precio"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/editTextEntradas"
+            android:id="@+id/crear_evento_entradas"
             android:inputType="textNoSuggestions"
             android:ellipsize="end"
             android:singleLine="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:colorControlActivated="@color/colorToolbar"
-            android:layout_below="@+id/textViewEntradas"
+            android:layout_below="@+id/tv_crear_evento_entradas"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textViewDescripcion"
+            android:id="@+id/tv_crear_evento_descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Descripción"
             android:textColor="#000000"
-            android:layout_marginTop="800dp"
-            android:textSize="18dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/crear_evento_entradas"
+            android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/editTextDescripcion"
-            android:layout_below="@+id/textViewDescripcion"
+            android:id="@+id/crear_evento_descripcion"
+            android:layout_below="@+id/tv_crear_evento_descripcion"
             android:layout_marginTop="15dp"
             android:inputType="textMultiLine|textNoSuggestions"
             android:lines="6"
@@ -362,13 +324,15 @@
             android:scrollbars="vertical" />
 
         <Button
-            android:id="@+id/button17"
+            android:id="@+id/button_crear_evento"
             android:text="Crear evento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="1000dp"
+            android:layout_below="@+id/crear_evento_descripcion"
+            android:layout_marginTop="30dp"
             android:background="#5FBD88" />
+
 
     </RelativeLayout>
 

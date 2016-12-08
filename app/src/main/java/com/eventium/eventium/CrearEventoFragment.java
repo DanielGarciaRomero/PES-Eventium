@@ -2,11 +2,11 @@ package com.eventium.eventium;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -27,11 +28,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-public class CrearEventoFragment extends Fragment {
+import java.io.ByteArrayOutputStream;
+import java.util.TimeZone;
+
+public class CrearEventoFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     ImageButton arrowSpinner;
     private static final int IMAGE_GALLERY_REQUEST = 1;
@@ -39,8 +45,51 @@ public class CrearEventoFragment extends Fragment {
     ImageButton foto;
     String encodedString;
 
+    int seletedPicker; // 0 -> fechaIni, 1 -> fechaFi, 2-> horaIni, 3-> horaFi
+    String fechaIni, fechaFi, horaIni, horaFi;
+    Spinner categoria;
+    EditText titulo, ciudad, direccion, precio, entradas;
+    TextView fecha_ini, fecha_fin, hora_ini, hora_fin;
+
     public CrearEventoFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        //Toast.makeText(this, "Dia seleccionado: " + dayOfMonth + "/" + (monthOfYear+1) + "/" + year, Toast.LENGTH_SHORT).show();
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        cal.set(Calendar.MONTH, monthOfYear);
+        String s = new SimpleDateFormat("E d MMM yyyy").format(cal.getTime());
+        if (seletedPicker == 0) {
+            fecha_ini.setText(s);
+            fechaIni = year + "/" + (monthOfYear+1) + "/" + dayOfMonth;
+        }
+        else if (seletedPicker == 1) {
+            fecha_fin.setText(s);
+            fechaFi = year + "/" + (monthOfYear+1) + "/" + dayOfMonth;
+        }
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+        //Toast.makeText(this, "Hora seleccionada: " + hourOfDay + ":" + minute, Toast.LENGTH_SHORT).show();
+        if (seletedPicker == 2) {
+            if (hourOfDay < 10) horaIni = "0" + hourOfDay + ":";
+            else horaIni = hourOfDay + ":";
+            if (minute < 10) horaIni += "0" + minute;
+            else horaIni += minute;
+            hora_ini.setText(horaIni);
+        }
+        else if (seletedPicker == 3) {
+            if (hourOfDay < 10) horaFi = "0" + hourOfDay + ":";
+            else horaFi = hourOfDay + ":";
+            if (minute < 10) horaFi += "0" + minute;
+            else horaFi += minute;
+            hora_fin.setText(horaFi);
+        }
     }
 
     @Override
@@ -48,16 +97,96 @@ public class CrearEventoFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_crear_evento, container, false);
 
-        final EditText titulo = (EditText) view.findViewById(R.id.editText13);
-        final Spinner categoria = (Spinner) view.findViewById(R.id.spinner);
-        final EditText ciudad = (EditText) view.findViewById(R.id.editText14);
-        final EditText direccion = (EditText) view.findViewById(R.id.editTextDir);
-        final EditText fecha_ini = (EditText) view.findViewById(R.id.editText15);
-        final EditText fecha_fin = (EditText) view.findViewById(R.id.editText16);
-        final EditText hora_ini = (EditText) view.findViewById(R.id.editText17);
-        final EditText hora_fin = (EditText) view.findViewById(R.id.editText18);
-        final EditText precio = (EditText) view.findViewById(R.id.editText19);
-        final EditText entradas = (EditText) view.findViewById(R.id.editTextEntradas);
+        titulo = (EditText) view.findViewById(R.id.crear_evento_titulo);
+        categoria = (Spinner) view.findViewById(R.id.spinner);
+        ciudad = (EditText) view.findViewById(R.id.crear_evento_ciudad);
+        direccion = (EditText) view.findViewById(R.id.crear_evento_direccion);
+        fecha_ini = (TextView) view.findViewById(R.id.crear_evento_fechaIni);
+        fecha_fin = (TextView) view.findViewById(R.id.crear_evento_fechaFi);
+        hora_ini = (TextView) view.findViewById(R.id.crear_evento_horaIni);
+        hora_fin = (TextView) view.findViewById(R.id.crear_evento_horaFi);
+        precio = (EditText) view.findViewById(R.id.crear_evento_precio);
+        entradas = (EditText) view.findViewById(R.id.crear_evento_entradas);
+
+        fechaIni = "dd/mm/aaaa";
+        fechaFi = "dd/mm/aaaa";
+        fecha_ini.setText(fechaIni);
+        fecha_fin.setText(fechaFi);
+
+        fecha_ini.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+                        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                                CrearEventoFragment.this,
+                                c.get(Calendar.YEAR),
+                                c.get(Calendar.MONTH),
+                                c.get(Calendar.DAY_OF_MONTH)
+                        );
+                        seletedPicker = 0;
+                        dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
+                    }
+                }
+        );
+
+        fecha_fin.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+                        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                                CrearEventoFragment.this,
+                                c.get(Calendar.YEAR),
+                                c.get(Calendar.MONTH),
+                                c.get(Calendar.DAY_OF_MONTH)
+                        );
+                        seletedPicker = 1;
+                        dpd.show(getActivity().getFragmentManager(), "DatePickerDialog");
+                    }
+                }
+        );
+
+        horaIni = "hh:mm";
+        horaFi = "hh:mm";
+        hora_ini.setText(horaIni);
+        hora_fin.setText(horaFi);
+
+        hora_ini.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+                        TimePickerDialog dpd = TimePickerDialog.newInstance(
+                                CrearEventoFragment.this,
+                                c.get(Calendar.HOUR),
+                                c.get(Calendar.MINUTE),
+                                true);
+                        seletedPicker = 2;
+                        dpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                    }
+                }
+        );
+
+        hora_fin.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Calendar c = Calendar.getInstance();
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+                        TimePickerDialog dpd = TimePickerDialog.newInstance(
+                                CrearEventoFragment.this,
+                                c.get(Calendar.HOUR),
+                                c.get(Calendar.MINUTE),
+                                true);
+                        seletedPicker = 3;
+                        dpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                    }
+                }
+        );
 
         arrowSpinner = (ImageButton) view.findViewById(R.id.arrowSpinner);
         arrowSpinner.setOnClickListener(new View.OnClickListener() {
@@ -83,63 +212,12 @@ public class CrearEventoFragment extends Fragment {
         byte[] bb = bos.toByteArray();
         encodedString = Base64.encodeToString(bb, Base64.DEFAULT);
 
-        Button crear_evento = (Button) view.findViewById(R.id.button17);
+        Button crear_evento = (Button) view.findViewById(R.id.button_crear_evento);
         crear_evento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (titulo.getText().toString().equals("") || entradas.getText().toString().equals("")
-                        || ciudad.getText().toString().equals("") || direccion.getText().toString().equals("")
-                        || fecha_ini.getText().toString().equals("") || fecha_fin.getText().toString().equals("")
-                        || hora_ini.getText().toString().equals("") || hora_fin.getText().toString().equals("")
-                        || precio.getText().toString().equals(""))
-                    Toast.makeText(NavigationDrawerActivity.contexto, "No puedes dejar ningún campo en blanco", Toast.LENGTH_LONG).show();
-                else {
-                    try {
-                        String dataIni = fecha_ini.getText().toString();
-                        String dataFi = fecha_fin.getText().toString();
-                        if (dataIni.length() != 10 || dataFi.length() != 10 || dataIni.charAt(2) != '/' || dataIni.charAt(5) != '/'
-                                || dataFi.charAt(2) != '/' || dataFi.charAt(5) != '/')
-                            Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
-                        else {
-                            if (!fechasValidas(dataIni, dataFi)) {
-                                Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
-                            }
-                            else {
-                                String horaIni = hora_ini.getText().toString();
-                                String horaFi = hora_fin.getText().toString();
-                                if (horaIni.length() != 5 || horaFi.length() != 5 || horaIni.charAt(2) != ':' || horaFi.charAt(2) != ':')
-                                    Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
-                                else {
-                                    if (!horasValidas(horaIni, horaFi, dataIni, dataFi)) {
-                                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
-                                    }
-                                    else {
-                                        HTTPMethods httpMethods = new HTTPMethods(11);
-                                        httpMethods.setToken_user(NavigationDrawerActivity.token);
-                                        httpMethods.setEvent_title(titulo.getText().toString());
-                                        httpMethods.setEvent_categoria(categoria.getSelectedItem().toString());
-                                        httpMethods.setEvent_pic(encodedString);
-                                        httpMethods.setEvent_ciudad(ciudad.getText().toString());
-                                        httpMethods.setEvent_fecha_ini(fecha_ini.getText().toString());
-                                        httpMethods.setEvent_fecha_fin(fecha_fin.getText().toString());
-                                        httpMethods.setEvent_hora_ini(hora_ini.getText().toString());
-                                        httpMethods.setEvent_hora_fin(hora_fin.getText().toString());
-                                        httpMethods.setEvent_precio(precio.getText().toString());
-                                        httpMethods.ejecutarHttpAsyncTask();
-                                        while (!httpMethods.getFinished());
-                                        Toast.makeText(MainActivity.contexto, "Evento creado correctamente", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            }
-                        }
-                    } catch (ParseException e) {
-                        // Nothing to do
-                    } catch (hoursException e) {
-                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
-                    } catch (datesException e) {
-                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
-                    }
-                }
+                // Hay que rehacerlo
+                Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado en crear evento", Toast.LENGTH_LONG).show();
             }
         });
         return view;
