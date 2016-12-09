@@ -89,6 +89,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         fragmentTransaction.replace(R.id.contenedor_principal, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+        getSupportActionBar().setTitle("Eventium");
     }
 
     @Override

@@ -177,7 +177,7 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
                     @Override
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVE(position);
-                        Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
                         Fragment fragment = new MostrarEventoFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("event", item);

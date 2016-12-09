@@ -157,7 +157,7 @@ public class CalendarioFragment extends Fragment {
                     eventosdeldia = new ArrayList<Evento>();
                     for (int i = 0; i < eventos.size(); ++i){
                         if (eventos.get(i).getFecha_ini().equals(fecha)){
-                            Toast.makeText(context, "Hay un evento", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, "Hay un evento", Toast.LENGTH_SHORT).show();
                             trobat = true;
                             eventosdeldia.add(eventos.get(i));
                         }
@@ -167,7 +167,7 @@ public class CalendarioFragment extends Fragment {
                         MyDialogFragment dialogFragment = new MyDialogFragment ();
                         dialogFragment.show(getActivity().getFragmentManager(), "hola");
                     }
-                    else Toast.makeText(context, "No hay evento", Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(context, "No tienes ningún evento programado para este día", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

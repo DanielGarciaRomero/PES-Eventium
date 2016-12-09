@@ -85,7 +85,7 @@ public class MyDialogFragment extends DialogFragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVE(position);
-                        Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
                         ((NavigationDrawerActivity)getActivity()).fromCalendarioToMostrarEvento(item);
                         dismiss();
                         /*Fragment fragment = new MostrarEventoFragment();
