@@ -246,11 +246,23 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         String s = new SimpleDateFormat("E d MMM yyyy").format(cal.getTime());
         if (seletedPicker == 0) {
             textFechaIni.setText(s);
-            fechaIni = year + "/" + (monthOfYear+1) + "/" + dayOfMonth;
+            int mes = monthOfYear+1;
+            fechaIni = year + "/";
+            if (mes < 10) fechaIni += "0" + mes + "/";
+            else fechaIni += mes + "/";
+            if (dayOfMonth < 10) fechaIni += "0" + dayOfMonth;
+            else fechaIni += dayOfMonth;
+            //System.out.println(fechaIni);
         }
         else if (seletedPicker == 1) {
             textFechaFi.setText(s);
-            fechaFi = year + "/" + (monthOfYear+1) + "/" + dayOfMonth;
+            int mes = monthOfYear+1;
+            fechaFi = year + "/";
+            if (mes < 10) fechaFi += "0" + mes + "/";
+            else fechaFi += mes + "/";
+            if (dayOfMonth < 10) fechaFi += "0" + dayOfMonth;
+            else fechaFi += dayOfMonth;
+            //System.out.println(fechaFi);
         }
     }
 
