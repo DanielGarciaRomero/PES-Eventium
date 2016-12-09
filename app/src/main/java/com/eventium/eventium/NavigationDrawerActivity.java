@@ -65,6 +65,16 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     EditText etciudad, etprecioMin, etprecioMax;
     String categoriasMarcadas, ciudad, precioMin, precioMax;
     View viewFilter;
+    NavigationView navigationView;
+
+    public void fromCrearEventoToVerEventos() {
+        navigationView.getMenu().getItem(0).setChecked(true);
+        Fragment fragment = new EventosFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contenedor_principal, fragment)
+                .commit();
+        getSupportActionBar().setTitle("Eventium");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +107,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         View hView =  navigationView.getHeaderView(0);
 

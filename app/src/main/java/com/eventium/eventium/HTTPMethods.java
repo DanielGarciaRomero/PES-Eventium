@@ -50,9 +50,14 @@ public class HTTPMethods {
     public static String event_ciudad;
     public static String event_pic;
     public static Integer event_categoria;
+    public static String event_direccion;
+    public static String event_url_entradas;
+    public static String event_descripcion;
+
     public static String token_user;
     public static String code;
     public static String destacado;
+    public static String nreports;
     public static String CardNumber;
     public static String cvc;
     public static String money;
@@ -62,6 +67,7 @@ public class HTTPMethods {
         finished = false;
         //hardcoded para crear evento de momento
         destacado = "false";
+        nreports = "0";
         peticion_id = id;
         event_id = "";
     }
@@ -117,6 +123,12 @@ public class HTTPMethods {
 
     public void setEvent_pic(String pic){event_pic = pic;}
 
+    public void setEvent_direccion(String direccion){event_direccion = direccion;}
+
+    public void setEvent_url_entradas(String url_entradas){event_url_entradas = url_entradas;}
+
+    public void setEvent_descripcion(String descripcion){event_descripcion = descripcion;}
+
     public void setEvent_categoria(String categoria){
         switch (categoria) {
             case "Artistico":
@@ -155,8 +167,6 @@ public class HTTPMethods {
             case "Otros":
                 event_categoria = 11;
                 break;
-
-
         }
     }
 
@@ -291,6 +301,10 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("ciudad", event_ciudad));
                 nameValuePairs.add(new BasicNameValuePair("categoria", event_categoria.toString()));
                 nameValuePairs.add(new BasicNameValuePair("destacado", destacado));
+                nameValuePairs.add(new BasicNameValuePair("descripcion", event_descripcion));
+                nameValuePairs.add(new BasicNameValuePair("url", event_url_entradas));
+                nameValuePairs.add(new BasicNameValuePair("nreports", nreports));
+                nameValuePairs.add(new BasicNameValuePair("direccion", event_direccion));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             else if (peticion_id == 12){

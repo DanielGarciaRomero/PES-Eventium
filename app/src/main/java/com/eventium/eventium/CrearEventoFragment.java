@@ -48,7 +48,7 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
     int seletedPicker; // 0 -> fechaIni, 1 -> fechaFi, 2-> horaIni, 3-> horaFi
     String fechaIni, fechaFi, horaIni, horaFi;
     Spinner categoria;
-    EditText titulo, ciudad, direccion, precio, entradas;
+    EditText titulo, ciudad, direccion, precio, entradas, descripcion;
     TextView fecha_ini, fecha_fin, hora_ini, hora_fin;
 
     public CrearEventoFragment() {
@@ -107,6 +107,7 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
         hora_fin = (TextView) view.findViewById(R.id.crear_evento_horaFi);
         precio = (EditText) view.findViewById(R.id.crear_evento_precio);
         entradas = (EditText) view.findViewById(R.id.crear_evento_entradas);
+        descripcion = (EditText) view.findViewById(R.id.crear_evento_descripcion);
 
         fechaIni = "dd/mm/aaaa";
         fechaFi = "dd/mm/aaaa";
@@ -216,8 +217,51 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
         crear_evento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Hay que rehacerlo
-                Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado en crear evento", Toast.LENGTH_LONG).show();
+                //Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado en crear evento", Toast.LENGTH_LONG).show();
+                if (titulo.getText().toString().equals("") || entradas.getText().toString().equals("")
+                        || ciudad.getText().toString().equals("") || direccion.getText().toString().equals("")
+                        || fecha_ini.getText().toString().equals("dd/mm/aaaa") || fecha_fin.getText().toString().equals("dd/mm/aaaa")
+                        || hora_ini.getText().toString().equals("hh:mm") || hora_fin.getText().toString().equals("hh:mm")
+                        || precio.getText().toString().equals(""))
+                    Toast.makeText(NavigationDrawerActivity.contexto, "No puedes dejar ningún campo en blanco", Toast.LENGTH_LONG).show();
+                else { // Ningun campo relevante vacio
+                    try {
+                        if (!fechasValidas(fechaIni, fechaFi)) {
+                            Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
+                        }
+                        else { // Fechas validas
+                            if (!horasValidas(horaIni, horaFi, fechaIni, fechaFi)) {
+                                Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
+                            }
+                            else { // Horas validas
+                                HTTPMethods httpMethods = new HTTPMethods(11);
+                                httpMethods.setToken_user(NavigationDrawerActivity.token);
+                                httpMethods.setEvent_title(titulo.getText().toString());
+                                httpMethods.setEvent_categoria(categoria.getSelectedItem().toString());
+                                httpMethods.setEvent_pic(encodedString);
+                                httpMethods.setEvent_ciudad(ciudad.getText().toString());
+                                httpMethods.setEvent_direccion(direccion.getText().toString());
+                                httpMethods.setEvent_fecha_ini(fechaIni);
+                                httpMethods.setEvent_fecha_fin(fechaFi);
+                                httpMethods.setEvent_hora_ini(horaIni);
+                                httpMethods.setEvent_hora_fin(horaFi);
+                                httpMethods.setEvent_precio(precio.getText().toString());
+                                httpMethods.setEvent_url_entradas(entradas.getText().toString());
+                                httpMethods.setEvent_descripcion(descripcion.getText().toString());
+                                httpMethods.ejecutarHttpAsyncTask();
+                                while (!httpMethods.getFinished());
+                                Toast.makeText(MainActivity.contexto, "Evento creado correctamente", Toast.LENGTH_LONG).show();
+                                ((NavigationDrawerActivity)getActivity()).fromCrearEventoToVerEventos();
+                            }
+                        }
+                    } catch (ParseException e) {
+                        // Nothing to do
+                    } catch (hoursException e) {
+                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
+                    } catch (datesException e) {
+                        Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de fechas incorrecto", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
         return view;
@@ -238,14 +282,12 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
     public boolean fechasValidas(String dataIni, String dataFi) throws ParseException, datesException
     {
         try {
-            String s = dataIni.substring(0, 2); int diaIni = Integer.parseInt(s);
-            s = dataFi.substring(0, 2); int diaFi = Integer.parseInt(s);
-            s = dataIni.substring(3, 5); int mesIni = Integer.parseInt(s);
-            s = dataFi.substring(3, 5); int mesFi = Integer.parseInt(s);
-            s = dataIni.substring(6, 10); int anyIni = Integer.parseInt(s);
-            s = dataFi.substring(6, 10); int anyFi = Integer.parseInt(s);
-            if (diaIni <= 0 || diaFi <= 0 || diaIni > 31 || diaFi > 31 || mesIni <= 0 || mesFi <= 0 || mesIni > 12
-                    || mesFi > 12 || anyIni < 2016 || anyFi < 2016) return false;
+            String s = dataIni.substring(0, 4); int anyIni = Integer.parseInt(s);
+            s = dataFi.substring(0, 4); int anyFi = Integer.parseInt(s);
+            s = dataIni.substring(5, 7); int mesIni = Integer.parseInt(s);
+            s = dataFi.substring(5, 7); int mesFi = Integer.parseInt(s);
+            s = dataIni.substring(8, 10); int diaIni = Integer.parseInt(s);
+            s = dataFi.substring(8, 10); int diaFi = Integer.parseInt(s);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             s = anyIni + "-" + mesIni + "-" + diaIni;
             Date date1 = sdf.parse(s);
@@ -268,8 +310,6 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
             s = horaFi.substring(0, 2); int hFi = Integer.parseInt(s);
             s = horaIni.substring(3, 5); int minIni = Integer.parseInt(s);
             s = horaFi.substring(3, 5); int minFi = Integer.parseInt(s);
-            if (hIni < 0 || hFi < 0 || hIni > 23 || hFi > 23 || minIni < 0 || minFi < 0 || minIni > 59 || minFi > 59)
-                return false;
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             Date hora1 = sdf.parse(horaIni);
             Date hora2 = sdf.parse(horaFi);

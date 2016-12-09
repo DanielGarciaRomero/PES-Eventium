@@ -71,9 +71,21 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         }
         mEventModel = new ArrayList<>();
         for (int i = 0; i < eventosFiltrados.size(); ++i) {
-            String fechas = eventosFiltrados.get(i).getFecha_ini() + " - " + eventosFiltrados.get(i).getFecha_fin();
+            String dataIni = eventosFiltrados.get(i).getFecha_ini();
+            String dataFi = eventosFiltrados.get(i).getFecha_fin();
+            String s = dataIni.substring(0, 4); int anyIni = Integer.parseInt(s);
+            s = dataFi.substring(0, 4); int anyFi = Integer.parseInt(s);
+            s = dataIni.substring(5, 7); int mesIni = Integer.parseInt(s);
+            s = dataFi.substring(5, 7); int mesFi = Integer.parseInt(s);
+            s = dataIni.substring(8, 10); int diaIni = Integer.parseInt(s);
+            s = dataFi.substring(8, 10); int diaFi = Integer.parseInt(s);
+            String fechas = diaIni + "/" + mesIni + "/" + anyIni + " - " + diaFi + "/" + mesFi + "/" + anyFi;
             String horas = eventosFiltrados.get(i).getHora_ini() + " - " + eventosFiltrados.get(i).getHora_fin();
-            String precio = eventosFiltrados.get(i).getPrecio() + " €";
+
+            float f = Float.parseFloat(eventosFiltrados.get(i).getPrecio());
+            int preu = (int) f;
+            String precio = Integer.toString(preu) + " €";
+
             String encodedImage = eventosFiltrados.get(i).getPic();
             byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
             Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
@@ -89,9 +101,21 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         //System.out.println("Entro en mostrarEventosTodos");
         mEventModel = new ArrayList<>();
         for (int i = 0; i < eventos.size(); ++i) {
-            String fechas = eventos.get(i).getFecha_ini() + " - " + eventos.get(i).getFecha_fin();
+            String dataIni = eventos.get(i).getFecha_ini();
+            String dataFi = eventos.get(i).getFecha_fin();
+            String s = dataIni.substring(0, 4); int anyIni = Integer.parseInt(s);
+            s = dataFi.substring(0, 4); int anyFi = Integer.parseInt(s);
+            s = dataIni.substring(5, 7); int mesIni = Integer.parseInt(s);
+            s = dataFi.substring(5, 7); int mesFi = Integer.parseInt(s);
+            s = dataIni.substring(8, 10); int diaIni = Integer.parseInt(s);
+            s = dataFi.substring(8, 10); int diaFi = Integer.parseInt(s);
+            String fechas = diaIni + "/" + mesIni + "/" + anyIni + " - " + diaFi + "/" + mesFi + "/" + anyFi;
             String horas = eventos.get(i).getHora_ini() + " - " + eventos.get(i).getHora_fin();
-            String precio = eventos.get(i).getPrecio() + " €";
+
+            float f = Float.parseFloat(eventos.get(i).getPrecio());
+            int preu = (int) f;
+            String precio = Integer.toString(preu) + " €";
+
             String encodedImage = eventos.get(i).getPic();
             byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
             Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
@@ -124,9 +148,21 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
         setHasOptionsMenu(true);
         mEventModel = new ArrayList<>();
         for (int i = 0; i < eventos.size(); ++i) {
-            String fechas = eventos.get(i).getFecha_ini() + " - " + eventos.get(i).getFecha_fin();
+            String dataIni = eventos.get(i).getFecha_ini();
+            String dataFi = eventos.get(i).getFecha_fin();
+            String s = dataIni.substring(0, 4); int anyIni = Integer.parseInt(s);
+            s = dataFi.substring(0, 4); int anyFi = Integer.parseInt(s);
+            s = dataIni.substring(5, 7); int mesIni = Integer.parseInt(s);
+            s = dataFi.substring(5, 7); int mesFi = Integer.parseInt(s);
+            s = dataIni.substring(8, 10); int diaIni = Integer.parseInt(s);
+            s = dataFi.substring(8, 10); int diaFi = Integer.parseInt(s);
+            String fechas = diaIni + "/" + mesIni + "/" + anyIni + " - " + diaFi + "/" + mesFi + "/" + anyFi;
             String horas = eventos.get(i).getHora_ini() + " - " + eventos.get(i).getHora_fin();
-            String precio = eventos.get(i).getPrecio() + " €";
+
+            float f = Float.parseFloat(eventos.get(i).getPrecio());
+            int preu = (int) f;
+            String precio = Integer.toString(preu) + " €";
+
             String encodedImage = eventos.get(i).getPic();
             byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
             Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
