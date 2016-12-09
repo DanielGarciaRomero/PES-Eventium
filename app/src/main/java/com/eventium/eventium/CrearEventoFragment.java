@@ -282,6 +282,9 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
     public boolean fechasValidas(String dataIni, String dataFi) throws ParseException, datesException
     {
         try {
+            //Si mes o dia menor que 10, peta
+            System.out.println(dataIni);
+            System.out.println(dataFi);
             String s = dataIni.substring(0, 4); int anyIni = Integer.parseInt(s);
             s = dataFi.substring(0, 4); int anyFi = Integer.parseInt(s);
             s = dataIni.substring(5, 7); int mesIni = Integer.parseInt(s);

@@ -109,19 +109,24 @@ public class CalendarioFragment extends Fragment {
                     while (!httpMethods4.getFinished());
                     Evento event = httpMethods4.getEvent();
 
+                    String fecha1 = event.getFecha_ini();
+                    Boolean existe = false;
+
+                    for (int j = 0; j < eventos.size(); ++j) {
+                        if (eventos.get(j).getFecha_ini().equals(fecha1)) existe = true;
+                    }
+
                     eventos.add(event);
 
-                    String fecha1 = event.getFecha_ini();
-
-                    System.out.println(fecha1);
-
-                    SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
-                    fecha1 = fecha1.substring(0,4) + "-" + fecha1.substring(5,7) + "-" + fecha1.substring(8,10);
-                    Date date1 = df2.parse(fecha1);
-                    System.out.println(df2.format(date1));
-                    System.out.println(date1.getTime());
-                    Event ev1 = new Event(Color.RED, date1.getTime(), "HOLA");
-                    calendar.addEvent(ev1);
+                    if (!existe){
+                        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+                        fecha1 = fecha1.substring(0,4) + "-" + fecha1.substring(5,7) + "-" + fecha1.substring(8,10);
+                        Date date1 = df2.parse(fecha1);
+                        //System.out.println(df2.format(date1));
+                        //System.out.println(date1.getTime());
+                        Event ev1 = new Event(Color.RED, date1.getTime(), "HOLA");
+                        calendar.addEvent(ev1);
+                    }
                 }
             }
 

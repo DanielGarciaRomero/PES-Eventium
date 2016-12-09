@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -74,6 +76,19 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 .replace(R.id.contenedor_principal, fragment)
                 .commit();
         getSupportActionBar().setTitle("Eventium");
+    }
+
+    public void fromCalendarioToMostrarEvento(String item) {
+        navigationView.getMenu().getItem(0).setChecked(true);
+        Fragment fragment = new MostrarEventoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("event", item);
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor_principal, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
