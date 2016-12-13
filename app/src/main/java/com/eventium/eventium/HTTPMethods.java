@@ -619,7 +619,7 @@ public class HTTPMethods {
     public static Evento leerEvento(JsonReader reader) throws IOException {
         String title = null;
         String id = null;
-        String organizedId = null;
+        String organizerId = null;
         String ciudad = null;
         String pic = null;
         String precio = null;
@@ -630,6 +630,7 @@ public class HTTPMethods {
         String categoria = null;
         String descripcion = null;
         String direccion = null;
+        String url = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -641,8 +642,8 @@ public class HTTPMethods {
                 case "id":
                     id = reader.nextString();
                     break;
-                case "organizedId":
-                    organizedId = reader.nextString();
+                case "organizerId":
+                    organizerId = reader.nextString();
                     break;
                 case "ciudad":
                     ciudad = reader.nextString();
@@ -668,11 +669,20 @@ public class HTTPMethods {
                 case "categoria":
                     categoria = reader.nextString();
                     break;
-                case "descripccion":
-                    descripcion = reader.nextString();
-                    break;
+                case "descripcion":
+                    try {
+                        descripcion = reader.nextString();
+                    } catch (Exception e) {
+                        reader.nextNull();
+                        descripcion = null;
+                    } finally {
+                        break;
+                    }
                 case "direccion":
                     direccion = reader.nextString();
+                    break;
+                case "url":
+                    url = reader.nextString();
                     break;
                 default:
                     reader.skipValue();
@@ -680,7 +690,7 @@ public class HTTPMethods {
             }
         }
         reader.endObject();
-        return new Evento(title, id, organizedId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria, descripcion, direccion);
+        return new Evento(title, id, organizerId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria, descripcion, direccion, url);
     }
 
     public static String leerCategorias(JsonReader reader) throws IOException {

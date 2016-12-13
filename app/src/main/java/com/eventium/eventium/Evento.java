@@ -14,9 +14,10 @@ public class Evento {
     private String categoria;
     private String descripcion;
     private String direccion;
+    private String url;
 
     public Evento(String title, String id, String organizerId, String ciudad, String pic, String precio,
-        String fecha_ini, String fecha_fin, String hora_ini, String hora_fin, String categoria, String descripcion, String direccion) {
+        String fecha_ini, String fecha_fin, String hora_ini, String hora_fin, String categoria, String descripcion, String direccion, String url) {
             this.title = title;
             this.id = id;
             this.organizerId = organizerId;
@@ -30,6 +31,7 @@ public class Evento {
             this.setCategoria(categoria);
             this.setDescripcion(descripcion);
             this.setDireccion(direccion);
+            this.setUrl(url);
     }
 
     public String getTitle() {return title;}
@@ -113,4 +115,8 @@ public class Evento {
     public String getDireccion() { return direccion; }
 
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public String getUrl() { return url; }
+
+    public void setUrl(String url) { this.url = url; }
 }

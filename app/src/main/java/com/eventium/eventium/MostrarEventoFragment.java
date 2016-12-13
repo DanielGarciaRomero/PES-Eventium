@@ -16,6 +16,8 @@ import android.widget.ToggleButton;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import java.util.List;
+
 import static com.eventium.eventium.R.id.textView;
 
 /**
@@ -97,14 +99,54 @@ public class MostrarEventoFragment extends Fragment {
         while (!httpMethods.getFinished());
         Evento event = httpMethods.getEvent();
         titulo.setText(event.getTitle());
-        categoria.setText("Categoria: " + event.getCategoria());
+        String cat = event.getCategoria();
+        switch (cat) {
+            case "0":
+                cat = "Artístico";
+                break;
+            case "1":
+                cat = "Automobilístico, ";
+                break;
+            case "2":
+                cat = "Cinematográfico";
+                break;
+            case "3":
+                cat = "Deportivo";
+                break;
+            case "4":
+                cat = "Gastronómico";
+                break;
+            case "5":
+                cat = "Literario";
+                break;
+            case "6":
+                cat = "Moda";
+                break;
+            case "7":
+                cat = "Musical";
+                break;
+            case "8":
+                cat = "Político";
+                break;
+            case "9":
+                cat = "Teatral";
+                break;
+            case "10":
+                cat = "Tecnológico y científico";
+                break;
+            case "11":
+                cat = "Otros";
+                break;
+        }
+        categoria.setText("Categoria: " + cat);
         byte[] decodedString = Base64.decode(event.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imagen.setImageBitmap(profilePic);
         descripcion.setText("Descripcion: " + event.getDescripcion());
-        organizador.setText("Organizado por: " + event.getOrganizerId());
         ciudad.setText("Ciudad: " + event.getCiudad());
-        direccion.setText("Direccion: " + event.getDireccion());
+        String dir = event.getDireccion();
+        if (dir != null) direccion.setText("Direccion: " + event.getDireccion());
+        else direccion.setText("Direccion: No hay informacion disponible");
         String fIni = event.getFecha_ini(); String fFin = event.getFecha_fin();
         if (fIni.equals(fFin)) fecha.setText("Fecha: " + fIni);
         else fecha.setText("Fecha: de " + fIni + " a " + fFin);
@@ -112,8 +154,20 @@ public class MostrarEventoFragment extends Fragment {
         if (hIni.equals(hFin)) hora.setText("Hora: " + hIni);
         else hora.setText("Hora: de " + hIni + " a " + hFin);
         precio.setText("Precio: " + event.getPrecio() + "€");
-        //aqui iria algo para gestionar si asistes o no al evento y poner el boton en funcion a eso
-        //aqui iria lo de los asistentes
+
+        httpMethods = new HTTPMethods(0);
+
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        List<Usuario> users = httpMethods.getUsers();
+        String username = "";
+        for(Usuario usuario : users) {
+            if (usuario.getId().equals(event.getOrganizerId())) {
+                username = usuario.getUsername();
+                break;
+            }
+        }
+        organizador.setText("Organizado por: " + username);
         return view;
 
     }
