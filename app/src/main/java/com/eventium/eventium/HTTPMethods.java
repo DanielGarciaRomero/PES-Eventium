@@ -83,6 +83,8 @@ public class HTTPMethods {
         else if (peticion_id == 7) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //get de un evento
         else if (peticion_id == 8) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //get calendario de un user
         else if (peticion_id == 9) new HttpAsyncTask().execute(direccionFiltraje);
+        else if (peticion_id == 21) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/recommended"); //get events recommendeds
+        else if (peticion_id == 22) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/destacados"); //get events destacados
         else if (peticion_id == 10) new HttpAsyncTask().execute("http://10.4.41.168:5000/users"); //post de un user
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
@@ -237,6 +239,10 @@ public class HTTPMethods {
                 httpGet.setHeader("token", token_user);
                 httpResponse = httpclient.execute(httpGet);
             }
+            else if (peticion_id == 21) {
+                httpGet.setHeader("token", token_user);
+                httpResponse = httpclient.execute(httpGet);
+            }
             else httpResponse = httpclient.execute(httpGet);
             code = httpResponse.getStatusLine().toString();
 
@@ -252,6 +258,8 @@ public class HTTPMethods {
             else if (peticion_id == 5) readJsonStreamCategorias(inputStream);
             else if (peticion_id == 7) readJsonStreamEvento(inputStream);
             else if (peticion_id == 8) readJsonStreamCalendario(inputStream);
+            else if (peticion_id == 21) readJsonStreamEventos(inputStream);
+            else if (peticion_id == 22) readJsonStreamEventos(inputStream);
 
             // convert inputstream to string
             if(inputStream != null)
@@ -430,7 +438,7 @@ public class HTTPMethods {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            if (peticion_id < 10) return GET(urls[0]);
+            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22) return GET(urls[0]);
             else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
             else if (peticion_id >= 15 && peticion_id < 20) return PUT(urls[0]);
             else return DELETE(urls[0]);
