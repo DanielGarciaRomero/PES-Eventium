@@ -89,6 +89,7 @@ public class HTTPMethods {
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
         else if (peticion_id == 13) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //post de calendar - asistire
+        else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //put de destacado
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
         else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de la imagen de user
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
@@ -193,6 +194,8 @@ public class HTTPMethods {
     public Boolean getFinished(){
         return finished;
     }
+
+    public void setDestacado(String des){ destacado = des;}
 
     public void setEvent_id(String id) { event_id = id; }
 
@@ -371,6 +374,12 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("card", CardNumber));
                 nameValuePairs.add(new BasicNameValuePair("cvc", cvc));
                 nameValuePairs.add(new BasicNameValuePair("money", money));
+                httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
+            else if (peticion_id == 18){
+                httpPut.setHeader("token", token_user);
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("destacado", destacado));
                 httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             httpResponse = httpclient.execute(httpPut);

@@ -71,6 +71,8 @@ public class SaldoFragment extends Fragment {
                     user = httpMethods3.getUser();
 
                     NavigationDrawerActivity.usersaldo = user.getSaldo();
+
+                    ((NavigationDrawerActivity) getActivity()).fromPromocionarEventoToVerEventos();
                 }
                 //Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado realizar ingreso", Toast.LENGTH_LONG).show();
             }

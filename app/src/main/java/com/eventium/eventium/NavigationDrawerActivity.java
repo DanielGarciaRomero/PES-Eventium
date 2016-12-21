@@ -55,6 +55,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     public static Boolean change_image;
     public static Boolean change_saldo;
 
+    public static String event_id;
+
     TextView textFechaIni;
     TextView textFechaFi;
     TextView textHoraIni;
@@ -70,6 +72,24 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     NavigationView navigationView;
 
     public void fromCrearEventoToVerEventos() {
+        navigationView.getMenu().getItem(0).setChecked(true);
+        Fragment fragment = new EventosFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contenedor_principal, fragment)
+                .commit();
+        getSupportActionBar().setTitle("Eventium");
+    }
+
+    public void fromPromocionarEventoToVerEventos() {
+        navigationView.getMenu().getItem(0).setChecked(true);
+        Fragment fragment = new EventosFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contenedor_principal, fragment)
+                .commit();
+        getSupportActionBar().setTitle("Eventium");
+    }
+
+    public void fromIngresarSaldoToVerEventos() {
         navigationView.getMenu().getItem(0).setChecked(true);
         Fragment fragment = new EventosFragment();
         getSupportFragmentManager().beginTransaction()

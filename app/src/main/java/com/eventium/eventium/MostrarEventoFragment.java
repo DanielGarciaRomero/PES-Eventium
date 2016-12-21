@@ -1,5 +1,6 @@
 package com.eventium.eventium;
 
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -92,6 +93,15 @@ public class MostrarEventoFragment extends Fragment {
         final TextView entradas = (TextView) view.findViewById(R.id.webEntradas);
         final Button promocionar = (Button) view.findViewById(R.id.botonPromocionar);
         final Button reportar = (Button) view.findViewById(R.id.botonReportar);
+
+        promocionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationDrawerActivity.event_id = eventID;
+                MyDialogFragmentPromocionar dialogFragment = new MyDialogFragmentPromocionar ();
+                dialogFragment.show(getActivity().getFragmentManager(), "hola");
+            }
+        });
 
         HTTPMethods httpMethods = new HTTPMethods(7);
         httpMethods.setEvent_id(eventID);
