@@ -28,9 +28,8 @@ import static com.eventium.eventium.R.id.textView;
 
 public class MostrarEventoFragment extends Fragment {
     private String eventID;
-    public MostrarEventoFragment() {
-
-    }
+    int numOpiniones;
+    public MostrarEventoFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +37,7 @@ public class MostrarEventoFragment extends Fragment {
 
         Bundle bundle = getArguments();
         eventID = bundle.getString("event");
+        NavigationDrawerActivity.event_id = eventID;
         final TextView titulo = (TextView) view.findViewById(R.id.tituloEvento);
         final TextView categoria = (TextView) view.findViewById(R.id.categoriaEvento);
         final ImageView imagen = (ImageView) view.findViewById(R.id.fotoEvento);
@@ -49,7 +49,6 @@ public class MostrarEventoFragment extends Fragment {
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
         final TextView numOpinionestv = (TextView) view.findViewById(R.id.numOpinionesEvento);
-        final int numOpiniones = 0;
         //aqui irá el mapa//
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
@@ -100,7 +99,7 @@ public class MostrarEventoFragment extends Fragment {
         promocionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationDrawerActivity.event_id = eventID;
+                //NavigationDrawerActivity.event_id = eventID;
                 MyDialogFragmentPromocionar dialogFragment = new MyDialogFragmentPromocionar ();
                 dialogFragment.show(getActivity().getFragmentManager(), "hola");
             }
@@ -180,12 +179,18 @@ public class MostrarEventoFragment extends Fragment {
         else hora.setText("Hora: " + hIni + " - " + hFin);
         precio.setText("Precio: " + s);
 
+        HTTPMethods httpMet = new HTTPMethods(23);
+        httpMet.setEvent_id(NavigationDrawerActivity.event_id);
+        httpMet.ejecutarHttpAsyncTask();
+        while (!httpMet.getFinished());
+        numOpiniones = httpMet.getSizeComentarios();
+
         numOpinionestv.setText(Html.fromHtml("<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
         numOpinionestv.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        NavigationDrawerActivity.event_id = eventID;
+                        //NavigationDrawerActivity.event_id = eventID;
                         MyDialogFragmentComments dialogFragment = new MyDialogFragmentComments();
                         dialogFragment.show(getActivity().getFragmentManager(), "");
                     }

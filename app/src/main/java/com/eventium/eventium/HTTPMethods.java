@@ -72,6 +72,7 @@ public class HTTPMethods {
         nreports = "0";
         peticion_id = id;
         event_id = "";
+        comentarios = null;
     }
 
     public void ejecutarHttpAsyncTask(){
@@ -109,6 +110,11 @@ public class HTTPMethods {
     public List<Calendario> getCalendarios(){return calendarios;}
 
     public List<Comentario> getComentarios(){return comentarios;}
+
+    public int getSizeComentarios(){
+        if (comentarios == null) return 0;
+        else return comentarios.size();
+    }
 
     public void setCvc(String c){cvc = c;}
 
