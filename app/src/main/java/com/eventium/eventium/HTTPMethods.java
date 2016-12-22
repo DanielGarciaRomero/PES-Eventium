@@ -32,6 +32,7 @@ public class HTTPMethods {
     public static List<Usuario> users;
     public static List<Evento> events;
     public static List<Calendario> calendarios;
+    public static List<Comentario> comentarios;
     public static Boolean finished;
     public static Integer user_id;
     public static Integer peticion_id;
@@ -92,6 +93,7 @@ public class HTTPMethods {
         else if (peticion_id == 13) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //post de calendar - asistire
 
         else if (peticion_id == 14) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //POST de un comentario
+        else if (peticion_id == 23) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //GET de comentarios
 
         else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //put de destacado
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
@@ -105,6 +107,8 @@ public class HTTPMethods {
     public void setCardNumber(String cNumber){CardNumber = cNumber;}
 
     public List<Calendario> getCalendarios(){return calendarios;}
+
+    public List<Comentario> getComentarios(){return comentarios;}
 
     public void setCvc(String c){cvc = c;}
 
@@ -269,6 +273,7 @@ public class HTTPMethods {
             else if (peticion_id == 8) readJsonStreamCalendario(inputStream);
             else if (peticion_id == 21) readJsonStreamEventos(inputStream);
             else if (peticion_id == 22) readJsonStreamEventos(inputStream);
+            else if (peticion_id == 23) readJsonStreamComentarios(inputStream);
 
             // convert inputstream to string
             if(inputStream != null)
@@ -460,7 +465,7 @@ public class HTTPMethods {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22) return GET(urls[0]);
+            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23) return GET(urls[0]);
             else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
             else if (peticion_id >= 15 && peticion_id < 20) return PUT(urls[0]);
             else return DELETE(urls[0]);
@@ -495,6 +500,15 @@ public class HTTPMethods {
             //return leerArrayUsuarios(reader);
             //events = leerArrayEventos(reader);
             calendarios = leerArrayCalendario(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
+    public static void readJsonStreamComentarios(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            comentarios = leerArrayComentarios(reader);
         } finally {
             reader.close();
         }
@@ -580,6 +594,18 @@ public class HTTPMethods {
         return calendarios;
     }
 
+    public static List leerArrayComentarios(JsonReader reader) throws IOException {
+        // Lista temporal
+        ArrayList comentarios = new ArrayList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            // Leer objeto
+            comentarios.add(leerComentario(reader));
+        }
+        reader.endArray();
+        return comentarios;
+    }
+
     public static Usuario leerUsuario(JsonReader reader) throws IOException {
         String username = null;
         String mail = null;
@@ -644,6 +670,32 @@ public class HTTPMethods {
         }
         reader.endObject();
         return new Calendario(eventid, userid);
+    }
+
+    public static Comentario leerComentario(JsonReader reader) throws IOException {
+        Integer eventid = null;
+        String text = null;
+        Integer userid = null;
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "eventid":
+                    eventid = reader.nextInt();
+                    break;
+                case "text":
+                    text = reader.nextString();
+                    break;
+                case "userid":
+                    userid = reader.nextInt();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+            }
+        }
+        reader.endObject();
+        return new Comentario(eventid, text, userid);
     }
 
     public static Evento leerEvento(JsonReader reader) throws IOException {

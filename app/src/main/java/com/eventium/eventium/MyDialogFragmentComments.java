@@ -3,9 +3,11 @@ package com.eventium.eventium;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyDialogFragmentComments extends DialogFragment {
 
@@ -41,12 +44,14 @@ public class MyDialogFragmentComments extends DialogFragment {
         c = NavigationDrawerActivity.contexto;
         lv = (ListView) view.findViewById(R.id.listViewComments);
         usernames = new ArrayList<String>();
+        comments = new ArrayList<String>();
+        images = new ArrayList<Bitmap>();
+        /*
         usernames.add("Alvaro");
         usernames.add("Daniel");
         usernames.add("Alvaro");
         usernames.add("Daniel");
         usernames.add("Señor Rambal");
-        comments = new ArrayList<String>();
         comments.add("Dada la enorme propensión de los españoles a jugar a la lotería en comparación con otros países, ¿significa esto que somos una sociedad de" +
                 " esperanzados irracionales? Si es así, lo somos la gran mayoría, pues solo un 22% dice no participar en el sorteo de la lotería en Navidad ...");
         comments.add("Compramos lotería por si acaso les toca a quienes nos rodean. Los anuncios de Lotería de Navidad explotan esa envidia sin pudor alguno," +
@@ -57,12 +62,58 @@ public class MyDialogFragmentComments extends DialogFragment {
                 "con Loterías y Apuestas del Estado que le impedía participar en cualquier otra producción audiovisual entre 1998 y 2006 a cambio de 48.000 euros al año.");
         BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(c, R.drawable.defaultuserimage);
         Bitmap bitmap = drawable.getBitmap();
-        images = new ArrayList<Bitmap>();
         images.add(bitmap);
         images.add(bitmap);
         images.add(bitmap);
         images.add(bitmap);
         images.add(bitmap);
+        */
+
+        HTTPMethods httpMethods1 = new HTTPMethods(23);
+        httpMethods1.setEvent_id(NavigationDrawerActivity.event_id);
+        httpMethods1.ejecutarHttpAsyncTask();
+        while (!httpMethods1.getFinished());
+        List<Comentario> listaDeComentarios = httpMethods1.getComentarios();
+
+        if (listaDeComentarios != null) {
+            for (int i = 0; i < listaDeComentarios.size(); ++i) {
+                String userID = listaDeComentarios.get(i).getUserid().toString();
+                String text = listaDeComentarios.get(i).getText();
+
+                // lo ideal seria hacer un GET de username dado userID
+                // y no un GET de todos y buscar quien coincide
+                httpMethods1 = new HTTPMethods(0);
+                httpMethods1.ejecutarHttpAsyncTask();
+                while (!httpMethods1.getFinished());
+                List<Usuario> listaDeUsuarios = httpMethods1.getUsers();
+                String username = "";
+                Boolean trobat = false;
+                int j = 0;
+                while (!trobat && j < listaDeUsuarios.size()) {
+                    if (listaDeUsuarios.get(j).getId().equals(userID)) {
+                        username = listaDeUsuarios.get(j).getUsername();
+                        trobat = true;
+                    }
+                    else ++j;
+                }
+
+                // obtengo al usuario con su username y me quedo con su foto
+                httpMethods1 = new HTTPMethods(1);
+                httpMethods1.setUsername(username);
+                httpMethods1.ejecutarHttpAsyncTask();
+                while (!httpMethods1.getFinished());
+                Usuario user = httpMethods1.getUser();
+                String encodedImage = user.getPic();
+                byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
+                Bitmap bm = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+
+                // anadir a los ArrayList correspondientes
+                usernames.add(username);
+                comments.add(text);
+                images.add(bm);
+            }
+        }
+
         adapCom = new AdapterComments(c, usernames, comments, images);
         lv.setAdapter(adapCom);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
