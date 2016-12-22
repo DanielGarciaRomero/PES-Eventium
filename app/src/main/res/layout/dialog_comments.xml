@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:background="@android:color/white"
+    android:padding="12dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/editText_add_comment"
+        android:layout_marginTop="15dp"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:lines="3"
+        android:textSize="15dp"
+        android:gravity="top|left"
+        android:hint="Escribe un comentario"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="24dp">
+        android:layout_width="fill_parent"
+        android:background="@drawable/selector_desc_evento"
+        android:scrollbars="vertical"
+        android:layout_above="@+id/botonPublicar" />
 
-        <ListView
-            android:id="@+id/listViewComments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <ListView
+        android:id="@+id/listViewComments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/editText_add_comment"/>
 
-    </RelativeLayout>
+    <Button
+        android:id="@+id/botonPublicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PUBLICAR"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
 
-</ScrollView>
+</RelativeLayout>
