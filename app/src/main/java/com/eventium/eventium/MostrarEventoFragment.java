@@ -185,6 +185,7 @@ public class MostrarEventoFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        NavigationDrawerActivity.event_id = eventID;
                         MyDialogFragmentComments dialogFragment = new MyDialogFragmentComments();
                         dialogFragment.show(getActivity().getFragmentManager(), "");
                     }

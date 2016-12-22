@@ -56,6 +56,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     public static Boolean change_saldo;
 
     public static String event_id;
+    public static String myUsername;
+    public static Integer myUserID;
 
     TextView textFechaIni;
     TextView textFechaFi;
@@ -162,6 +164,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         httpMethods1.ejecutarHttpAsyncTask();
         while (!httpMethods1.getFinished());
         Usuario user = httpMethods1.getUser();
+
+        myUserID = Integer.parseInt(user.getId());
+        myUsername = user.getUsername();
 
         TextView nav_username = (TextView) hView.findViewById(R.id.textViewNaviDrawer1);
         nav_username.setText(user.getUsername());

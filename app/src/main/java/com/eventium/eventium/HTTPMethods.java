@@ -53,6 +53,7 @@ public class HTTPMethods {
     public static String event_direccion;
     public static String event_url_entradas;
     public static String event_descripcion;
+    public static String comentario;
 
     public static String token_user;
     public static String code;
@@ -89,6 +90,9 @@ public class HTTPMethods {
         else if (peticion_id == 11) new HttpAsyncTask().execute("http://10.4.41.168:5000/events"); //post de un event
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
         else if (peticion_id == 13) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //post de calendar - asistire
+
+        else if (peticion_id == 14) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //POST de un comentario
+
         else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //put de destacado
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
         else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de la imagen de user
@@ -131,6 +135,8 @@ public class HTTPMethods {
     public void setEvent_url_entradas(String url_entradas){event_url_entradas = url_entradas;}
 
     public void setEvent_descripcion(String descripcion){event_descripcion = descripcion;}
+
+    public void setComentario(String comment){ comentario = comment; }
 
     public void setEvent_categoria(String categoria){
         switch (categoria) {
@@ -328,6 +334,13 @@ public class HTTPMethods {
                 httpPost.setHeader("token", token_user);
                 List nameValuePairs = new ArrayList();
                 nameValuePairs.add(new BasicNameValuePair("eventId", event_id));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
+            else if (peticion_id == 14){ // POST comentario
+                httpPost.setHeader("token", token_user);
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("text", comentario));
+                nameValuePairs.add(new BasicNameValuePair("userid", user_id.toString()));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             httpResponse = httpclient.execute(httpPost);

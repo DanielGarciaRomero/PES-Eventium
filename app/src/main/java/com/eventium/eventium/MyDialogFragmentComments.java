@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class MyDialogFragmentComments extends DialogFragment {
 
     ListView lv;
-    EditText comentario;
+    EditText et_comentario;
     Button publicar;
     Context c;
     AdapterComments adapCom;
@@ -71,12 +71,20 @@ public class MyDialogFragmentComments extends DialogFragment {
                 // ¿Que hacer si me clican en un comentario? En teoria, nada
             }
         });
-        comentario = (EditText) view.findViewById(R.id.editText_add_comment);
+        et_comentario = (EditText) view.findViewById(R.id.editText_add_comment);
         publicar = (Button) view.findViewById(R.id.botonPublicar);
         publicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(c, "Has pulsado Publicar", Toast.LENGTH_LONG).show();
+                String comentario = et_comentario.getText().toString();
+                HTTPMethods httpMethods1 = new HTTPMethods(14);
+                httpMethods1.setToken_user(NavigationDrawerActivity.token);
+                httpMethods1.setEvent_id(NavigationDrawerActivity.event_id);
+                httpMethods1.setUser_id(NavigationDrawerActivity.myUserID);
+                httpMethods1.setComentario(comentario);
+                httpMethods1.ejecutarHttpAsyncTask();
+                while (!httpMethods1.getFinished());
+                Toast.makeText(c, "Tu comentario ha sido publicado", Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });
