@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,8 @@ public class MostrarEventoFragment extends Fragment {
         final TextView fecha = (TextView) view.findViewById(R.id.fechaEvento);
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
+        final TextView numOpinionestv = (TextView) view.findViewById(R.id.numOpinionesEvento);
+        final int numOpiniones = 0;
         //aqui irá el mapa//
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
@@ -88,7 +91,7 @@ public class MostrarEventoFragment extends Fragment {
         });
 
         final TextView asistentes = (TextView) view.findViewById(R.id.asistentesEvento);
-        //aqui irán las opiniones//
+
         final TextView patrocinadores = (TextView) view.findViewById(R.id.patrocinadoresEvento);
         final TextView entradas = (TextView) view.findViewById(R.id.webEntradas);
         final Button promocionar = (Button) view.findViewById(R.id.botonPromocionar);
@@ -157,16 +160,38 @@ public class MostrarEventoFragment extends Fragment {
         String dir = event.getDireccion();
         if (dir != null) direccion.setText("Direccion: " + event.getDireccion());
         else direccion.setText("Direccion: No hay informacion disponible");
-        String fIni = event.getFecha_ini(); String fFin = event.getFecha_fin();
-        if (fIni.equals(fFin)) fecha.setText("Fecha: " + fIni);
-        else fecha.setText("Fecha: de " + fIni + " a " + fFin);
+
+        String dataIni = event.getFecha_ini();
+        String dataFi = event.getFecha_fin();
+        String s = dataIni.substring(0, 4); int anyIni = Integer.parseInt(s);
+        s = dataFi.substring(0, 4); int anyFi = Integer.parseInt(s);
+        s = dataIni.substring(5, 7); int mesIni = Integer.parseInt(s);
+        s = dataFi.substring(5, 7); int mesFi = Integer.parseInt(s);
+        s = dataIni.substring(8, 10); int diaIni = Integer.parseInt(s);
+        s = dataFi.substring(8, 10); int diaFi = Integer.parseInt(s);
+        String fechas = diaIni + "/" + mesIni + "/" + anyIni + " - " + diaFi + "/" + mesFi + "/" + anyFi;
         String hIni = event.getHora_ini(); String hFin = event.getHora_fin();
+        float f = Float.parseFloat(event.getPrecio());
+        int preu = (int) f;
+        s = Integer.toString(preu) + " €";
+        if (dataIni.equals(dataFi)) fecha.setText("Fecha: " + diaIni + "/" + mesIni + "/" + anyIni);
+        else fecha.setText("Fecha: " + fechas);
         if (hIni.equals(hFin)) hora.setText("Hora: " + hIni);
-        else hora.setText("Hora: de " + hIni + " a " + hFin);
-        precio.setText("Precio: " + event.getPrecio() + "€");
+        else hora.setText("Hora: " + hIni + " - " + hFin);
+        precio.setText("Precio: " + s);
+
+        numOpinionestv.setText(Html.fromHtml("<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
+        numOpinionestv.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MyDialogFragmentComments dialogFragment = new MyDialogFragmentComments();
+                        dialogFragment.show(getActivity().getFragmentManager(), "");
+                    }
+                }
+        );
 
         httpMethods = new HTTPMethods(0);
-
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
         List<Usuario> users = httpMethods.getUsers();
