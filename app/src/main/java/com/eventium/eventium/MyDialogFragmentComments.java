@@ -135,8 +135,14 @@ public class MyDialogFragmentComments extends DialogFragment {
                 httpMethods1.setComentario(comentario);
                 httpMethods1.ejecutarHttpAsyncTask();
                 while (!httpMethods1.getFinished());
-                Toast.makeText(c, "Tu comentario ha sido publicado", Toast.LENGTH_LONG).show();
-                dismiss();
+
+                if (httpMethods1.getCode().equals("HTTP/1.0 200 OK")) Toast.makeText(c, "Ya has comentado este evento", Toast.LENGTH_LONG).show();
+
+                else {
+                    Toast.makeText(c, "Tu comentario ha sido publicado", Toast.LENGTH_LONG).show();
+                    ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
+                    dismiss();
+                }
             }
         });
     }

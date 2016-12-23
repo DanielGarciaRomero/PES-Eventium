@@ -116,7 +116,7 @@ public class MyDialogFragmentPromocionar extends DialogFragment {
 
                     NavigationDrawerActivity.usersaldo = user.getSaldo();
 
-                    ((NavigationDrawerActivity) getActivity()).fromPromocionarEventoToVerEventos();
+                    ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
                     dismiss();
                 }
             }

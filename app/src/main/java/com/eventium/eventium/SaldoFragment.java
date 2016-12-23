@@ -72,7 +72,7 @@ public class SaldoFragment extends Fragment {
 
                     NavigationDrawerActivity.usersaldo = user.getSaldo();
 
-                    ((NavigationDrawerActivity) getActivity()).fromPromocionarEventoToVerEventos();
+                    ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
                 }
                 //Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado realizar ingreso", Toast.LENGTH_LONG).show();
             }

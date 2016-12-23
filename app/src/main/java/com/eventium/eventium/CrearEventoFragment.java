@@ -263,7 +263,7 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
                                 httpMethods.ejecutarHttpAsyncTask();
                                 while (!httpMethods.getFinished());
                                 Toast.makeText(MainActivity.contexto, "Evento creado correctamente", Toast.LENGTH_LONG).show();
-                                ((NavigationDrawerActivity)getActivity()).fromCrearEventoToVerEventos();
+                                ((NavigationDrawerActivity)getActivity()).fromAnyWhereToVerEventos();
                             }
                         }
                     } catch (ParseException e) {

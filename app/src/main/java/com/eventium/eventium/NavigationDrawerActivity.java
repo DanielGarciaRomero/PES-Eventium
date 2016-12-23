@@ -73,25 +73,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     View viewFilter;
     NavigationView navigationView;
 
-    public void fromCrearEventoToVerEventos() {
-        navigationView.getMenu().getItem(0).setChecked(true);
-        Fragment fragment = new EventosFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contenedor_principal, fragment)
-                .commit();
-        getSupportActionBar().setTitle("Eventium");
-    }
-
-    public void fromPromocionarEventoToVerEventos() {
-        navigationView.getMenu().getItem(0).setChecked(true);
-        Fragment fragment = new EventosFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contenedor_principal, fragment)
-                .commit();
-        getSupportActionBar().setTitle("Eventium");
-    }
-
-    public void fromIngresarSaldoToVerEventos() {
+    public void fromAnyWhereToVerEventos() {
         navigationView.getMenu().getItem(0).setChecked(true);
         Fragment fragment = new EventosFragment();
         getSupportFragmentManager().beginTransaction()
