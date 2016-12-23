@@ -150,7 +150,9 @@ public class MostrarEventoFragment extends Fragment {
                 cat = "Otros";
                 break;
         }
-        categoria.setText("Categoria: " + cat);
+        categoria.setText(Html.fromHtml("<b>" + "Categoria: " + "</b>" + cat));
+        //categoria.setText(Html.fromHtml("<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
+        //categoria.setText("Categoria: " + cat);
         byte[] decodedString = Base64.decode(event.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imagen.setImageBitmap(profilePic);

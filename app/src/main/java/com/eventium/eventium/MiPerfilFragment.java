@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -108,49 +109,76 @@ public class MiPerfilFragment extends Fragment  {
         while (!httpMethods.getFinished());
         String cats = httpMethods.getCategories();
 
+        Integer numCategorias = 0;
         List<String> categoriasList = Arrays.asList(cats.split(","));
         for (String aux : categoriasList) {
             switch (aux) {
                 case "0":
                     categorias += "Artístico, ";
+                    ++numCategorias;
                     break;
                 case "1":
                     categorias += "Automobilístico, ";
+                    ++numCategorias;
                     break;
                 case "2":
                     categorias += "Cinematográfico, ";
+                    ++numCategorias;
                     break;
                 case "3":
                     categorias += "Deportivo, ";
+                    ++numCategorias;
                     break;
                 case "4":
                     categorias += "Gastronómico, ";
+                    ++numCategorias;
                     break;
                 case "5":
                     categorias += "Literario, ";
+                    ++numCategorias;
                     break;
                 case "6":
                     categorias += "Moda, ";
+                    ++numCategorias;
                     break;
                 case "7":
                     categorias += "Musical, ";
+                    ++numCategorias;
                     break;
                 case "8":
                     categorias += "Otros, ";
+                    ++numCategorias;
                     break;
                 case "9":
                     categorias += "Político, ";
+                    ++numCategorias;
                     break;
                 case "10":
                     categorias += "Teatral, ";
+                    ++numCategorias;
                     break;
                 case "11":
                     categorias += "Tecnológico y científico, ";
+                    ++numCategorias;
                     break;
             }
         }
         categorias = categorias.substring(0,categorias.length()-2);
-        tematicas.setText("Temáticas preferidas: " + categorias);
+        //tematicas.setText("Temáticas preferidas: " + categorias);
+        tematicas.setText(Html.fromHtml("<b>" + "Temáticas preferidas: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numCategorias+"</Font></u>"));
+        tematicas.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //NavigationDrawerActivity.event_id = eventID;
+                        MyDialogFragmentTematicas dialogFragment = new MyDialogFragmentTematicas();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("categories", categorias);
+                        dialogFragment.setArguments(bundle);
+                        dialogFragment.show(getActivity().getFragmentManager(), "");
+                    }
+                }
+        );
 
         return view;
     }
