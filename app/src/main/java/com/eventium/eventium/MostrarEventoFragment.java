@@ -177,8 +177,8 @@ public class MostrarEventoFragment extends Fragment {
         int preu = (int) f;
         s = Integer.toString(preu) + " €";
 
-        if (dataIni.equals(dataFi)) fecha.setText(Html.fromHtml("<b>" + "Fecha de inicio y fin: " + "</b>" + diaIni + "/" + mesIni + "/" + anyIni));
-        else fecha.setText(Html.fromHtml("<b>" + "Fecha de inicio y fin: " + "</b>" + fechas));
+        if (dataIni.equals(dataFi)) fecha.setText(Html.fromHtml("<b>" + "Fecha: " + "</b>" + diaIni + "/" + mesIni + "/" + anyIni));
+        else fecha.setText(Html.fromHtml("<b>" + "Fecha: " + "</b>" + fechas));
 
         //if (dataIni.equals(dataFi)) fecha.setText("Fecha: " + diaIni + "/" + mesIni + "/" + anyIni);
         //else fecha.setText("Fecha: " + fechas);

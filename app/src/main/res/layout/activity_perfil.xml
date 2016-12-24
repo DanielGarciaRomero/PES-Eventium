@@ -52,6 +52,17 @@
             android:isIndicator="true"/>
 
         <TextView
+            android:text="Email: email@email.com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:id="@+id/emailtext"
+            android:layout_below="@+id/fotoPerfil"
+            android:layout_alignStart="@+id/fotoPerfil" />
+
+        <TextView
             android:text="Ciudad: ciudad1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,28 +74,6 @@
             android:layout_alignStart="@+id/emailtext" />
 
         <TextView
-            android:text="Email: email@email.com"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:id="@+id/emailtext"
-            android:layout_below="@+id/fotoPerfil"
-            android:layout_alignStart="@+id/direcciontext" />
-
-        <TextView
-            android:text="Direccion: calle1 nX Xº Xª"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:id="@+id/direcciontext"
-            android:layout_below="@+id/ciudadtext"
-            android:layout_marginTop="20dp"
-            android:layout_alignStart="@+id/fotoPerfil" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -92,18 +81,8 @@
             android:textSize="20sp"
             android:text="Siguiendo: XXX"
             android:id="@+id/siguiendo"
-            android:layout_below="@+id/google"
+            android:layout_below="@+id/ciudadtext"
             android:layout_alignStart="@+id/ciudadtext" />
-
-        <ImageView
-            android:src="@drawable/googlemaps"
-            android:id="@+id/google"
-            android:layout_width="320dp"
-            android:layout_height="200dp"
-            android:visibility="visible"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/direcciontext"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,17 +128,6 @@
             android:layout_below="@+id/asistidos"
             android:layout_alignStart="@+id/asistidos" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="Opiniones: XXX"
-            android:id="@+id/opiniones"
-            android:layout_below="@+id/organizados"
-            android:layout_alignEnd="@+id/siguiendo" />
-
         <Button
             android:text="Seguir"
             android:layout_width="wrap_content"
@@ -178,9 +146,8 @@
             android:id="@+id/reportbutton"
             android:textSize="12sp"
             android:layout_below="@+id/emailtext"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="70dp"
             android:layout_alignStart="@+id/followbutton" />
 
-
     </RelativeLayout>
-    </ScrollView>
+</ScrollView>

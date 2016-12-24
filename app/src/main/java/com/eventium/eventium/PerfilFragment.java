@@ -37,12 +37,12 @@ public class PerfilFragment extends Fragment  {
     TextView mail;
     TextView tematicas;
     TextView city;
-    TextView direction;
+    //TextView direction;
     TextView siguiendo;
     TextView seguidores;
     TextView eventosAsistidos;
     TextView eventosOrganizados;
-    TextView opiniones;
+    //TextView opiniones;
     ImageView verified;
     ImageView fotoPerfil;
     RatingBar reputacion;
@@ -72,12 +72,13 @@ public class PerfilFragment extends Fragment  {
         });
         name = (TextView)view.findViewById(R.id.username);
         city = (TextView)view.findViewById(R.id.ciudadtext);
-        direction = (TextView)view.findViewById(R.id.direcciontext);
+        //direction = (TextView)view.findViewById(R.id.direcciontext);
         siguiendo = (TextView) view.findViewById(R.id.siguiendo);
         seguidores = (TextView) view.findViewById(R.id.seguidores);
         eventosAsistidos = (TextView) view.findViewById(R.id.asistidos);
         eventosOrganizados = (TextView) view.findViewById(R.id.organizados);
-        opiniones = (TextView) view.findViewById(R.id.opiniones);mail = (TextView)view.findViewById(R.id.emailtext);
+        //opiniones = (TextView) view.findViewById(R.id.opiniones);
+        mail = (TextView)view.findViewById(R.id.emailtext);
         tematicas = (TextView)view.findViewById(R.id.tematicas);
         verified = (ImageView)view.findViewById(R.id.verified);
         fotoPerfil = (ImageView)view.findViewById(R.id.fotoPerfil);
@@ -99,7 +100,7 @@ public class PerfilFragment extends Fragment  {
         name.setText(user.getUsername());
         mail.setText(Html.fromHtml("<b>" + "Email: " + "</b>" + user.getMail()));
         city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + "..."));
-        direction.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "..."));
+        //direction.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "..."));
         byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         fotoPerfil.setImageBitmap(profilePic);
@@ -203,7 +204,7 @@ public class PerfilFragment extends Fragment  {
         eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosOrganizados+"</Font></u>"));
 
         Integer numOpiniones = 0;
-        opiniones.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numOpiniones + "</Font></u>"));
+        //opiniones.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numOpiniones + "</Font></u>"));
 
         return view;
     }

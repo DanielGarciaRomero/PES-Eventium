@@ -49,12 +49,12 @@ public class MiPerfilFragment extends Fragment  {
     TextView mail;
     TextView tematicas;
     TextView city;
-    TextView direction;
+    //TextView direction;
     TextView siguiendo;
     TextView seguidores;
     TextView eventosAsistidos;
     TextView eventosOrganizados;
-    TextView opiniones;
+    //TextView opiniones;
     ImageView verified;
     ImageButton fotoMiPerfil;
     RatingBar reputacion;
@@ -70,14 +70,14 @@ public class MiPerfilFragment extends Fragment  {
         View view = inflater.inflate(R.layout.activity_miperfil, container, false);
         name = (TextView)view.findViewById(R.id.username);
         city = (TextView)view.findViewById(R.id.ciudadtext);
-        direction = (TextView)view.findViewById(R.id.direcciontext);
+        //direction = (TextView)view.findViewById(R.id.direcciontext);
         mail = (TextView)view.findViewById(R.id.emailtext);
         verified = (ImageView)view.findViewById(R.id.verified);
         siguiendo = (TextView) view.findViewById(R.id.siguiendo);
         seguidores = (TextView) view.findViewById(R.id.seguidores);
         eventosAsistidos = (TextView) view.findViewById(R.id.asistidos);
         eventosOrganizados = (TextView) view.findViewById(R.id.organizados);
-        opiniones = (TextView) view.findViewById(R.id.opiniones);
+        //opiniones = (TextView) view.findViewById(R.id.opiniones);
         tematicas = (TextView)view.findViewById(R.id.tematicas);
         fotoMiPerfil = (ImageButton)view.findViewById(R.id.fotoMiPerfil);
         fotoMiPerfil.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +110,7 @@ public class MiPerfilFragment extends Fragment  {
         //mail.setText("Email: " + user.getMail());
         mail.setText(Html.fromHtml("<b>" + "Email: " + "</b>" + user.getMail()));
         city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + "..."));
-        direction.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "..."));
+        //direction.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "..."));
         byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         fotoMiPerfil.setImageBitmap(profilePic);
@@ -210,7 +210,7 @@ public class MiPerfilFragment extends Fragment  {
         eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosOrganizados+"</Font></u>"));
 
         Integer numOpiniones = 0;
-        opiniones.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
+        //opiniones.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
 
         return view;
     }
