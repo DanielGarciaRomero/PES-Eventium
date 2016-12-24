@@ -20,6 +20,7 @@
             android:layout_marginTop="15dp"
             android:id="@+id/username"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:textStyle="normal|bold" />
 
         <ImageView
@@ -45,6 +46,7 @@
         <RatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:id="@+id/ratingBar"
             android:layout_marginRight="10dp"
             android:layout_alignBottom="@+id/fotoMiPerfil"
@@ -53,6 +55,7 @@
 
         <TextView
             android:text="Ciudad: ciudad1"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -64,26 +67,39 @@
         <TextView
             android:text="Email: email@email.com"
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="20dp"
             android:id="@+id/emailtext"
-            android:layout_below="@+id/direcciontext"
+            android:layout_below="@+id/fotoMiPerfil"
             android:layout_alignStart="@+id/direcciontext" />
+
+        <ImageView
+            android:src="@drawable/googlemaps"
+            android:id="@+id/google"
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/direcciontext"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:text="Siguiendo: XXX"
             android:id="@+id/siguiendo"
-            android:layout_below="@+id/ciudadtext"
+            android:layout_below="@+id/google"
             android:layout_alignStart="@+id/ciudadtext" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:text="Seguidores: XXX"
@@ -94,6 +110,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:text="Temáticas preferidas : XXX"
@@ -103,6 +120,7 @@
 
         <TextView
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
@@ -113,6 +131,7 @@
 
         <TextView
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
@@ -123,6 +142,7 @@
 
         <TextView
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
@@ -133,11 +153,12 @@
 
         <TextView
             android:text="Direccion: calle1 nX Xº Xª"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:id="@+id/direcciontext"
-            android:layout_below="@+id/fotoMiPerfil"
+            android:layout_below="@+id/ciudadtext"
             android:layout_alignStart="@+id/fotoMiPerfil"
             android:layout_marginTop="20dp" />
 

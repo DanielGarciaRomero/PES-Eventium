@@ -12,34 +12,52 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:background="@color/colorFondo">
 
-
         <TextView
             android:text="Titulo del evento placeholder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:textSize="24dp"
+            android:textSize="20sp"
+            android:layout_alignTop="@+id/fotoEvento"
+            android:layout_toEndOf="@+id/fotoEvento"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
             android:textStyle="bold"
             android:textColor="#000000"
-            android:id="@+id/tituloEvento"
-            android:layout_alignParentTop="true" />
+            android:id="@+id/tituloEvento"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:textColor="@color/black"
+            android:layout_marginRight="10dp"
+            android:layout_alignBottom="@+id/fotoEvento"
+            android:layout_toEndOf="@+id/fotoEvento"
+            android:isIndicator="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tituloEvento"
-            android:layout_marginTop="10dp"
+            android:text="Organizador: "
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:layout_below="@+id/fotoEvento"
+            android:layout_marginTop="20dp"
+            android:id="@+id/organizadorEvento"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/organizadorEvento"
+            android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:textColor="#000000"
             android:text="Categoría: "
             android:id="@+id/categoriaEvento"/>
 
         <ImageView
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:layout_below="@+id/categoriaEvento"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:src="@raw/unavailable"
             android:id="@+id/fotoEvento"/>
 
@@ -49,20 +67,9 @@
             android:text="Descripción: "
             android:textColor="#000000"
             android:textSize="18dp"
-            android:layout_below="@+id/fotoEvento"
-            android:layout_marginTop="40dp"
-            android:id="@+id/descripcionEvento"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Organizado por: "
-            android:textColor="#000000"
-            android:textSize="18dp"
-            android:layout_below="@+id/descripcionEvento"
+            android:layout_below="@+id/categoriaEvento"
             android:layout_marginTop="20dp"
-            android:id="@+id/organizadorEvento"/>
-
+            android:id="@+id/descripcionEvento"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,7 +77,7 @@
             android:text="Ciudad: "
             android:textColor="#000000"
             android:textSize="18dp"
-            android:layout_below="@+id/organizadorEvento"
+            android:layout_below="@+id/horaEvento"
             android:layout_marginTop="20dp"
             android:id="@+id/ciudadEvento"/>
 
@@ -87,17 +94,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha: "
+            android:text="Fecha de inicio y fin: "
             android:textColor="#000000"
             android:textSize="18dp"
-            android:layout_below="@+id/direccionEvento"
+            android:layout_below="@+id/descripcionEvento"
             android:layout_marginTop="20dp"
             android:id="@+id/fechaEvento"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hora: "
+            android:text="Hora de inicio y fin: "
             android:textColor="#000000"
             android:textSize="18dp"
             android:layout_below="@+id/fechaEvento"
@@ -110,39 +117,28 @@
             android:text="Precio: "
             android:textColor="#000000"
             android:textSize="18dp"
-            android:layout_below="@+id/horaEvento"
+            android:layout_below="@+id/webEntradas"
             android:layout_marginTop="20dp"
             android:id="@+id/precioEvento"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aqui irá el mapa"
-            android:textSize="18dp"
-            android:layout_below="@+id/precioEvento"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:id="@+id/mapaEvento"/>
 
         <ToggleButton
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:textOff="No asistiré"
             android:textOn="Asistiré"
-            android:layout_below="@+id/mapaEvento"
+            android:layout_below="@+id/direccionEvento"
             android:layout_marginTop="30dp"
             android:background="#56E394"
             android:id="@+id/botonAsistir" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Asistentes: "
             android:textColor="#000000"
             android:textSize="18dp"
-            android:layout_below="@+id/mapaEvento"
-            android:layout_toRightOf="@+id/botonAsistir"
-            android:layout_marginTop="39dp"
-            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/google"
+            android:layout_marginTop="10dp"
             android:id="@+id/asistentesEvento"/>
 
         <TextView
@@ -151,20 +147,9 @@
             android:text="Opiniones: "
             android:textColor="#000000"
             android:textSize="18dp"
-            android:layout_below="@+id/botonAsistir"
+            android:layout_below="@+id/asistentesEvento"
             android:layout_marginTop="20dp"
             android:id="@+id/opinionesEvento"/>
-
-        <TextView
-            android:id="@+id/numOpinionesEvento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="XX"
-            android:textColor="#0055AA"
-            android:textSize="18dp"
-            android:layout_marginLeft="95dp"
-            android:layout_below="@+id/botonAsistir"
-            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -187,11 +172,12 @@
             android:id="@+id/webEntradas"/>
 
         <Button
+            android:layout_centerHorizontal="true"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="Promocionar"
-            android:layout_below="@+id/webEntradas"
-            android:layout_marginTop="30dp"
+            android:layout_below="@+id/precioEvento"
+            android:layout_marginTop="20dp"
             android:background="#56E394"
             android:id="@+id/botonPromocionar"/>
 
@@ -199,13 +185,21 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="Reportar"
-            android:layout_below="@+id/webEntradas"
+            android:layout_below="@+id/direccionEvento"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="30dp"
             android:background="#56E394"
             android:id="@+id/botonReportar"/>
 
-
+        <ImageView
+            android:src="@drawable/googlemaps"
+            android:id="@+id/google"
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/botonAsistir"/>
 
     </RelativeLayout>
 

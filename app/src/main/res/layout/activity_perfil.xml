@@ -12,6 +12,7 @@
 
         <TextView
             android:text="Usuario1"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/fotoPerfil"
@@ -23,7 +24,7 @@
             android:textStyle="normal|bold" />
 
         <ImageView
-            android:src="@raw/unavailable"
+            android:src="@drawable/verified"
             android:layout_alignBottom="@+id/username"
             android:layout_toEndOf="@+id/username"
             android:layout_marginStart="33dp"
@@ -44,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ratingBar"
+            android:textColor="@color/black"
             android:layout_marginRight="10dp"
             android:layout_alignBottom="@+id/fotoPerfil"
             android:layout_toEndOf="@+id/fotoPerfil"
@@ -54,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:id="@+id/ciudadtext"
             android:textSize="20sp"
             android:layout_below="@+id/emailtext"
@@ -64,7 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:id="@+id/emailtext"
             android:layout_below="@+id/fotoPerfil"
             android:layout_alignStart="@+id/direcciontext" />
@@ -74,24 +78,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textColor="@color/black"
             android:id="@+id/direcciontext"
-            android:layout_below="@+id/fotoPerfil"
+            android:layout_below="@+id/ciudadtext"
             android:layout_marginTop="20dp"
             android:layout_alignStart="@+id/fotoPerfil" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:text="Siguiendo: XXX"
             android:id="@+id/siguiendo"
-            android:layout_below="@+id/ciudadtext"
+            android:layout_below="@+id/google"
             android:layout_alignStart="@+id/ciudadtext" />
+
+        <ImageView
+            android:src="@drawable/googlemaps"
+            android:id="@+id/google"
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/direcciontext"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:text="Seguidores: XXX"
@@ -103,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:text="Temáticas preferidas: XXX"
             android:id="@+id/tematicas"
@@ -113,6 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:text="Eventos asistidos: XXX"
             android:id="@+id/asistidos"
@@ -123,6 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:text="Eventos organizados: XXX"
             android:id="@+id/organizados"
@@ -132,6 +152,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:text="Opiniones: XXX"
@@ -144,7 +165,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/followbutton"
-            android:layout_alignBottom="@+id/emailtext"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/emailtext"
+            android:layout_marginTop="20dp"
+            android:textSize="12sp"
             android:layout_alignParentRight="true" />
 
         <Button
@@ -153,7 +177,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/reportbutton"
             android:textSize="12sp"
-            android:layout_alignBottom="@+id/ciudadtext"
+            android:layout_below="@+id/emailtext"
+            android:layout_marginTop="60dp"
             android:layout_alignStart="@+id/followbutton" />
 
 

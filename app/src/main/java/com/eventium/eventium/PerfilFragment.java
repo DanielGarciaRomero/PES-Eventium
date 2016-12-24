@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,8 +36,13 @@ public class PerfilFragment extends Fragment  {
     TextView name;
     TextView mail;
     TextView tematicas;
-    //TextView city;
-    //TextView direction;
+    TextView city;
+    TextView direction;
+    TextView siguiendo;
+    TextView seguidores;
+    TextView eventosAsistidos;
+    TextView eventosOrganizados;
+    TextView opiniones;
     ImageView verified;
     ImageView fotoPerfil;
     RatingBar reputacion;
@@ -65,7 +71,13 @@ public class PerfilFragment extends Fragment  {
             }
         });
         name = (TextView)view.findViewById(R.id.username);
-        mail = (TextView)view.findViewById(R.id.emailtext);
+        city = (TextView)view.findViewById(R.id.ciudadtext);
+        direction = (TextView)view.findViewById(R.id.direcciontext);
+        siguiendo = (TextView) view.findViewById(R.id.siguiendo);
+        seguidores = (TextView) view.findViewById(R.id.seguidores);
+        eventosAsistidos = (TextView) view.findViewById(R.id.asistidos);
+        eventosOrganizados = (TextView) view.findViewById(R.id.organizados);
+        opiniones = (TextView) view.findViewById(R.id.opiniones);mail = (TextView)view.findViewById(R.id.emailtext);
         tematicas = (TextView)view.findViewById(R.id.tematicas);
         verified = (ImageView)view.findViewById(R.id.verified);
         fotoPerfil = (ImageView)view.findViewById(R.id.fotoPerfil);
@@ -85,7 +97,9 @@ public class PerfilFragment extends Fragment  {
         while (!httpMethods.getFinished());
         Usuario user = httpMethods.getUser();
         name.setText(user.getUsername());
-        mail.setText("Email: " + user.getMail());
+        mail.setText(Html.fromHtml("<b>" + "Email: " + "</b>" + user.getMail()));
+        city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + "..."));
+        direction.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "..."));
         byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         fotoPerfil.setImageBitmap(profilePic);
@@ -102,50 +116,95 @@ public class PerfilFragment extends Fragment  {
         while (!httpMethods.getFinished());
         String cats = httpMethods.getCategories();
 
+        Integer numCategorias = 0;
         List<String> categoriasList = Arrays.asList(cats.split(","));
         for (String aux : categoriasList) {
             switch (aux) {
                 case "0":
                     categorias += "Artístico, ";
+                    ++numCategorias;
                     break;
                 case "1":
                     categorias += "Automobilístico, ";
+                    ++numCategorias;
                     break;
                 case "2":
                     categorias += "Cinematográfico, ";
+                    ++numCategorias;
                     break;
                 case "3":
                     categorias += "Deportivo, ";
+                    ++numCategorias;
                     break;
                 case "4":
                     categorias += "Gastronómico, ";
+                    ++numCategorias;
                     break;
                 case "5":
                     categorias += "Literario, ";
+                    ++numCategorias;
                     break;
                 case "6":
                     categorias += "Moda, ";
+                    ++numCategorias;
                     break;
                 case "7":
                     categorias += "Musical, ";
+                    ++numCategorias;
                     break;
                 case "8":
                     categorias += "Político, ";
+                    ++numCategorias;
                     break;
                 case "9":
                     categorias += "Teatral, ";
+                    ++numCategorias;
                     break;
                 case "10":
                     categorias += "Tecnológico y científico, ";
+                    ++numCategorias;
                     break;
                 case "11":
                     categorias += "Otros, ";
+                    ++numCategorias;
                     break;
             }
         }
-        if (categorias.length() != 0) categorias = categorias.substring(0,categorias.length()-2);
-        else categorias = "Ninguna";
-        tematicas.setText("Temáticas preferidas: " + categorias);
+        //if (categorias.length() != 0) categorias = categorias.substring(0,categorias.length()-2);
+        //else categorias = "Ninguna";
+        //tematicas.setText("Temáticas preferidas: " + categorias);
+        categorias = categorias.substring(0,categorias.length()-2);
+        //tematicas.setText("Temáticas preferidas: " + categorias);
+        tematicas.setText(Html.fromHtml("<b>" + "Temáticas preferidas: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numCategorias + "</Font></u>"));
+        tematicas.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //NavigationDrawerActivity.event_id = eventID;
+                        MyDialogFragmentTematicas dialogFragment = new MyDialogFragmentTematicas();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("categories", categorias);
+                        dialogFragment.setArguments(bundle);
+                        dialogFragment.show(getActivity().getFragmentManager(), "");
+                    }
+                }
+        );
+
+        Integer numSiguiendo = 0;
+        siguiendo.setText(Html.fromHtml("<b>" + "Siguiendo: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numSiguiendo + "</Font></u>"));
+
+        Integer numSeguidores = 0;
+        seguidores.setText(Html.fromHtml("<b>" + "Seguidores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numSeguidores+"</Font></u>"));
+
+        Integer numEventosAsistidos = 0;
+        eventosAsistidos.setText(Html.fromHtml("<b>" + "Eventos asistidos: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosAsistidos+"</Font></u>"));
+
+        Integer numEventosOrganizados = 0;
+        eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosOrganizados+"</Font></u>"));
+
+        Integer numOpiniones = 0;
+        opiniones.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numOpiniones + "</Font></u>"));
+
         return view;
     }
 

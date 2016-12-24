@@ -48,7 +48,7 @@ public class MostrarEventoFragment extends Fragment {
         final TextView fecha = (TextView) view.findViewById(R.id.fechaEvento);
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
-        final TextView numOpinionestv = (TextView) view.findViewById(R.id.numOpinionesEvento);
+        final TextView numOpinionestv = (TextView) view.findViewById(R.id.opinionesEvento);
         //aqui irá el mapa//
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
@@ -156,11 +156,12 @@ public class MostrarEventoFragment extends Fragment {
         byte[] decodedString = Base64.decode(event.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imagen.setImageBitmap(profilePic);
-        descripcion.setText("Descripcion: " + event.getDescripcion());
-        ciudad.setText("Ciudad: " + event.getCiudad());
+        if (descripcion != null) descripcion.setText(Html.fromHtml("<b>" + "Descripción: " + "</b>" + event.getDescripcion()));
+        else descripcion.setText(Html.fromHtml("<b>" + "Descripción: " + "</b>" + "-"));
+        ciudad.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + event.getCiudad()));
         String dir = event.getDireccion();
-        if (dir != null) direccion.setText("Direccion: " + event.getDireccion());
-        else direccion.setText("Direccion: No hay informacion disponible");
+        if (dir != null) direccion.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + event.getDireccion()));
+        else direccion.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "-"));
 
         String dataIni = event.getFecha_ini();
         String dataFi = event.getFecha_fin();
@@ -175,11 +176,18 @@ public class MostrarEventoFragment extends Fragment {
         float f = Float.parseFloat(event.getPrecio());
         int preu = (int) f;
         s = Integer.toString(preu) + " €";
-        if (dataIni.equals(dataFi)) fecha.setText("Fecha: " + diaIni + "/" + mesIni + "/" + anyIni);
-        else fecha.setText("Fecha: " + fechas);
-        if (hIni.equals(hFin)) hora.setText("Hora: " + hIni);
-        else hora.setText("Hora: " + hIni + " - " + hFin);
-        precio.setText("Precio: " + s);
+
+        if (dataIni.equals(dataFi)) fecha.setText(Html.fromHtml("<b>" + "Fecha de inicio y fin: " + "</b>" + diaIni + "/" + mesIni + "/" + anyIni));
+        else fecha.setText(Html.fromHtml("<b>" + "Fecha de inicio y fin: " + "</b>" + fechas));
+
+        //if (dataIni.equals(dataFi)) fecha.setText("Fecha: " + diaIni + "/" + mesIni + "/" + anyIni);
+        //else fecha.setText("Fecha: " + fechas);
+
+        if (hIni.equals(hFin)) hora.setText(Html.fromHtml("<b>" + "Hora de inicio y fin: " + "</b>" + hIni));
+        else hora.setText(Html.fromHtml("<b>" + "Hora: " + "</b>" + hIni + "-" + hFin));
+        //if (hIni.equals(hFin)) hora.setText("Hora: " + hIni);
+        //else hora.setText("Hora: " + hIni + " - " + hFin);
+        precio.setText(Html.fromHtml("<b>" + "Precio: " + "</b>" + s));
 
         HTTPMethods httpMet = new HTTPMethods(23);
         httpMet.setEvent_id(NavigationDrawerActivity.event_id);
@@ -187,7 +195,7 @@ public class MostrarEventoFragment extends Fragment {
         while (!httpMet.getFinished());
         numOpiniones = httpMet.getSizeComentarios();
 
-        numOpinionestv.setText(Html.fromHtml("<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
+        numOpinionestv.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
         numOpinionestv.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -210,7 +218,15 @@ public class MostrarEventoFragment extends Fragment {
                 break;
             }
         }
-        organizador.setText("Organizado por: " + username);
+        organizador.setText(Html.fromHtml("<b>" + "Organizador: " + "</b>" + username));
+
+        Integer numAsistentes = 0;
+        asistentes.setText(Html.fromHtml("<b>" + "Asistentes: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numAsistentes + "</Font></u>"));
+
+        patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>"));
+
+        entradas.setText(Html.fromHtml("<b>" + "Entradas: " + "</b>"));
+
         return view;
 
     }

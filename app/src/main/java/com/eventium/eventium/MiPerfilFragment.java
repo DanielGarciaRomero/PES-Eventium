@@ -29,6 +29,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
@@ -46,8 +48,13 @@ public class MiPerfilFragment extends Fragment  {
     TextView name;
     TextView mail;
     TextView tematicas;
-    //TextView city;
-    //TextView direction;
+    TextView city;
+    TextView direction;
+    TextView siguiendo;
+    TextView seguidores;
+    TextView eventosAsistidos;
+    TextView eventosOrganizados;
+    TextView opiniones;
     ImageView verified;
     ImageButton fotoMiPerfil;
     RatingBar reputacion;
@@ -62,8 +69,15 @@ public class MiPerfilFragment extends Fragment  {
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_miperfil, container, false);
         name = (TextView)view.findViewById(R.id.username);
+        city = (TextView)view.findViewById(R.id.ciudadtext);
+        direction = (TextView)view.findViewById(R.id.direcciontext);
         mail = (TextView)view.findViewById(R.id.emailtext);
         verified = (ImageView)view.findViewById(R.id.verified);
+        siguiendo = (TextView) view.findViewById(R.id.siguiendo);
+        seguidores = (TextView) view.findViewById(R.id.seguidores);
+        eventosAsistidos = (TextView) view.findViewById(R.id.asistidos);
+        eventosOrganizados = (TextView) view.findViewById(R.id.organizados);
+        opiniones = (TextView) view.findViewById(R.id.opiniones);
         tematicas = (TextView)view.findViewById(R.id.tematicas);
         fotoMiPerfil = (ImageButton)view.findViewById(R.id.fotoMiPerfil);
         fotoMiPerfil.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +107,10 @@ public class MiPerfilFragment extends Fragment  {
         idUsuario = user.getId();
 
         name.setText(user.getUsername());
-        mail.setText("Email: " + user.getMail());
+        //mail.setText("Email: " + user.getMail());
+        mail.setText(Html.fromHtml("<b>" + "Email: " + "</b>" + user.getMail()));
+        city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + "..."));
+        direction.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "..."));
         byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         fotoMiPerfil.setImageBitmap(profilePic);
@@ -179,6 +196,21 @@ public class MiPerfilFragment extends Fragment  {
                     }
                 }
         );
+
+        Integer numSiguiendo = 0;
+        siguiendo.setText(Html.fromHtml("<b>" + "Siguiendo: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numSiguiendo + "</Font></u>"));
+
+        Integer numSeguidores = 0;
+        seguidores.setText(Html.fromHtml("<b>" + "Seguidores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numSeguidores+"</Font></u>"));
+
+        Integer numEventosAsistidos = 0;
+        eventosAsistidos.setText(Html.fromHtml("<b>" + "Eventos asistidos: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosAsistidos+"</Font></u>"));
+
+        Integer numEventosOrganizados = 0;
+        eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosOrganizados+"</Font></u>"));
+
+        Integer numOpiniones = 0;
+        opiniones.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
 
         return view;
     }
