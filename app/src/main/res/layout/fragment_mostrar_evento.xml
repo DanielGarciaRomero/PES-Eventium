@@ -172,14 +172,33 @@
             android:id="@+id/webEntradas"/>
 
         <Button
-            android:layout_centerHorizontal="true"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="Promocionar"
-            android:layout_below="@+id/precioEvento"
-            android:layout_marginTop="20dp"
+            android:layout_alignStart="@+id/botonReportar"
+            android:layout_below="@+id/google"
             android:background="#56E394"
             android:id="@+id/botonPromocionar"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:layout_alignStart="@+id/botonPromocionar"
+            android:layout_below="@+id/botonPromocionar"
+            android:layout_marginTop="20dp"
+            android:background="#56E394"
+            android:id="@+id/botonEditar"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Eliminar"
+            android:layout_alignStart="@+id/botonEditar"
+            android:layout_below="@+id/botonEditar"
+            android:layout_marginTop="60dp"
+            android:background="#56E394"
+            android:id="@+id/botonEliminar"/>
 
         <Button
             android:layout_width="140dp"

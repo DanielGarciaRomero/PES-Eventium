@@ -1,6 +1,7 @@
 package com.eventium.eventium;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +31,7 @@ import static com.eventium.eventium.R.id.textView;
 public class MostrarEventoFragment extends Fragment {
     private String eventID;
     int numOpiniones;
+    private String myUsername;
     public MostrarEventoFragment() {}
 
     @Override
@@ -95,11 +98,12 @@ public class MostrarEventoFragment extends Fragment {
         final TextView entradas = (TextView) view.findViewById(R.id.webEntradas);
         final Button promocionar = (Button) view.findViewById(R.id.botonPromocionar);
         final Button reportar = (Button) view.findViewById(R.id.botonReportar);
+        final Button editar = (Button) view.findViewById(R.id.botonEditar);
+        final Button eliminar = (Button) view.findViewById(R.id.botonEliminar);
 
         promocionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //NavigationDrawerActivity.event_id = eventID;
                 MyDialogFragmentPromocionar dialogFragment = new MyDialogFragmentPromocionar ();
                 dialogFragment.show(getActivity().getFragmentManager(), "hola");
             }
@@ -151,8 +155,7 @@ public class MostrarEventoFragment extends Fragment {
                 break;
         }
         categoria.setText(Html.fromHtml("<b>" + "Categoria: " + "</b>" + cat));
-        //categoria.setText(Html.fromHtml("<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
-        //categoria.setText("Categoria: " + cat);
+
         byte[] decodedString = Base64.decode(event.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imagen.setImageBitmap(profilePic);
@@ -180,13 +183,8 @@ public class MostrarEventoFragment extends Fragment {
         if (dataIni.equals(dataFi)) fecha.setText(Html.fromHtml("<b>" + "Fecha: " + "</b>" + diaIni + "/" + mesIni + "/" + anyIni));
         else fecha.setText(Html.fromHtml("<b>" + "Fecha: " + "</b>" + fechas));
 
-        //if (dataIni.equals(dataFi)) fecha.setText("Fecha: " + diaIni + "/" + mesIni + "/" + anyIni);
-        //else fecha.setText("Fecha: " + fechas);
-
         if (hIni.equals(hFin)) hora.setText(Html.fromHtml("<b>" + "Hora de inicio y fin: " + "</b>" + hIni));
         else hora.setText(Html.fromHtml("<b>" + "Hora: " + "</b>" + hIni + "-" + hFin));
-        //if (hIni.equals(hFin)) hora.setText("Hora: " + hIni);
-        //else hora.setText("Hora: " + hIni + " - " + hFin);
         precio.setText(Html.fromHtml("<b>" + "Precio: " + "</b>" + s));
 
         HTTPMethods httpMet = new HTTPMethods(23);
@@ -200,7 +198,6 @@ public class MostrarEventoFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //NavigationDrawerActivity.event_id = eventID;
                         MyDialogFragmentComments dialogFragment = new MyDialogFragmentComments();
                         dialogFragment.show(getActivity().getFragmentManager(), "");
                     }
@@ -219,13 +216,51 @@ public class MostrarEventoFragment extends Fragment {
             }
         }
         organizador.setText(Html.fromHtml("<b>" + "Organizador: " + "</b>" + username));
-
         Integer numAsistentes = 0;
         asistentes.setText(Html.fromHtml("<b>" + "Asistentes: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numAsistentes + "</Font></u>"));
-
         patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>"));
-
         entradas.setText(Html.fromHtml("<b>" + "Entradas: " + "</b>"));
+
+        httpMethods = new HTTPMethods(4);
+        httpMethods.ejecutarHttpAsyncTask();
+        while (!httpMethods.getFinished());
+        myUsername = httpMethods.getResultado();
+        myUsername = myUsername.substring(14, myUsername.length()-2);
+
+        if (!myUsername.equals(username)) {
+            promocionar.setVisibility(View.GONE);
+            editar.setVisibility(View.GONE);
+            eliminar.setVisibility(View.GONE);
+        }
+
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(NavigationDrawerActivity.contexto, "Editar evento", Toast.LENGTH_LONG).show();
+                ((NavigationDrawerActivity)getActivity()).fromMostrarToEditarEvento(eventID);
+            }
+        });
+
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("¿Está seguro de que desea eliminar este evento?");
+                builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton("SI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
 
         return view;
 

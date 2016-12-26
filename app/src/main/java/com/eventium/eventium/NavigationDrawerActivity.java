@@ -96,6 +96,19 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         getSupportActionBar().setTitle("Eventium");
     }
 
+    public void fromMostrarToEditarEvento(String item) {
+        Fragment fragment = new EditarEventoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("event", item);
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor_principal, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle("Editar evento");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
