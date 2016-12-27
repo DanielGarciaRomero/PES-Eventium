@@ -32,6 +32,7 @@ public class MostrarEventoFragment extends Fragment {
     private String eventID;
     int numOpiniones;
     private String myUsername;
+    private Integer contador;
     public MostrarEventoFragment() {}
 
     @Override
@@ -52,6 +53,7 @@ public class MostrarEventoFragment extends Fragment {
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
         final TextView numOpinionestv = (TextView) view.findViewById(R.id.opinionesEvento);
+        contador = 0;
         //aqui irá el mapa//
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
@@ -106,6 +108,18 @@ public class MostrarEventoFragment extends Fragment {
             public void onClick(View v) {
                 MyDialogFragmentPromocionar dialogFragment = new MyDialogFragmentPromocionar ();
                 dialogFragment.show(getActivity().getFragmentManager(), "hola");
+            }
+        });
+
+        reportar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ++contador;
+                HTTPMethods httpMethods = new HTTPMethods(26);
+                httpMethods.setEvent_id(eventID);
+                httpMethods.ejecutarHttpAsyncTask();
+                while (!httpMethods.getFinished());
+                if (contador == 5) ((NavigationDrawerActivity)getActivity()).fromAnyWhereToVerEventos();
             }
         });
 
@@ -255,7 +269,13 @@ public class MostrarEventoFragment extends Fragment {
                 builder.setNegativeButton("SI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        HTTPMethods httpMet = new HTTPMethods(25);
+                        httpMet.setEvent_id(NavigationDrawerActivity.event_id);
+                        httpMet.setToken_user(NavigationDrawerActivity.token);
+                        httpMet.ejecutarHttpAsyncTask();
+                        while (!httpMet.getFinished());
+                        ((NavigationDrawerActivity)getActivity()).fromAnyWhereToVerEventos();
+                        //dialog.dismiss();
                     }
                 });
                 builder.show();

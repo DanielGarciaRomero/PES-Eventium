@@ -106,6 +106,9 @@ public class HTTPMethods {
         else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de USER
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
         else if (peticion_id == 20) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar/" + event_id); //post de calendar - asistire
+
+        else if (peticion_id == 25) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //DELETE de un evento
+        else if (peticion_id == 26) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/report"); //PUT de un report event
     }
 
     public void setDireccionFiltraje(String direccion){direccionFiltraje = direccion;}
@@ -479,6 +482,9 @@ public class HTTPMethods {
             if (peticion_id == 20){
                 httpDelete.setHeader("token", token_user);
             }
+            else if (peticion_id == 25){
+                httpDelete.setHeader("token", token_user);
+            }
             httpResponse = httpclient.execute(httpDelete);
             code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
@@ -515,7 +521,7 @@ public class HTTPMethods {
         protected String doInBackground(String... urls) {
             if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23) return GET(urls[0]);
             else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
-            else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 ) return PUT(urls[0]);
+            else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26) return PUT(urls[0]);
             else return DELETE(urls[0]);
         }
 
