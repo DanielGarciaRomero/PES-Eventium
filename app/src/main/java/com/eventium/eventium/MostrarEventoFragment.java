@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ public class MostrarEventoFragment extends Fragment {
     int numOpiniones;
     private String myUsername;
     private Integer contador;
+    private String username;
     public MostrarEventoFragment() {}
 
     @Override
@@ -222,14 +225,33 @@ public class MostrarEventoFragment extends Fragment {
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
         List<Usuario> users = httpMethods.getUsers();
-        String username = "";
+        username = "";
         for(Usuario usuario : users) {
             if (usuario.getId().equals(event.getOrganizerId())) {
                 username = usuario.getUsername();
                 break;
             }
         }
-        organizador.setText(Html.fromHtml("<b>" + "Organizador: " + "</b>" + username));
+        organizador.setText(Html.fromHtml("<b>" + "Organizador: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + username + "</Font></u>"));
+        organizador.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Fragment fragment;
+                        if(!username.equals(myUsername)) fragment = new PerfilFragment();
+                        else fragment = new MiPerfilFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("user", username);
+                        fragment.setArguments(bundle);
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.contenedor_principal, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                }
+        );
+
         Integer numAsistentes = 0;
         asistentes.setText(Html.fromHtml("<b>" + "Asistentes: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numAsistentes + "</Font></u>"));
         patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>"));
