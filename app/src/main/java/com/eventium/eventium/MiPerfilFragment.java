@@ -109,8 +109,10 @@ public class MiPerfilFragment extends Fragment  {
         httpMethods.setToken_user(NavigationDrawerActivity.token);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
-        String username = httpMethods.getResultado();
-        username = username.substring(14, username.length() - 2);
+        UsernameSponsor us = httpMethods.getUsernameSponsor();
+        String username = us.getUsername();
+        //String username = httpMethods.getResultado();
+        //username = username.substring(14, username.length() - 2);
 
         httpMethods = new HTTPMethods(1);
         httpMethods.setUsername(username);

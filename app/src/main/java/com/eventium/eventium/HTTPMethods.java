@@ -28,6 +28,7 @@ public class HTTPMethods {
     public static InputStream resultado_json;
     public static String resultado;
     public static Usuario user;
+    public static UsernameSponsor usuarioSponsor;
     public static Evento event;
     public static List<Usuario> users;
     public static List<Evento> events;
@@ -205,6 +206,8 @@ public class HTTPMethods {
 
     public Usuario getUser() { return user; }
 
+    public UsernameSponsor getUsernameSponsor() { return usuarioSponsor ; }
+
     public Evento getEvent() { return event; }
 
     public String getResultado(){
@@ -293,6 +296,7 @@ public class HTTPMethods {
             if (peticion_id == 1) readJsonStreamUsuario(inputStream);
             else if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
             else if (peticion_id == 3) readJsonStreamEventos(inputStream);
+            else if (peticion_id == 4) readJsonStreamUsernameSponsor(inputStream);
 
             else if (peticion_id == 9) readJsonStreamEventos(inputStream);
 
@@ -578,6 +582,16 @@ public class HTTPMethods {
         }
     }
 
+    public static void readJsonStreamUsernameSponsor(InputStream in) throws IOException {
+        //Nueva instancia JsonReader
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            usuarioSponsor = leerUsernameSponsor(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
     public static void readJsonStreamEventos(InputStream in) throws IOException {
         // Nueva instancia JsonReader
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
@@ -715,6 +729,29 @@ public class HTTPMethods {
         }
         reader.endObject();
         return new Usuario(username, saldo, mail, password, pic, id, isVerified, isBanned, ciudad);
+    }
+
+    public static UsernameSponsor leerUsernameSponsor(JsonReader reader) throws IOException {
+        String username = null;
+        Boolean sponsor = null;
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "username":
+                    username = reader.nextString();
+                    break;
+                case "sponsor":
+                    sponsor = reader.nextBoolean();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+            }
+        }
+        reader.endObject();
+        return new UsernameSponsor(username, sponsor);
     }
 
     public static Calendario leerCalendario(JsonReader reader) throws IOException {

@@ -59,8 +59,10 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
         httpMethods = new HTTPMethods(4);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
-        myUsername = httpMethods.getResultado();
-        myUsername = myUsername.substring(14, myUsername.length()-2);
+        UsernameSponsor us = httpMethods.getUsernameSponsor();
+        myUsername = us.getUsername();
+        //myUsername = httpMethods.getResultado();
+        //myUsername = myUsername.substring(14, myUsername.length()-2);
 
     }
 

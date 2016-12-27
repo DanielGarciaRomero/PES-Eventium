@@ -67,8 +67,10 @@ public class MostrarEventoFragment extends Fragment {
                 httpMethods1.setToken_user(NavigationDrawerActivity.token);
                 httpMethods1.ejecutarHttpAsyncTask();
                 while (!httpMethods1.getFinished());
-                String username = httpMethods1.getResultado();
-                username = username.substring(14, username.length() - 2);
+                UsernameSponsor us = httpMethods1.getUsernameSponsor();
+                String username = us.getUsername();
+                //String username = httpMethods1.getResultado();
+                //username = username.substring(14, username.length() - 2);
 
                 //Obtengo el usuario con el username
                 HTTPMethods httpMethods2 = new HTTPMethods(1);
@@ -238,7 +240,7 @@ public class MostrarEventoFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Fragment fragment;
-                        if(!username.equals(myUsername)) fragment = new PerfilFragment();
+                        if (!username.equals(myUsername)) fragment = new PerfilFragment();
                         else fragment = new MiPerfilFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("user", username);
@@ -260,8 +262,10 @@ public class MostrarEventoFragment extends Fragment {
         httpMethods = new HTTPMethods(4);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
-        myUsername = httpMethods.getResultado();
-        myUsername = myUsername.substring(14, myUsername.length()-2);
+        UsernameSponsor us = httpMethods.getUsernameSponsor();
+        myUsername = us.getUsername();
+        //myUsername = httpMethods.getResultado();
+        //myUsername = myUsername.substring(14, myUsername.length()-2);
 
         if (!myUsername.equals(username)) {
             promocionar.setVisibility(View.GONE);

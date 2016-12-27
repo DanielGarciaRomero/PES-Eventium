@@ -61,8 +61,10 @@ public class MyDialogFragmentPromocionar extends DialogFragment {
                 httpMethods1.setToken_user(NavigationDrawerActivity.token);
                 httpMethods1.ejecutarHttpAsyncTask();
                 while (!httpMethods1.getFinished());
-                String username = httpMethods1.getResultado();
-                username = username.substring(14, username.length() - 2);
+                UsernameSponsor us = httpMethods1.getUsernameSponsor();
+                String username = us.getUsername();
+                //String username = httpMethods1.getResultado();
+                //username = username.substring(14, username.length() - 2);
 
                 HTTPMethods httpMethods2 = new HTTPMethods(1);
                 httpMethods2.setUsername(username);

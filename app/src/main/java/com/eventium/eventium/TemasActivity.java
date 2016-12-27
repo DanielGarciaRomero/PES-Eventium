@@ -128,8 +128,10 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
             httpMethods.setToken_user(RegistroActivity.token);
             httpMethods.ejecutarHttpAsyncTask();
             while (!httpMethods.getFinished());
-            String aux3 = httpMethods.getResultado();
-            String aux2 = aux3.substring(14, aux3.length() - 2);
+            UsernameSponsor us = httpMethods.getUsernameSponsor();
+            String aux2 = us.getUsername();
+            //String aux3 = httpMethods.getResultado();
+            //String aux2 = aux3.substring(14, aux3.length() - 2);
 
             HTTPMethods httpMethods1 = new HTTPMethods(1);
             httpMethods1.setUsername(aux2);

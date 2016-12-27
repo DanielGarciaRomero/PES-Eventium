@@ -151,8 +151,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         httpMethods.setToken_user(token);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
-        String aux = httpMethods.getResultado();
-        String aux2 = aux.substring(14, aux.length() - 2);
+        UsernameSponsor us = httpMethods.getUsernameSponsor();
+        String aux2 = us.getUsername();
+        //String aux = httpMethods.getResultado();
+        //String aux2 = aux.substring(14, aux.length() - 2);
 
         HTTPMethods httpMethods1 = new HTTPMethods(1);
         httpMethods1.setUsername(aux2);

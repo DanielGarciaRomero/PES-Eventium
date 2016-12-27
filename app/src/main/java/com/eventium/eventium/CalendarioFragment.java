@@ -79,8 +79,10 @@ public class CalendarioFragment extends Fragment {
             httpMethods1.setToken_user(NavigationDrawerActivity.token);
             httpMethods1.ejecutarHttpAsyncTask();
             while (!httpMethods1.getFinished());
-            String username = httpMethods1.getResultado();
-            username = username.substring(14, username.length() - 2);
+            UsernameSponsor us = httpMethods1.getUsernameSponsor();
+            String username = us.getUsername();
+            //String username = httpMethods1.getResultado();
+            //username = username.substring(14, username.length() - 2);
 
             //Obtengo el usuario con el username
             HTTPMethods httpMethods2 = new HTTPMethods(1);
