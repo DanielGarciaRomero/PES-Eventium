@@ -126,7 +126,7 @@ public class MiPerfilFragment extends Fragment  {
 
         mail.setText(Html.fromHtml("<b>" + "Email: " + "</b>" + user.getMail()));
 
-        city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + user.getCiudad()));
+        city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>"));
         textView_contrasena_actual = (TextView)view.findViewById(R.id.textView_contrasena_actual);
         textView_contrasena_actual.setText(Html.fromHtml("<b>" + "Contraseña actual:" + "</b>"));
         textView_contrasena_nueva = (TextView)view.findViewById(R.id.textView_contrasena_nueva);

@@ -111,42 +111,57 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         else if (v.getId() == R.id.button14){
+
             //Toast.makeText(getBaseContext(), "Has pulsado aceptar", Toast.LENGTH_LONG).show();
-            Boolean primer = true;
-            String aux = "";
-            Integer i;
-            for (i = 0; i < categorias.size(); ++i){
-                if (primer){
-                    if (categorias.get(i) == 1) {aux += i.toString(); primer = false;}
-                }
-                else {
-                    if (categorias.get(i) == 1) aux += "," + i.toString();
-                }
+
+            Boolean algunaSeleccionada = false;
+            int j = 0;
+            while (!algunaSeleccionada && j < categorias.size()) {
+                if (categorias.get(j) == 1) algunaSeleccionada = true;
+                else ++j;
             }
 
-            HTTPMethods httpMethods = new HTTPMethods(4);
-            httpMethods.setToken_user(RegistroActivity.token);
-            httpMethods.ejecutarHttpAsyncTask();
-            while (!httpMethods.getFinished());
-            UsernameSponsor us = httpMethods.getUsernameSponsor();
-            String aux2 = us.getUsername();
-            //String aux3 = httpMethods.getResultado();
-            //String aux2 = aux3.substring(14, aux3.length() - 2);
+            if (!algunaSeleccionada) {
+                Toast.makeText(getBaseContext(), "No has seleccionado ninguna categoria", Toast.LENGTH_LONG).show();
+            }
 
-            HTTPMethods httpMethods1 = new HTTPMethods(1);
-            httpMethods1.setUsername(aux2);
-            httpMethods1.ejecutarHttpAsyncTask();
-            while (!httpMethods1.getFinished());
-            Usuario user = httpMethods1.getUser();
-            String aux4 = user.getId();
+            else {
+                Boolean primer = true;
+                String aux = "";
+                Integer i;
+                for (i = 0; i < categorias.size(); ++i){
+                    if (primer){
+                        if (categorias.get(i) == 1) {aux += i.toString(); primer = false;}
+                    }
+                    else {
+                        if (categorias.get(i) == 1) aux += "," + i.toString();
+                    }
+                }
 
-            HTTPMethods httpMethods2 = new HTTPMethods(15);
-            httpMethods2.setCategories(aux);
-            httpMethods2.setUser_id(Integer.parseInt(aux4));
-            httpMethods2.ejecutarHttpAsyncTask();
-            while (!httpMethods2.getFinished());
+                HTTPMethods httpMethods = new HTTPMethods(4);
+                httpMethods.setToken_user(RegistroActivity.token);
+                httpMethods.ejecutarHttpAsyncTask();
+                while (!httpMethods.getFinished());
+                UsernameSponsor us = httpMethods.getUsernameSponsor();
+                String aux2 = us.getUsername();
+                //String aux3 = httpMethods.getResultado();
+                //String aux2 = aux3.substring(14, aux3.length() - 2);
 
-            TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
+                HTTPMethods httpMethods1 = new HTTPMethods(1);
+                httpMethods1.setUsername(aux2);
+                httpMethods1.ejecutarHttpAsyncTask();
+                while (!httpMethods1.getFinished());
+                Usuario user = httpMethods1.getUser();
+                String aux4 = user.getId();
+
+                HTTPMethods httpMethods2 = new HTTPMethods(15);
+                httpMethods2.setCategories(aux);
+                httpMethods2.setUser_id(Integer.parseInt(aux4));
+                httpMethods2.ejecutarHttpAsyncTask();
+                while (!httpMethods2.getFinished());
+
+                TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
+            }
         }
     }
 }
