@@ -24,8 +24,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by Abel on 11/11/2016.
@@ -49,6 +54,8 @@ public class PerfilFragment extends Fragment  {
     private String username;
     String idUsuario;
     String categorias;
+    ArrayList<Evento> eventos;
+
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -58,6 +65,7 @@ public class PerfilFragment extends Fragment  {
         View view = inflater.inflate(R.layout.activity_perfil, container, false);
         Bundle bundle = getArguments();
         username = bundle.getString("user");
+        eventos = new ArrayList<>();
         view.findViewById(R.id.followbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,8 +205,52 @@ public class PerfilFragment extends Fragment  {
         Integer numSeguidores = 0;
         seguidores.setText(Html.fromHtml("<b>" + "Seguidores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numSeguidores+"</Font></u>"));
 
-        Integer numEventosAsistidos = 0;
-        eventosAsistidos.setText(Html.fromHtml("<b>" + "Eventos asistidos: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosAsistidos+"</Font></u>"));
+        //Integer numEventosAsistidos = 0;
+        //Obtengo el calendario de un user
+        HTTPMethods httpMethods3 = new HTTPMethods(8);
+        httpMethods3.setToken_user(NavigationDrawerActivity.token);
+        httpMethods3.setUser_id(Integer.parseInt(idUsuario));
+        httpMethods3.ejecutarHttpAsyncTask();
+        while (!httpMethods3.getFinished());
+        List<Calendario> list_calendario = httpMethods3.getCalendarios();
+
+        final Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
+        System.out.println("HOLA" + date.getTime());
+
+        if (list_calendario != null) {
+            for (int i = 0; i < list_calendario.size(); ++i) {
+                Integer eventID = list_calendario.get(i).getEventid();
+
+                HTTPMethods httpMethods4 = new HTTPMethods(7);
+                httpMethods4.setEvent_id(eventID.toString());
+                httpMethods4.ejecutarHttpAsyncTask();
+                while (!httpMethods4.getFinished()) ;
+                Evento event = httpMethods4.getEvent();
+
+                try {
+                    if (!fechaAnteriorActual(event.getFecha_ini())) {
+                        eventos.add(event);
+                    }
+                }
+                catch (ParseException e) {}
+                catch (datesException e) {}
+            }
+        }
+
+        eventosAsistidos.setText(Html.fromHtml("<b>" + "Eventos asistidos: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+eventos.size()+"</Font></u>"));
+        eventosAsistidos.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //NavigationDrawerActivity.event_id = eventID;
+                        NavigationDrawerActivity.events = eventos;
+                        MyDialogFragment dialogFragment = new MyDialogFragment ();
+                        dialogFragment.show(getActivity().getFragmentManager(), "hola");
+                    }
+                }
+        );
 
         Integer numEventosOrganizados = 0;
         eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosOrganizados+"</Font></u>"));
@@ -224,6 +276,31 @@ public class PerfilFragment extends Fragment  {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    public boolean fechaAnteriorActual(String dataIni) throws ParseException, datesException
+    {
+        try {
+            String s = dataIni.substring(0, 4); int anyIni = Integer.parseInt(s);
+            s = dataIni.substring(5, 7); int mesIni = Integer.parseInt(s);
+            s = dataIni.substring(8, 10); int diaIni = Integer.parseInt(s);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            s = anyIni + "-" + mesIni + "-" + diaIni;
+            Date date1 = sdf.parse(s);
+            Date currentDate = new Date();
+            currentDate = sdf.parse(sdf.format(currentDate));
+            if (date1.before(currentDate)) return false;
+            return true;
+        }
+        catch(NumberFormatException e){
+            throw new datesException("");
+        }
+    }
+
+    public class datesException extends Exception {
+        public datesException(String msg) {
+            super(msg);
+        }
     }
 
 }
