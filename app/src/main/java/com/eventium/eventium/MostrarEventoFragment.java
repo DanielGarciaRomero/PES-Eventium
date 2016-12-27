@@ -34,7 +34,7 @@ public class MostrarEventoFragment extends Fragment {
     private String eventID;
     int numOpiniones;
     private String myUsername;
-    private Integer contador;
+    //private Integer contador;
     private String username;
     public MostrarEventoFragment() {}
 
@@ -56,7 +56,7 @@ public class MostrarEventoFragment extends Fragment {
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
         final TextView numOpinionestv = (TextView) view.findViewById(R.id.opinionesEvento);
-        contador = 0;
+        //contador = 0;
         //aqui irá el mapa//
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
@@ -119,12 +119,23 @@ public class MostrarEventoFragment extends Fragment {
         reportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ++contador;
+                //++contador;
+                HTTPMethods httpMethods2 = new HTTPMethods(7);
+                httpMethods2.setEvent_id(eventID);
+                httpMethods2.ejecutarHttpAsyncTask();
+                while (!httpMethods2.getFinished());
+                Evento event = httpMethods2.getEvent();
+
                 HTTPMethods httpMethods = new HTTPMethods(26);
                 httpMethods.setEvent_id(eventID);
                 httpMethods.ejecutarHttpAsyncTask();
                 while (!httpMethods.getFinished());
-                if (contador == 5) ((NavigationDrawerActivity)getActivity()).fromAnyWhereToVerEventos();
+
+                System.out.println(event.getnReports());
+                if (event.getnReports().equals("4")){
+                    System.out.println("entro");
+                    ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
+                }
             }
         });
 
