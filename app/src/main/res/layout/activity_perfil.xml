@@ -135,7 +135,7 @@
             android:id="@+id/followbutton"
             android:layout_marginRight="20dp"
             android:layout_below="@+id/emailtext"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:textSize="12sp"
             android:layout_alignParentRight="true" />
 
@@ -145,8 +145,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/reportbutton"
             android:textSize="12sp"
-            android:layout_below="@+id/emailtext"
-            android:layout_marginTop="70dp"
+            android:layout_below="@+id/followbutton"
+            android:layout_marginTop="5dp"
             android:layout_alignStart="@+id/followbutton" />
 
     </RelativeLayout>

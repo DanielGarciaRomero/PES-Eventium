@@ -3,11 +3,14 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:scrollbarStyle="insideOverlay">
+    android:fillViewport="true">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
         android:background="@color/colorFondo">
 
         <TextView
@@ -39,8 +42,8 @@
             android:layout_height="100dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:layout_alignParentStart="true" />
 
         <RatingBar
@@ -66,7 +69,7 @@
 
         <TextView
             android:id="@+id/ciudadtext"
-            android:text="Ciudad: ciudad1"
+            android:text="Ciudad: "
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,6 +77,22 @@
             android:textSize="20sp"
             android:layout_below="@+id/emailtext"
             android:layout_alignStart="@+id/emailtext" />
+
+        <EditText
+            android:id="@+id/editText_user_ciudad"
+            android:focusable="false"
+            android:inputType="textNoSuggestions"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:colorControlActivated="@color/colorToolbar"
+            android:layout_below="@+id/emailtext"
+            android:layout_alignStart="@+id/emailtext"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="70dp"
+            android:textSize="20sp"
+            android:textColor="#000000" />
 
         <TextView
             android:id="@+id/siguiendo"
@@ -129,6 +148,70 @@
             android:text="Eventos organizados: XXX"
             android:layout_below="@+id/asistidos"
             android:layout_alignStart="@+id/asistidos" />
+
+        <TextView
+            android:id="@+id/textView_contrasena_actual"
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="Contraseña actual:"
+            android:layout_below="@+id/organizados"
+            android:layout_alignStart="@+id/organizados" />
+
+        <EditText
+            android:id="@+id/editText_contrasena_actual"
+            android:focusable="false"
+            android:inputType="textPassword"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:colorControlActivated="@color/colorToolbar"
+            android:layout_below="@+id/organizados"
+            android:layout_alignStart="@+id/organizados"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="170dp"
+            android:textSize="20sp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/textView_contrasena_nueva"
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="Nueva contraseña:"
+            android:layout_below="@+id/textView_contrasena_actual"
+            android:layout_alignStart="@+id/textView_contrasena_actual" />
+
+        <EditText
+            android:id="@+id/editText_contrasena_nueva"
+            android:focusable="false"
+            android:inputType="textPassword"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:colorControlActivated="@color/colorToolbar"
+            android:layout_below="@+id/textView_contrasena_actual"
+            android:layout_alignStart="@+id/textView_contrasena_actual"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="170dp"
+            android:textSize="20sp"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/button_modificar_usuario"
+            android:text="Guardar cambios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textView_contrasena_nueva"
+            android:layout_marginTop="30dp"
+            android:background="#5FBD88" />
 
 
     </RelativeLayout>

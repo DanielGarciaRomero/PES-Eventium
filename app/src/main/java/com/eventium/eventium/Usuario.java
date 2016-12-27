@@ -8,8 +8,11 @@ public class Usuario {
     private String pic;
     private String id;
     private Boolean isVerified;
+    private Boolean isBanned;
+    private String ciudad;
 
-    public Usuario(String username, String saldo, String mail, String password, String pic, String id, Boolean isVerified) {
+    public Usuario(String username, String saldo, String mail, String password, String pic, String id,
+                   Boolean isVerified, Boolean isBanned, String ciudad) {
         this.username = username;
         this.saldo = saldo;
         this.mail = mail;
@@ -17,6 +20,8 @@ public class Usuario {
         this.pic = pic;
         this.id = id;
         this.isVerified = isVerified;
+        this.isBanned = isBanned;
+        this.ciudad = ciudad;
     }
 
     public String getUsername() {
@@ -66,4 +71,16 @@ public class Usuario {
     public Boolean getIsVerified() {return isVerified;}
 
     public void setIsVerified(Boolean isVerified) {this.isVerified = isVerified;}
+
+    public Boolean getIsBanned() {return isBanned;}
+
+    public void setIsBanned(Boolean isBanned) {this.isBanned = isBanned;}
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
 }

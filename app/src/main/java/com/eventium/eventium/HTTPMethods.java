@@ -41,6 +41,10 @@ public class HTTPMethods {
     public static String mail;
     public static String pic;
     public static String categories;
+    public static String user_ciudad;
+    public static String user_verified;
+    public static String user_banned;
+
     public static String event_id;
     public static String event_title;
     public static String event_fecha_ini;
@@ -99,7 +103,7 @@ public class HTTPMethods {
 
         else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //put de destacado
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
-        else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de la imagen de user
+        else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de USER
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
         else if (peticion_id == 20) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar/" + event_id); //post de calendar - asistire
     }
@@ -232,6 +236,18 @@ public class HTTPMethods {
 
     public void setMail(String correo){
         mail = correo;
+    }
+
+    public void setUserCiudad(String ciudad){
+        user_ciudad = ciudad;
+    }
+
+    public void setUserVerified(String verified){
+        user_verified = verified;
+    }
+
+    public void setUserBanned(String banned){
+        user_banned = banned;
     }
 
     public void setToken_user(String token){token_user = token;}
@@ -393,6 +409,10 @@ public class HTTPMethods {
             else if (peticion_id == 16){
                 List nameValuePairs = new ArrayList();
                 nameValuePairs.add(new BasicNameValuePair("pic", pic));
+                nameValuePairs.add(new BasicNameValuePair("password", password));
+                nameValuePairs.add(new BasicNameValuePair("verified", user_verified));
+                nameValuePairs.add(new BasicNameValuePair("banned", user_banned));
+                nameValuePairs.add(new BasicNameValuePair("ciudad", user_ciudad));
                 httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
             else if (peticion_id == 17){
@@ -642,6 +662,8 @@ public class HTTPMethods {
         String id = null;
         String saldo = null;
         Boolean isVerified = null;
+        Boolean isBanned = null;
+        String ciudad = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -668,13 +690,25 @@ public class HTTPMethods {
                 case "verified":
                     isVerified = reader.nextBoolean();
                     break;
+                case "banned":
+                    isBanned = reader.nextBoolean();
+                    break;
+                case "ciudad":
+                    try {
+                        ciudad = reader.nextString();
+                    } catch (Exception e) {
+                        reader.nextNull();
+                        ciudad = null;
+                    } finally {
+                        break;
+                    }
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Usuario(username, saldo, mail, password, pic, id, isVerified);
+        return new Usuario(username, saldo, mail, password, pic, id, isVerified, isBanned, ciudad);
     }
 
     public static Calendario leerCalendario(JsonReader reader) throws IOException {
