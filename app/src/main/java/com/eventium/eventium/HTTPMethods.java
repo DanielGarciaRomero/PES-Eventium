@@ -95,6 +95,7 @@ public class HTTPMethods {
 
         else if (peticion_id == 14) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //POST de un comentario
         else if (peticion_id == 23) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //GET de comentarios
+        else if (peticion_id == 24) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //PUT de un evento
 
         else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //put de destacado
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
@@ -147,6 +148,8 @@ public class HTTPMethods {
     public void setEvent_descripcion(String descripcion){event_descripcion = descripcion;}
 
     public void setComentario(String comment){ comentario = comment; }
+
+    public void setnReports(String nrep){ nreports = nrep; }
 
     public void setEvent_categoria(String categoria){
         switch (categoria) {
@@ -406,6 +409,25 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("destacado", destacado));
                 httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
+            else if (peticion_id == 24){
+                httpPut.setHeader("token", token_user);
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("title", event_title));
+                nameValuePairs.add(new BasicNameValuePair("hora_ini", event_hora_ini));
+                nameValuePairs.add(new BasicNameValuePair("hora_fin", event_hora_fin));
+                nameValuePairs.add(new BasicNameValuePair("fecha_ini", event_fecha_ini));
+                nameValuePairs.add(new BasicNameValuePair("fecha_fin", event_fecha_fin));
+                nameValuePairs.add(new BasicNameValuePair("precio", event_precio));
+                nameValuePairs.add(new BasicNameValuePair("pic", event_pic));
+                nameValuePairs.add(new BasicNameValuePair("ciudad", event_ciudad));
+                nameValuePairs.add(new BasicNameValuePair("categoria", event_categoria.toString()));
+                nameValuePairs.add(new BasicNameValuePair("destacado", destacado));
+                nameValuePairs.add(new BasicNameValuePair("descripcion", event_descripcion));
+                nameValuePairs.add(new BasicNameValuePair("url", event_url_entradas));
+                nameValuePairs.add(new BasicNameValuePair("nreports", nreports));
+                nameValuePairs.add(new BasicNameValuePair("direccion", event_direccion));
+                httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
             httpResponse = httpclient.execute(httpPut);
             code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
@@ -473,7 +495,7 @@ public class HTTPMethods {
         protected String doInBackground(String... urls) {
             if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23) return GET(urls[0]);
             else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
-            else if (peticion_id >= 15 && peticion_id < 20) return PUT(urls[0]);
+            else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 ) return PUT(urls[0]);
             else return DELETE(urls[0]);
         }
 
@@ -719,6 +741,8 @@ public class HTTPMethods {
         String descripcion = null;
         String direccion = null;
         String url = null;
+        String nreports = null; // anadido para el PUT de evento
+        Boolean destacado = false; // anadido para el PUT de evento
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -772,13 +796,21 @@ public class HTTPMethods {
                 case "url":
                     url = reader.nextString();
                     break;
+                case "nreports":
+                    nreports = reader.nextString();
+                    break;
+                case "destacado":
+                    destacado = reader.nextBoolean();
+                    break;
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Evento(title, id, organizerId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria, descripcion, direccion, url);
+        return new Evento(title, id, organizerId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria,
+                descripcion, direccion, url, nreports, destacado);
+        //return new Evento(title, id, organizerId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria, descripcion, direccion, url, nreports);
     }
 
     public static String leerCategorias(JsonReader reader) throws IOException {

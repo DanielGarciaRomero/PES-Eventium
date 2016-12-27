@@ -4,20 +4,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,6 +41,7 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
     String path;
     ImageButton foto;
     String encodedString;
+    Boolean nuevaFoto;
 
     int seletedPicker; // 0 -> fechaIni, 1 -> fechaFi, 2-> horaIni, 3-> horaFi
     String fechaIni, fechaFi, horaIni, horaFi;
@@ -53,6 +50,7 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
     TextView fecha_ini, fecha_fin, hora_ini, hora_fin;
 
     String eventID;
+    Evento event;
 
     public EditarEventoFragment() {
         // Required empty public constructor
@@ -114,6 +112,7 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
 
         Bundle bundle = getArguments();
         eventID = bundle.getString("event");
+        nuevaFoto = false;
 
         titulo = (EditText) view.findViewById(R.id.crear_evento_titulo);
         categoria = (Spinner) view.findViewById(R.id.spinner);
@@ -133,7 +132,7 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
         httpMethods.setEvent_id(eventID);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
-        Evento event = httpMethods.getEvent();
+        event = httpMethods.getEvent();
 
         titulo.setText(event.getTitle());
         String array_spinner[];
@@ -260,13 +259,6 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
             }
         });
 
-        BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(MainActivity.contexto, R.drawable.unavailable);
-        Bitmap bitmap = drawable.getBitmap();
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-        byte[] bb = bos.toByteArray();
-        encodedString = Base64.encodeToString(bb, Base64.DEFAULT);
-
         Button crear_evento = (Button) view.findViewById(R.id.button_crear_evento);
         crear_evento.setText("Guardar cambios");
         crear_evento.setOnClickListener(new View.OnClickListener() {
@@ -289,6 +281,27 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
                                 Toast.makeText(NavigationDrawerActivity.contexto, "Intervalo de horas incorrecto", Toast.LENGTH_LONG).show();
                             }
                             else { // Horas validas
+                                HTTPMethods httpMet = new HTTPMethods(24);
+                                httpMet.setToken_user(NavigationDrawerActivity.token);
+                                httpMet.setEvent_id(eventID);
+                                httpMet.setEvent_title(titulo.getText().toString());
+                                httpMet.setEvent_categoria(categoria.getSelectedItem().toString());
+                                if (nuevaFoto) httpMet.setEvent_pic(encodedString);
+                                else httpMet.setEvent_pic(event.getPic());
+                                httpMet.setEvent_ciudad(ciudad.getText().toString());
+                                httpMet.setEvent_direccion(direccion.getText().toString());
+                                httpMet.setEvent_fecha_ini(fechaIni);
+                                httpMet.setEvent_fecha_fin(fechaFi);
+                                httpMet.setEvent_hora_ini(horaIni);
+                                httpMet.setEvent_hora_fin(horaFi);
+                                httpMet.setEvent_precio(precio.getText().toString());
+                                httpMet.setEvent_url_entradas(entradas.getText().toString());
+                                httpMet.setEvent_descripcion(descripcion.getText().toString());
+                                httpMet.setnReports(event.getnReports());
+                                if (event.getDestacado()) httpMet.setDestacado("true");
+                                else httpMet.setDestacado("false");
+                                httpMet.ejecutarHttpAsyncTask();
+                                while (!httpMet.getFinished());
                                 Toast.makeText(MainActivity.contexto, "Evento modificado correctamente", Toast.LENGTH_LONG).show();
                                 ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
                             }
@@ -378,7 +391,7 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
                     // PONER LA NUEVA IMAGEN EN EL IMAGEBUTTON
                     Bitmap bm = BitmapFactory.decodeFile(path);
                     foto.setImageBitmap(bm);
-
+                    nuevaFoto = true;
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                     byte[] bb = bos.toByteArray();
