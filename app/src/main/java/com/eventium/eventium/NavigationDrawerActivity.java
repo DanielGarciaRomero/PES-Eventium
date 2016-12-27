@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
@@ -72,6 +74,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     String categoriasMarcadas, ciudad, precioMin, precioMax;
     View viewFilter;
     NavigationView navigationView;
+    RatingBar minRatingBar, maxRatingBar;
+    EditText etcity;
+    TextView textFiltrar2, textCancelar2;
 
     public void fromAnyWhereToVerEventos() {
         navigationView.getMenu().getItem(0).setChecked(true);
@@ -386,7 +391,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                     @Override
                     public void onClick(View v) {
                         //Calendar c = Calendar.getInstance();
-                        Calendar c = Calendar.getInstance( TimeZone.getTimeZone("Europe/Madrid") );
+                        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
                         TimePickerDialog dpd = TimePickerDialog.newInstance(
                                 NavigationDrawerActivity.this,
                                 c.get(Calendar.HOUR),
@@ -397,6 +402,34 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                     }
                 }
         );
+
+        etciudad = (EditText) viewFilter.findViewById(R.id.filtrar_et_ciudad);
+        etciudad.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.setFocusable(true);
+                v.setFocusableInTouchMode(true);
+                return false;
+            }
+        });
+        etprecioMin = (EditText) viewFilter.findViewById(R.id.filtrar_et_precioMin);
+        etprecioMin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.setFocusable(true);
+                v.setFocusableInTouchMode(true);
+                return false;
+            }
+        });
+        etprecioMax = (EditText) viewFilter.findViewById(R.id.filtrar_et_precioMax);
+        etprecioMax.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.setFocusable(true);
+                v.setFocusableInTouchMode(true);
+                return false;
+            }
+        });
 
         textFiltrar = (TextView) viewFilter.findViewById(R.id.filtrar_tv_filtrar);
         textCancelar = (TextView) viewFilter.findViewById(R.id.filtrar_tv_cancelar);
@@ -445,11 +478,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                             } else direccionFiltraje += "&categoria=" + categoriasMarcadas;
                         }
 
-                        etciudad = (EditText) viewFilter.findViewById(R.id.filtrar_et_ciudad);
                         ciudad = etciudad.getText().toString();
-                        etprecioMin = (EditText) viewFilter.findViewById(R.id.filtrar_et_precioMin);
                         precioMin = etprecioMin.getText().toString();
-                        etprecioMax = (EditText) viewFilter.findViewById(R.id.filtrar_et_precioMax);
                         precioMax = etprecioMax.getText().toString();
 
                         if (!ciudad.equals("")) {
@@ -523,13 +553,61 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         dialog.show();
     }
 
+    public void createUserFilterDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        viewFilter = inflater.inflate(R.layout.dialog_filtrar_users, null);
+        builder.setView(viewFilter);
+        final AlertDialog dialog = builder.create();
+
+        minRatingBar = (RatingBar) viewFilter.findViewById(R.id.minRatingBar);
+        maxRatingBar = (RatingBar) viewFilter.findViewById(R.id.maxRatingBar);
+        etcity = (EditText) viewFilter.findViewById(R.id.filtrar_et_city);
+        etcity.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.setFocusable(true);
+                v.setFocusableInTouchMode(true);
+                return false;
+            }
+        });
+        textFiltrar2 = (TextView) viewFilter.findViewById(R.id.filtrar_tv_filtrar2);
+        textCancelar2 = (TextView) viewFilter.findViewById(R.id.filtrar_tv_cancelar2);
+
+        textFiltrar2.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int minRatingValue = (int) minRatingBar.getRating();
+                        int maxRatingValue = (int) maxRatingBar.getRating();
+                        System.out.println("minRatingValue = " + minRatingValue);
+                        System.out.println("maxRatingValue = " + maxRatingValue);
+                        System.out.println("ciudad = " + etcity.getText().toString());
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+        textCancelar2.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                }
+        );
+
+        dialog.show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_filter) {
             createFilterDialog();
         }
         if (item.getItemId() == R.id.action_filter2) {
-            Toast.makeText(getBaseContext(), "Has clicado en filtrar usuarios", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getBaseContext(), "Has clicado en filtrar usuarios", Toast.LENGTH_LONG).show();
+            createUserFilterDialog();
         }
         return super.onOptionsItemSelected(item);
     }
