@@ -110,6 +110,7 @@ public class HTTPMethods {
 
         else if (peticion_id == 25) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //DELETE de un evento
         else if (peticion_id == 26) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/report"); //PUT de un report event
+        else if (peticion_id == 27) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/events"); //GET events organizados por el user id
     }
 
     public void setDireccionFiltraje(String direccion){direccionFiltraje = direccion;}
@@ -305,6 +306,7 @@ public class HTTPMethods {
             else if (peticion_id == 8) readJsonStreamCalendario(inputStream);
             else if (peticion_id == 21) readJsonStreamEventos(inputStream);
             else if (peticion_id == 22) readJsonStreamEventos(inputStream);
+            else if (peticion_id == 27) readJsonStreamEventos(inputStream);
             else if (peticion_id == 23) readJsonStreamComentarios(inputStream);
 
             // convert inputstream to string
@@ -523,7 +525,7 @@ public class HTTPMethods {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23) return GET(urls[0]);
+            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27) return GET(urls[0]);
             else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
             else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26) return PUT(urls[0]);
             else return DELETE(urls[0]);

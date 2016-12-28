@@ -55,7 +55,7 @@ public class PerfilFragment extends Fragment  {
     String idUsuario;
     String categorias;
     ArrayList<Evento> eventos;
-
+    ArrayList<Evento> eventos2;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -66,6 +66,7 @@ public class PerfilFragment extends Fragment  {
         Bundle bundle = getArguments();
         username = bundle.getString("user");
         eventos = new ArrayList<>();
+        eventos2 = new ArrayList<>();
         view.findViewById(R.id.followbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,8 +253,29 @@ public class PerfilFragment extends Fragment  {
                 }
         );
 
-        Integer numEventosOrganizados = 0;
-        eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numEventosOrganizados+"</Font></u>"));
+        HTTPMethods httpMethods5 = new HTTPMethods(27);
+        httpMethods5.setUser_id(Integer.parseInt(idUsuario));
+        httpMethods5.ejecutarHttpAsyncTask();
+        while (!httpMethods5.getFinished()) ;
+        List<Evento> list_events = httpMethods5.getEvents();
+        if (list_events != null) {
+            for (int i = 0; i < list_events.size(); ++i) {
+                if (list_events.get(i).getOrganizerId().equals(idUsuario)) eventos2.add(list_events.get(i));
+            }
+        }
+        //Integer numEventosOrganizados = 0;
+        eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+eventos2.size()+"</Font></u>"));
+        eventosOrganizados.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //NavigationDrawerActivity.event_id = eventID;
+                        NavigationDrawerActivity.events = eventos2;
+                        MyDialogFragment dialogFragment = new MyDialogFragment();
+                        dialogFragment.show(getActivity().getFragmentManager(), "hola");
+                    }
+                }
+        );
 
         Integer numOpiniones = 0;
         //opiniones.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numOpiniones + "</Font></u>"));
