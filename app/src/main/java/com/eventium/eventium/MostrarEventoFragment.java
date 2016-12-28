@@ -267,8 +267,9 @@ public class MostrarEventoFragment extends Fragment {
 
         Integer numAsistentes = 0;
         asistentes.setText(Html.fromHtml("<b>" + "Asistentes: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numAsistentes + "</Font></u>"));
-        patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>"));
-        entradas.setText(Html.fromHtml("<b>" + "Entradas: " + "</b>"));
+        Integer numPatrocinadores = 0;
+        patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numPatrocinadores + "</Font></u>"));
+        entradas.setText(Html.fromHtml("<b>" + "Entradas: " + "</b>" + event.getUrl()));
 
         httpMethods = new HTTPMethods(4);
         httpMethods.ejecutarHttpAsyncTask();

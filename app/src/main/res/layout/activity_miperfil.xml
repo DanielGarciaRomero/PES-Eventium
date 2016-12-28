@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:paddingTop="8dp"
         android:background="@color/colorFondo">
 
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/fotoMiPerfil"
             android:layout_toEndOf="@+id/fotoMiPerfil"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:textSize="20sp"
             android:textColor="@color/black"
@@ -30,7 +30,7 @@
             android:id="@+id/verified"
             android:layout_alignBottom="@+id/username"
             android:layout_toEndOf="@+id/username"
-            android:layout_marginStart="33dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/verified"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -42,6 +42,7 @@
             android:layout_height="100dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
+            android:src="@raw/unavailable"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
             android:layout_alignParentStart="true" />

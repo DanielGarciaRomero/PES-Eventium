@@ -89,7 +89,7 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
                     @Override
                     public void onItemClick(View view, int position) {
                         String item = adapter.getItemRVU(position);
-                        Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(NavigationDrawerActivity.contexto, item, Toast.LENGTH_LONG).show();
                         Fragment fragment;
                         if(!item.equals(myUsername)) fragment = new PerfilFragment();
                         else fragment = new MiPerfilFragment();
