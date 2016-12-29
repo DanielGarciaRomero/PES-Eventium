@@ -127,13 +127,12 @@ public class MostrarEventoFragment extends Fragment {
                 Evento event = httpMethods2.getEvent();
 
                 HTTPMethods httpMethods = new HTTPMethods(26);
+                httpMethods.setToken_user(NavigationDrawerActivity.token);
                 httpMethods.setEvent_id(eventID);
                 httpMethods.ejecutarHttpAsyncTask();
                 while (!httpMethods.getFinished());
 
-                System.out.println(event.getnReports());
                 if (event.getnReports().equals("4")){
-                    System.out.println("entro");
                     ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
                 }
             }
@@ -267,6 +266,8 @@ public class MostrarEventoFragment extends Fragment {
 
         Integer numAsistentes = 0;
         asistentes.setText(Html.fromHtml("<b>" + "Asistentes: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numAsistentes + "</Font></u>"));
+
+
         Integer numPatrocinadores = 0;
         patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numPatrocinadores + "</Font></u>"));
         entradas.setText(Html.fromHtml("<b>" + "Entradas: " + "</b>" + event.getUrl()));

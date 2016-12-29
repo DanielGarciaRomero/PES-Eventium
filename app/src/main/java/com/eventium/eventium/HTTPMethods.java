@@ -111,6 +111,7 @@ public class HTTPMethods {
         else if (peticion_id == 25) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //DELETE de un evento
         else if (peticion_id == 26) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/report"); //PUT de un report event
         else if (peticion_id == 27) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/events"); //GET events organizados por el user id
+        else if (peticion_id == 28) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/report"); //PUT de un report usuario
     }
 
     public void setDireccionFiltraje(String direccion){direccionFiltraje = direccion;}
@@ -457,6 +458,9 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("direccion", event_direccion));
                 httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
+            else if (peticion_id == 26 || peticion_id == 28) {
+                httpPut.setHeader("token", token_user);
+            }
             httpResponse = httpclient.execute(httpPut);
             code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
@@ -527,7 +531,7 @@ public class HTTPMethods {
         protected String doInBackground(String... urls) {
             if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27) return GET(urls[0]);
             else if (peticion_id >= 10 && peticion_id < 15) return POST(urls[0]);
-            else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26) return PUT(urls[0]);
+            else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26 || peticion_id == 28) return PUT(urls[0]);
             else return DELETE(urls[0]);
         }
 
@@ -686,6 +690,7 @@ public class HTTPMethods {
         Boolean isVerified = null;
         Boolean isBanned = null;
         String ciudad = null;
+        Integer nreports = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -724,13 +729,16 @@ public class HTTPMethods {
                     } finally {
                         break;
                     }
+                case "nreports":
+                    nreports = reader.nextInt();
+                    break;
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Usuario(username, saldo, mail, password, pic, id, isVerified, isBanned, ciudad);
+        return new Usuario(username, saldo, mail, password, pic, id, isVerified, isBanned, ciudad, nreports);
     }
 
     public static UsernameSponsor leerUsernameSponsor(JsonReader reader) throws IOException {

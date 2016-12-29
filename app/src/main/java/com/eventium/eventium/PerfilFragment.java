@@ -76,7 +76,23 @@ public class PerfilFragment extends Fragment  {
         view.findViewById(R.id.reportbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.contexto, "Has pulsado Report", Toast.LENGTH_LONG).show();
+                //++contador;
+                HTTPMethods httpMethods2 = new HTTPMethods(1);
+                httpMethods2.setUser_id(Integer.parseInt(idUsuario));
+                httpMethods2.ejecutarHttpAsyncTask();
+                while (!httpMethods2.getFinished()) ;
+                Usuario user = httpMethods2.getUser();
+
+                if (!(user.getNreports().equals(5))) {
+                    HTTPMethods httpMethods = new HTTPMethods(28);
+                    httpMethods.setToken_user(NavigationDrawerActivity.token);
+                    httpMethods.setEvent_id(idUsuario);
+                    httpMethods.ejecutarHttpAsyncTask();
+                    while (!httpMethods.getFinished()) ;
+                    //if (user.getNreports().equals(4)) {
+                    //   ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
+                    //}
+                }
             }
         });
         name = (TextView)view.findViewById(R.id.username);
