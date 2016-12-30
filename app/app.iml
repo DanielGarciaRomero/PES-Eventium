@@ -102,10 +102,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/transition/25.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.sundeepk/compact-calendar-view/1.9.4/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.0.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/10.0.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.0.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/9.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.wdullaer/materialdatetimepicker/3.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
@@ -116,6 +116,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/restart-dex" />
@@ -129,21 +131,21 @@
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="design-25.0.1" level="project" />
-    <orderEntry type="library" exported="" name="play-services-tasks-10.0.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-base-9.2.0" level="project" />
     <orderEntry type="library" exported="" name="org.jbundle.util.osgi.wrapped.org.apache.http.client-4.1.2" level="project" />
     <orderEntry type="library" exported="" name="transition-25.0.1" level="project" />
-    <orderEntry type="library" exported="" name="play-services-base-10.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-fragment-25.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-v13-25.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-25.0.1" level="project" />
-    <orderEntry type="library" exported="" name="play-services-maps-10.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-core-utils-25.0.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="multidex-instrumentation-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-25.0.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-maps-9.2.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-basement-9.2.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-tasks-9.2.0" level="project" />
     <orderEntry type="library" exported="" name="compact-calendar-view-1.9.4" level="project" />
     <orderEntry type="library" exported="" name="support-compat-25.0.1" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-25.0.1" level="project" />
-    <orderEntry type="library" exported="" name="play-services-basement-10.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-25.0.1" level="project" />
     <orderEntry type="library" exported="" name="materialdatetimepicker-3.0.0" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
