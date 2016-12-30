@@ -136,7 +136,7 @@
             android:textColor="#000000"
             android:textSize="18dp"
             android:layout_below="@+id/google"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/asistentesEvento"/>
 
 
@@ -176,16 +176,27 @@
             android:text="Promocionar"
             android:layout_alignStart="@+id/botonReportar"
             android:layout_below="@+id/google"
+            android:layout_marginTop="20dp"
             android:background="#56E394"
             android:id="@+id/botonPromocionar"/>
 
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:text="Editar"
+            android:text="Patrocinar"
             android:layout_alignStart="@+id/botonPromocionar"
             android:layout_below="@+id/botonPromocionar"
             android:layout_marginTop="20dp"
+            android:background="#56E394"
+            android:id="@+id/botonPatrocinar"/>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:layout_alignStart="@+id/botonPatrocinar"
+            android:layout_below="@+id/webEntradas"
+            android:layout_marginTop="25dp"
             android:background="#56E394"
             android:id="@+id/botonEditar"/>
 
@@ -195,7 +206,7 @@
             android:text="Eliminar"
             android:layout_alignStart="@+id/botonEditar"
             android:layout_below="@+id/botonEditar"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="20dp"
             android:background="#56E394"
             android:id="@+id/botonEliminar"/>
 

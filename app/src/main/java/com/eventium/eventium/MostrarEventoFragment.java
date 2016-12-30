@@ -35,7 +35,7 @@ public class MostrarEventoFragment extends Fragment {
     private String eventID;
     int numOpiniones;
     private String myUsername;
-    //private Integer contador;
+    private Boolean soySponsor;
     private String username;
     public MostrarEventoFragment() {}
 
@@ -105,6 +105,7 @@ public class MostrarEventoFragment extends Fragment {
         final TextView patrocinadores = (TextView) view.findViewById(R.id.patrocinadoresEvento);
         final TextView entradas = (TextView) view.findViewById(R.id.webEntradas);
         final Button promocionar = (Button) view.findViewById(R.id.botonPromocionar);
+        final Button patrocinar = (Button) view.findViewById(R.id.botonPatrocinar);
         final Button reportar = (Button) view.findViewById(R.id.botonReportar);
         final Button editar = (Button) view.findViewById(R.id.botonEditar);
         final Button eliminar = (Button) view.findViewById(R.id.botonEliminar);
@@ -292,14 +293,24 @@ public class MostrarEventoFragment extends Fragment {
         while (!httpMethods.getFinished());
         UsernameSponsor us = httpMethods.getUsernameSponsor();
         myUsername = us.getUsername();
-        //myUsername = httpMethods.getResultado();
-        //myUsername = myUsername.substring(14, myUsername.length()-2);
+        soySponsor = us.getSponsor();
+        //System.out.println("Soy sponsor? " + soySponsor);
 
         if (!myUsername.equals(username)) {
             promocionar.setVisibility(View.GONE);
             editar.setVisibility(View.GONE);
             eliminar.setVisibility(View.GONE);
         }
+        if (!soySponsor) {
+            patrocinar.setVisibility(View.GONE);
+        }
+
+        patrocinar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NavigationDrawerActivity.contexto, "Patrocinar evento", Toast.LENGTH_LONG).show();
+            }
+        });
 
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
