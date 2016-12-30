@@ -308,7 +308,12 @@ public class MostrarEventoFragment extends Fragment {
         patrocinar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NavigationDrawerActivity.contexto, "Patrocinar evento", Toast.LENGTH_LONG).show();
+                Toast.makeText(NavigationDrawerActivity.contexto, "Se le notificara a " + username + " que quieres patrocinar su evento", Toast.LENGTH_LONG).show();
+                HTTPMethods httpMetodo = new HTTPMethods(30);
+                httpMetodo.setToken_user(NavigationDrawerActivity.token);
+                httpMetodo.setEvent_id(eventID);
+                httpMetodo.ejecutarHttpAsyncTask();
+                while (!httpMetodo.getFinished());
             }
         });
 

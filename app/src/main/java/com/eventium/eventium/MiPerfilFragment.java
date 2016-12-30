@@ -181,10 +181,10 @@ public class MiPerfilFragment extends Fragment  {
                             HTTPMethods httpMethods = new HTTPMethods(16);
                             httpMethods.setUser_id(Integer.parseInt(idUsuario));
                             httpMethods.setUserCiudad(editText_user_ciudad.getText().toString());
-                            if (user.getIsVerified()) httpMethods.setUserVerified("true");
-                            else httpMethods.setUserVerified("false");
-                            if (user.getIsBanned()) httpMethods.setUserBanned("true");
-                            else httpMethods.setUserBanned("false");
+                            if (user.getIsVerified()) httpMethods.setUserVerified("True");
+                            else httpMethods.setUserVerified("False");
+                            if (user.getIsBanned()) httpMethods.setUserBanned("True");
+                            else httpMethods.setUserBanned("False");
                             httpMethods.setPassword(editText_contrasena_nueva.getText().toString()); // contrasena nueva
                             if (nuevaFoto) {
                                 httpMethods.setPic(encodedString);
@@ -207,10 +207,10 @@ public class MiPerfilFragment extends Fragment  {
                         HTTPMethods httpMethods = new HTTPMethods(16);
                         httpMethods.setUser_id(Integer.parseInt(idUsuario));
                         httpMethods.setUserCiudad(editText_user_ciudad.getText().toString());
-                        if (user.getIsVerified()) httpMethods.setUserVerified("true");
-                        else httpMethods.setUserVerified("false");
-                        if (user.getIsBanned()) httpMethods.setUserBanned("true");
-                        else httpMethods.setUserBanned("false");
+                        if (user.getIsVerified()) httpMethods.setUserVerified("True");
+                        else httpMethods.setUserVerified("False");
+                        if (user.getIsBanned()) httpMethods.setUserBanned("True");
+                        else httpMethods.setUserBanned("False");
                         httpMethods.setPassword(user.getPassword()); // contrasena actual
                         if (nuevaFoto) {
                             httpMethods.setPic(encodedString);
