@@ -139,6 +139,7 @@
             android:layout_marginTop="10dp"
             android:id="@+id/asistentesEvento"/>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -207,8 +208,18 @@
             android:layout_marginTop="30dp"
             android:background="#56E394"
             android:id="@+id/botonReportar"/>
-
-        <ImageView
+        <!--
+                <ImageView
+                    android:src="@drawable/google_maps"
+                    android:id="@+id/google"
+                    android:layout_width="320dp"
+                    android:layout_height="200dp"
+                    android:visibility="visible"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/botonAsistir"/>
+        -->
+        <include
             android:src="@drawable/google_maps"
             android:id="@+id/google"
             android:layout_width="320dp"
@@ -216,8 +227,9 @@
             android:visibility="visible"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/botonAsistir"/>
+            android:layout_below="@+id/botonAsistir"
+            layout="@layout/activity_google_maps" />
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-</ScrollView>
+        </ScrollView>
