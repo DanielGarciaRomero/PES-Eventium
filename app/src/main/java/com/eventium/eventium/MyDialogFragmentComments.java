@@ -82,6 +82,7 @@ public class MyDialogFragmentComments extends DialogFragment {
 
                 // lo ideal seria hacer un GET de username dado userID
                 // y no un GET de todos y buscar quien coincide
+                /*
                 httpMethods1 = new HTTPMethods(0);
                 httpMethods1.ejecutarHttpAsyncTask();
                 while (!httpMethods1.getFinished());
@@ -96,14 +97,20 @@ public class MyDialogFragmentComments extends DialogFragment {
                     }
                     else ++j;
                 }
-
                 // obtengo al usuario con su username y me quedo con su foto
                 httpMethods1 = new HTTPMethods(1);
                 httpMethods1.setUsername(username);
                 httpMethods1.ejecutarHttpAsyncTask();
                 while (!httpMethods1.getFinished());
                 Usuario user = httpMethods1.getUser();
+                */
+                httpMethods1 = new HTTPMethods(1);
+                httpMethods1.setUsername(userID);
+                httpMethods1.ejecutarHttpAsyncTask();
+                while (!httpMethods1.getFinished());
+                Usuario user = httpMethods1.getUser();
                 String encodedImage = user.getPic();
+                String username = user.getUsername();
                 byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
                 Bitmap bm = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
 

@@ -124,7 +124,8 @@ public class PerfilFragment extends Fragment  {
         Usuario user = httpMethods.getUser();
         name.setText(user.getUsername());
         mail.setText(Html.fromHtml("<b>" + "Email: " + "</b>" + user.getMail()));
-        city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + user.getCiudad()));
+        if (user.getCiudad() != null) city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + user.getCiudad()));
+        else city.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>"));
         //direction.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "..."));
         byte[] decodedString = Base64.decode(user.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
