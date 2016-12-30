@@ -22,6 +22,7 @@ import android.widget.ToggleButton;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.eventium.eventium.R.id.textView;
@@ -264,9 +265,23 @@ public class MostrarEventoFragment extends Fragment {
                 }
         );
 
-        Integer numAsistentes = 0;
-        asistentes.setText(Html.fromHtml("<b>" + "Asistentes: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numAsistentes + "</Font></u>"));
-
+        //Integer numAsistentes = 0;
+        HTTPMethods httpMethods3 = new HTTPMethods(29);
+        httpMethods3.setEvent_id(eventID);
+        httpMethods3.ejecutarHttpAsyncTask();
+        while (!httpMethods3.getFinished());
+        final List<Calendario> list_calendario = httpMethods3.getCalendarios();
+        asistentes.setText(Html.fromHtml("<b>" + "Asistentes: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + list_calendario.size() + "</Font></u>"));
+        asistentes.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NavigationDrawerActivity.calendarios = (ArrayList) list_calendario;
+                        MyDialogFragmentCalendario dialogFragment = new MyDialogFragmentCalendario();
+                        dialogFragment.show(getActivity().getFragmentManager(), "");
+                    }
+                }
+        );
 
         Integer numPatrocinadores = 0;
         patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numPatrocinadores + "</Font></u>"));

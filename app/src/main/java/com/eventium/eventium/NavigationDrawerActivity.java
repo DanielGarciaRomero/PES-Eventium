@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -50,6 +51,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     public static String usersaldo;
 
     public static ArrayList<Evento> events;
+    public static ArrayList<Calendario> calendarios;
 
     TextView nav_usersaldo;
     ImageView nav_userimage;
@@ -92,6 +94,22 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         Fragment fragment = new MostrarEventoFragment();
         Bundle bundle = new Bundle();
         bundle.putString("event", item);
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor_principal, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle("Eventium");
+    }
+
+    public void fromAsistentesToMostrarUsuario(String item) {
+        navigationView.getMenu().getItem(0).setChecked(true);
+        Fragment fragment;
+        if(!item.equals(myUsername)) fragment = new PerfilFragment();
+        else fragment = new MiPerfilFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("user", item);
         fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
