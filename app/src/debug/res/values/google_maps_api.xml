@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=10:A2:2A:F5:83:1C:F4:23:9E:90:D7:41:51:B0:16:A3:F8:25:42:46%3Bcom.eventium.eventium
+
+    You can also add your credentials to an existing key, using this line:
+    10:A2:2A:F5:83:1C:F4:23:9E:90:D7:41:51:B0:16:A3:F8:25:42:46;com.eventium.eventium
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyAJ7bI1G61X22mvlVnVcNNDn4o13amGwpo
+    </string>
+</resources>
