@@ -21,7 +21,6 @@ android {
         }
     }
     dexOptions {
-        incremental true
         javaMaxHeapSize "4g"
     }
 }
@@ -40,7 +39,7 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.github.sundeepk:compact-calendar-view:1.9.4'
     compile 'com.wdullaer:materialdatetimepicker:3.0.0'
-    compile 'com.google.android.gms:play-services:10.0.1'
+    //compile 'com.google.android.gms:play-services:10.0.1'
     testCompile 'junit:junit:4.12'
 }
 
