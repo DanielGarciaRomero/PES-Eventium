@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -230,6 +231,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_below="@+id/botonAsistir"/>
         -->
+        <!--
         <include
             android:src="@drawable/google_maps"
             android:id="@+id/google"
@@ -240,7 +242,28 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/botonAsistir"
             layout="@layout/activity_google_maps" />
+            -->
+        <!--
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/google"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/botonAsistir"
+            tools:layout="@layout/activity_google_maps" />
+        -->
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/google"
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/botonAsistir"/>
 
-            </RelativeLayout>
+    </RelativeLayout>
 
         </ScrollView>

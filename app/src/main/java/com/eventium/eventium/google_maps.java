@@ -2,6 +2,7 @@ package com.eventium.eventium;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,6 +17,7 @@ public class google_maps extends FragmentActivity implements OnMapReadyCallback 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("tag", "oncreate google maps");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -34,8 +36,10 @@ public class google_maps extends FragmentActivity implements OnMapReadyCallback 
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d("tag", "onready google maps");
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
