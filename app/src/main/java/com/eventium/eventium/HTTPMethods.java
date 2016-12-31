@@ -101,10 +101,8 @@ public class HTTPMethods {
         else if (peticion_id == 14) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //POST de un comentario
         else if (peticion_id == 23) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //GET de comentarios
         else if (peticion_id == 24) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //PUT de un evento
-        else if (peticion_id == 30) { //Estrella Damm me quiere patrocinar
-            System.out.println("http://10.4.41.168:5000/events/" + event_id.toString() + "/sponsorize");
-            new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/sponsorize");
-        }
+        else if (peticion_id == 30) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/sponsorize"); //Estrella Damm me quiere patrocinar
+        else if (peticion_id == 31) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/sponsors"); //GET de patrocinadores
 
         else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //put de destacado
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
@@ -309,7 +307,7 @@ public class HTTPMethods {
 
             else if (peticion_id == 5) readJsonStreamCategorias(inputStream);
             else if (peticion_id == 7) readJsonStreamEvento(inputStream);
-            else if (peticion_id == 8 || peticion_id == 29) readJsonStreamCalendario(inputStream);
+            else if (peticion_id == 8 || peticion_id == 29 || peticion_id == 31) readJsonStreamCalendario(inputStream);
             else if (peticion_id == 21) readJsonStreamEventos(inputStream);
             else if (peticion_id == 22) readJsonStreamEventos(inputStream);
             else if (peticion_id == 27) readJsonStreamEventos(inputStream);
@@ -423,8 +421,7 @@ public class HTTPMethods {
                 List nameValuePairs = new ArrayList();
                 nameValuePairs.add(new BasicNameValuePair("categories", categories));
                 httpPut.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            }
-            else if (peticion_id == 16){
+            } else if (peticion_id == 16){
                 List nameValuePairs = new ArrayList();
                 nameValuePairs.add(new BasicNameValuePair("pic", pic));
                 //System.out.println("PUT de user");
@@ -542,7 +539,7 @@ public class HTTPMethods {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29) return GET(urls[0]);
+            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31) return GET(urls[0]);
             else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30) return POST(urls[0]);
             else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26 || peticion_id == 28) return PUT(urls[0]);
             else return DELETE(urls[0]);

@@ -52,6 +52,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
     public static ArrayList<Evento> events;
     public static ArrayList<Calendario> calendarios;
+    public static ArrayList<Calendario> calenSponsors;
 
     TextView nav_usersaldo;
     ImageView nav_userimage;

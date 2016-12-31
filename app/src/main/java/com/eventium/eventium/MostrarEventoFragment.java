@@ -266,7 +266,6 @@ public class MostrarEventoFragment extends Fragment {
                 }
         );
 
-        //Integer numAsistentes = 0;
         HTTPMethods httpMethods3 = new HTTPMethods(29);
         httpMethods3.setEvent_id(eventID);
         httpMethods3.ejecutarHttpAsyncTask();
@@ -284,8 +283,23 @@ public class MostrarEventoFragment extends Fragment {
                 }
         );
 
-        Integer numPatrocinadores = 0;
-        patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numPatrocinadores + "</Font></u>"));
+        HTTPMethods httpMetode = new HTTPMethods(31);
+        httpMetode.setEvent_id(eventID);
+        httpMetode.ejecutarHttpAsyncTask();
+        while (!httpMetode.getFinished());
+        final List<Calendario> sponsors = httpMetode.getCalendarios();
+        patrocinadores.setText(Html.fromHtml("<b>" + "Patrocinadores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + sponsors.size() + "</Font></u>"));
+        patrocinadores.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NavigationDrawerActivity.calenSponsors = (ArrayList) sponsors;
+                        MyDialogFragmentPatrocinio dialogFragment = new MyDialogFragmentPatrocinio();
+                        dialogFragment.show(getActivity().getFragmentManager(), "");
+                    }
+                }
+        );
+
         entradas.setText(Html.fromHtml("<b>" + "Entradas: " + "</b>" + event.getUrl()));
 
         httpMethods = new HTTPMethods(4);
