@@ -59,34 +59,7 @@ public class MostrarEventoFragment extends Fragment  {
 
         View view = inflater.inflate(R.layout.fragment_mostrar_evento, container, false);
 
-        mMapView = (MapView) view.findViewById(R.id.google);
-        mMapView.onCreate(savedInstanceState);
 
-        mMapView.onResume(); // needed to get the map to display immediately
-
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
-
-                // For showing a move to my location button
-               // googleMap.setMyLocationEnabled(true);
-
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-/*
-                // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                */
-            }
-        });
 
 
         Bundle bundle = getArguments();
@@ -105,6 +78,46 @@ public class MostrarEventoFragment extends Fragment  {
         final TextView numOpinionestv = (TextView) view.findViewById(R.id.opinionesEvento);
         //contador = 0;
         //aqui irá el mapa//
+
+
+        mMapView = (MapView) view.findViewById(R.id.google);
+        mMapView.onCreate(savedInstanceState);
+
+        mMapView.onResume(); // needed to get the map to display immediately
+
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap mMap) {
+                googleMap = mMap;
+
+                // For showing a move to my location button
+                // googleMap.setMyLocationEnabled(true);
+
+                // For dropping a marker at a point on the Map
+                HTTPMethods httpMethods99 = new HTTPMethods(99);
+                String daux = direccion.getText().toString().replace("Dirección: ", "");
+                String caux = ciudad.getText().toString().replace("Ciudad: ", "");
+                httpMethods99.setEvent_direccion(daux);
+                httpMethods99.setEvent_ciudad(caux);
+                httpMethods99.ejecutarHttpAsyncTask();
+                while (!httpMethods99.getFinished());
+
+                LatLng sydney = new LatLng(-34, 151);
+                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+/*
+                // For zooming automatically to the location of the marker
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                */
+            }
+        });
+
+
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
         asistir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
