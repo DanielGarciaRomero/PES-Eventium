@@ -267,6 +267,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             MainActivity.token = null;
             RegistroActivity.token = null;
             NavigationDrawerActivity.this.startActivity(new Intent(NavigationDrawerActivity.this, MainActivity.class));
+            finish();
             //Toast.makeText(getBaseContext(), "Has clicado en Logout", Toast.LENGTH_LONG).show();
         }
 
