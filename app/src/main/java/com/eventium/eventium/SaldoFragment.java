@@ -26,6 +26,7 @@ public class SaldoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_ingresar, container, false);
+        NavigationDrawerActivity.minimizarApp = 1;
         numtarjeta = (EditText)view.findViewById(R.id.editText8);
         cvc = (EditText)view.findViewById(R.id.editText11);
         saldo = (EditText)view.findViewById(R.id.editText12);

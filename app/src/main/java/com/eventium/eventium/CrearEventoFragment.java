@@ -108,6 +108,7 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_crear_evento, container, false);
+        NavigationDrawerActivity.minimizarApp = 1;
 
         titulo = (EditText) view.findViewById(R.id.crear_evento_titulo);
         categoria = (Spinner) view.findViewById(R.id.spinner);

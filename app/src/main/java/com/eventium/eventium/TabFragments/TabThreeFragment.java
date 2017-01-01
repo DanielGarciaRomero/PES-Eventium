@@ -132,6 +132,7 @@ public class TabThreeFragment extends Fragment implements SearchView.OnQueryText
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.tab_three_fragment, container, false);
+        NavigationDrawerActivity.minimizarApp = 1;
 
         recyclerview = (RecyclerView) view.findViewById(R.id.recyclerview3);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

@@ -30,6 +30,12 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public void onBackPressed() {
+        PasswordActivity.this.startActivity(new Intent(PasswordActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button13) {
             HTTPMethods httpMethods = new HTTPMethods(2);
@@ -38,6 +44,7 @@ public class PasswordActivity extends AppCompatActivity implements View.OnClickL
             while (!httpMethods.getFinished());
             Toast.makeText(getBaseContext(), "Mail enviado", Toast.LENGTH_LONG).show();
             PasswordActivity.this.startActivity(new Intent(PasswordActivity.this, MainActivity.class));
+            finish();
         }
     }
 }

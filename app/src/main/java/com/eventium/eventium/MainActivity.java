@@ -61,10 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.textView3) {
             //Toast.makeText(getBaseContext(), "Has pulsado para registrarte", Toast.LENGTH_LONG).show();
             MainActivity.this.startActivity(new Intent(MainActivity.this, RegistroActivity.class));
+            finish();
         }
         else if (v.getId() == R.id.textView4) {
             //Toast.makeText(getBaseContext(), "Has pulsado olvidar contraseña", Toast.LENGTH_LONG).show();
             MainActivity.this.startActivity(new Intent(MainActivity.this, PasswordActivity.class));
+            finish();
         }
         else if (v.getId() == R.id.button) {
             if (user.getText().toString().equals("") || contra.getText().toString().equals(""))
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     token = aux2;
                     //System.out.println(aux2);
                     MainActivity.this.startActivity(new Intent(MainActivity.this, NavigationDrawerActivity.class));
+                    finish();
                 }
                 else if (httpMethods.getCode().equals("HTTP/1.0 404 NOT FOUND")){
                     Toast.makeText(getBaseContext(), "Username y/o contraseña inválidos", Toast.LENGTH_LONG).show();

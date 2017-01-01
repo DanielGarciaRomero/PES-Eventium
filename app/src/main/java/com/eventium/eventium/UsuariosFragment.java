@@ -70,6 +70,7 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_usuarios, container, false);
+        NavigationDrawerActivity.minimizarApp = 1;
         rv = (RecyclerView) view.findViewById(R.id.recyclerview4);
         rv.setLayoutManager(new LinearLayoutManager(NavigationDrawerActivity.contexto));
         rv.setItemAnimator(new DefaultItemAnimator());

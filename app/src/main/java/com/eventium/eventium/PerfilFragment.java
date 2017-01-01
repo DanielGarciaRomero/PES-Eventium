@@ -63,6 +63,7 @@ public class PerfilFragment extends Fragment  {
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_perfil, container, false);
+        NavigationDrawerActivity.minimizarApp = 0;
         Bundle bundle = getArguments();
         username = bundle.getString("user");
         eventos = new ArrayList<>();

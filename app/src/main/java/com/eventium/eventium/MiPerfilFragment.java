@@ -83,6 +83,7 @@ public class MiPerfilFragment extends Fragment  {
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_miperfil, container, false);
+        NavigationDrawerActivity.minimizarApp = 1;
         nuevaFoto = false;
         eventos = new ArrayList<>();
         eventos2 = new ArrayList<>();

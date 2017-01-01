@@ -75,6 +75,11 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void onBackPressed() {
+        this.moveTaskToBack(true);
+    }
+
+    @Override
     public void onClick(View v) {
         if (v instanceof ToggleButton) {
             if (((ToggleButton) v).isChecked()) {
@@ -161,6 +166,7 @@ public class TemasActivity extends AppCompatActivity implements View.OnClickList
                 while (!httpMethods2.getFinished());
 
                 TemasActivity.this.startActivity(new Intent(TemasActivity.this, NavigationDrawerActivity.class));
+                finish();
             }
         }
     }

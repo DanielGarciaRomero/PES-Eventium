@@ -61,6 +61,7 @@ public class TabOneFragment extends Fragment implements SearchView.OnQueryTextLi
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.tab_one_fragment, container, false);
+        NavigationDrawerActivity.minimizarApp = 1;
 
         recyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

@@ -58,9 +58,7 @@ public class MostrarEventoFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_mostrar_evento, container, false);
-
-
-
+        NavigationDrawerActivity.minimizarApp = 2;
 
         Bundle bundle = getArguments();
         eventID = bundle.getString("event");
@@ -76,9 +74,6 @@ public class MostrarEventoFragment extends Fragment  {
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
         final TextView numOpinionestv = (TextView) view.findViewById(R.id.opinionesEvento);
-        //contador = 0;
-        //aqui irá el mapa//
-
 
         mMapView = (MapView) view.findViewById(R.id.google);
         mMapView.onCreate(savedInstanceState);
@@ -116,8 +111,6 @@ public class MostrarEventoFragment extends Fragment  {
                 */
             }
         });
-
-
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
         asistir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -180,7 +173,6 @@ public class MostrarEventoFragment extends Fragment  {
         reportar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //++contador;
                 HTTPMethods httpMethods2 = new HTTPMethods(7);
                 httpMethods2.setEvent_id(eventID);
                 httpMethods2.ejecutarHttpAsyncTask();
@@ -192,6 +184,8 @@ public class MostrarEventoFragment extends Fragment  {
                 httpMethods.setEvent_id(eventID);
                 httpMethods.ejecutarHttpAsyncTask();
                 while (!httpMethods.getFinished());
+
+                Toast.makeText(NavigationDrawerActivity.contexto, "Has reportado este evento", Toast.LENGTH_LONG).show();
 
                 if (event.getnReports().equals("4")){
                     ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
@@ -283,7 +277,7 @@ public class MostrarEventoFragment extends Fragment  {
         while (!httpMet.getFinished());
         numOpiniones = httpMet.getSizeComentarios();
 
-        numOpinionestv.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numOpiniones+"</Font></u>"));
+        numOpinionestv.setText(Html.fromHtml("<b>" + "Opiniones: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numOpiniones + "</Font></u>"));
         numOpinionestv.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -294,6 +288,7 @@ public class MostrarEventoFragment extends Fragment  {
                 }
         );
 
+        /*
         httpMethods = new HTTPMethods(0);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
@@ -305,6 +300,13 @@ public class MostrarEventoFragment extends Fragment  {
                 break;
             }
         }
+        */
+        HTTPMethods httpAux = new HTTPMethods(1);
+        httpAux.setUsername(event.getOrganizerId());
+        httpAux.ejecutarHttpAsyncTask();
+        while (!httpAux.getFinished());
+        username = httpAux.getUser().getUsername();
+
         organizador.setText(Html.fromHtml("<b>" + "Organizador: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + username + "</Font></u>"));
         organizador.setOnClickListener(
                 new View.OnClickListener() {
@@ -402,7 +404,7 @@ public class MostrarEventoFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("¿Está seguro de que desea eliminar este evento?");
+                builder.setMessage("¿Estás seguro de que deseas eliminar este evento?");
                 builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -417,8 +419,9 @@ public class MostrarEventoFragment extends Fragment  {
                         httpMet.setToken_user(NavigationDrawerActivity.token);
                         httpMet.ejecutarHttpAsyncTask();
                         while (!httpMet.getFinished());
+                        Toast.makeText(NavigationDrawerActivity.contexto, "El evento ha sido eliminado", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
                         ((NavigationDrawerActivity)getActivity()).fromAnyWhereToVerEventos();
-                        //dialog.dismiss();
                     }
                 });
                 builder.show();

@@ -48,6 +48,12 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public void onBackPressed() {
+        RegistroActivity.this.startActivity(new Intent(RegistroActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button2) {
             if (username.getText().toString().equals("") || email.getText().toString().equals("")
@@ -77,6 +83,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                         token = aux2;
                         //Toast.makeText(getBaseContext(), "Registrado correctamente", Toast.LENGTH_LONG).show();
                         RegistroActivity.this.startActivity(new Intent(RegistroActivity.this, TemasActivity.class));
+                        finish();
                     }
                     else if (httpMethods.getCode().equals("HTTP/1.0 200 OK")){
                         Toast.makeText(getBaseContext(), "Ya existe un usuario con el username introducido", Toast.LENGTH_LONG).show();

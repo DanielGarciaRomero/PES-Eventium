@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -63,6 +62,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     public static String event_id;
     public static String myUsername;
     public static Integer myUserID;
+    public static Integer minimizarApp;
 
     TextView textFechaIni;
     TextView textFechaFi;
@@ -143,6 +143,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         change_image = false;
         change_saldo = false;
         filtrar = false;
+        minimizarApp = 1;
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
         contexto = getBaseContext();
@@ -216,7 +217,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (minimizarApp == 0) super.onBackPressed();
+            else if (minimizarApp == 1) this.moveTaskToBack(true);
+            else fromAnyWhereToVerEventos();
         }
     }
 

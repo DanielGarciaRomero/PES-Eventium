@@ -109,6 +109,7 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_crear_evento, container, false);
+        NavigationDrawerActivity.minimizarApp = 0;
 
         Bundle bundle = getArguments();
         eventID = bundle.getString("event");
