@@ -51,19 +51,21 @@ public class MyDialogFragmentFollow extends DialogFragment {
 
         setHasOptionsMenu(true);
         mUserModel = new ArrayList<>();
-        for (int i = 0; i < follows.size(); ++i) {
-            Integer userid = follows.get(i).getFollowed();
+        if (follows != null) {
+            for (int i = 0; i < follows.size(); ++i) {
+                Integer userid = follows.get(i).getFollowed();
 
-            HTTPMethods httpMethods4 = new HTTPMethods(1);
-            httpMethods4.setUsername(userid.toString());
-            httpMethods4.ejecutarHttpAsyncTask();
-            while (!httpMethods4.getFinished());
-            Usuario user = httpMethods4.getUser();
+                HTTPMethods httpMethods4 = new HTTPMethods(1);
+                httpMethods4.setUsername(userid.toString());
+                httpMethods4.ejecutarHttpAsyncTask();
+                while (!httpMethods4.getFinished()) ;
+                Usuario user = httpMethods4.getUser();
 
-            String encodedImage = user.getPic();
-            byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
-            Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
-            mUserModel.add(new UserModel(base64BitmapImage, user.getUsername()));
+                String encodedImage = user.getPic();
+                byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
+                Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+                mUserModel.add(new UserModel(base64BitmapImage, user.getUsername()));
+            }
         }
 
         adapter= new RVAdapter(false);

@@ -224,14 +224,17 @@ public class PerfilFragment extends Fragment  {
                 }
         );
 
-        //Integer numSiguiendo = 0;
+        Integer numSiguiendo;
         HTTPMethods httpMethods7 = new HTTPMethods(33);
         httpMethods7.setUser_id(Integer.parseInt(idUsuario));
         httpMethods7.ejecutarHttpAsyncTask();
         while (!httpMethods7.getFinished());
         final List<Follow> list_follows = httpMethods7.getFollows();
-        System.out.println(list_follows.size());
-        siguiendo.setText(Html.fromHtml("<b>" + "Siguiendo: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + list_follows.size() + "</Font></u>"));
+        if (list_follows != null) {
+            numSiguiendo = list_follows.size();
+        }
+        else numSiguiendo = 0;
+        siguiendo.setText(Html.fromHtml("<b>" + "Siguiendo: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >" + numSiguiendo + "</Font></u>"));
         siguiendo.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

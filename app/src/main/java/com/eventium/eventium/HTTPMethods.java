@@ -78,6 +78,7 @@ public class HTTPMethods {
         destacado = "false";
         nreports = "0";
         peticion_id = id;
+        follows = null;
         event_id = "";
         comentarios = null;
     }
