@@ -34,6 +34,7 @@ public class HTTPMethods {
     public static List<Evento> events;
     public static List<Calendario> calendarios;
     public static List<Comentario> comentarios;
+    public static List<Follow> follows;
     public static Boolean finished;
     public static Integer user_id;
     public static Integer peticion_id;
@@ -117,7 +118,7 @@ public class HTTPMethods {
         else if (peticion_id == 28) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/report"); //PUT de un report usuario
         else if (peticion_id == 29) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/attendees"); //PUT de un report usuario
         else if (peticion_id == 32) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //POST seguir a un usuario
-
+        else if (peticion_id == 33) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //GET siguiendo
         else if (peticion_id == 99) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/geocode/json?address="+ event_direccion +","+ event_ciudad +"&region=es&key=AIzaSyD4QrXzHnloV9RRQsaqW9AqexiaW3XdvRw" );
     }
 
@@ -130,6 +131,8 @@ public class HTTPMethods {
     public Integer getIdfollow(){return idfollow;}
 
     public List<Calendario> getCalendarios(){return calendarios;}
+
+    public List<Follow> getFollows(){return follows;}
 
     public List<Comentario> getComentarios(){return comentarios;}
 
@@ -321,6 +324,7 @@ public class HTTPMethods {
             else if (peticion_id == 22) readJsonStreamEventos(inputStream);
             else if (peticion_id == 27) readJsonStreamEventos(inputStream);
             else if (peticion_id == 23) readJsonStreamComentarios(inputStream);
+            else if (peticion_id == 33) readJsonStreamFollows(inputStream);
             else if (peticion_id == 99) readJsonAddress(inputStream);
 
             // convert inputstream to string
@@ -555,8 +559,10 @@ public class HTTPMethods {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31 || peticion_id == 99) return GET(urls[0]);
-            else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30 || peticion_id == 32) return POST(urls[0]);
+            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31 || peticion_id == 99 || peticion_id == 33)
+                return GET(urls[0]);
+            else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30 || peticion_id == 32)
+                return POST(urls[0]);
             else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26 || peticion_id == 28) return PUT(urls[0]);
             else return DELETE(urls[0]);
         }
@@ -599,6 +605,15 @@ public class HTTPMethods {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
             comentarios = leerArrayComentarios(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
+    public static void readJsonStreamFollows(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            follows = leerArrayFollows(reader);
         } finally {
             reader.close();
         }
@@ -702,6 +717,18 @@ public class HTTPMethods {
         }
         reader.endArray();
         return calendarios;
+    }
+
+    public static List leerArrayFollows(JsonReader reader) throws IOException {
+        // Lista temporal
+        ArrayList follows = new ArrayList();
+        reader.beginArray();
+        while (reader.hasNext()) {
+            // Leer objeto
+            follows.add(leerFollows(reader));
+        }
+        reader.endArray();
+        return follows;
     }
 
     public static List leerArrayComentarios(JsonReader reader) throws IOException {
@@ -810,6 +837,29 @@ public class HTTPMethods {
         }
         reader.endObject();
         return new UsernameSponsor(username, sponsor);
+    }
+
+    public static Follow leerFollows(JsonReader reader) throws IOException {
+        Integer followed = null;
+        Boolean subscribed = null;
+
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "followed":
+                    followed = reader.nextInt();
+                    break;
+                case "subscribed":
+                    subscribed = reader.nextBoolean();
+                    break;
+                default:
+                    reader.skipValue();
+                    break;
+            }
+        }
+        reader.endObject();
+        return new Follow(followed, subscribed);
     }
 
     public static Calendario leerCalendario(JsonReader reader) throws IOException {
