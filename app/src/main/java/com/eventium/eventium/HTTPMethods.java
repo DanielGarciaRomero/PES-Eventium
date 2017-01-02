@@ -69,6 +69,7 @@ public class HTTPMethods {
     public static String cvc;
     public static String money;
     public static String direccionFiltraje;
+    public static Integer idfollow;
 
     public HTTPMethods(Integer id){
         finished = false;
@@ -115,6 +116,7 @@ public class HTTPMethods {
         else if (peticion_id == 27) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/events"); //GET events organizados por el user id
         else if (peticion_id == 28) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/report"); //PUT de un report usuario
         else if (peticion_id == 29) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/attendees"); //PUT de un report usuario
+        else if (peticion_id == 32) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //POST seguir a un usuario
 
         else if (peticion_id == 99) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/geocode/json?address="+ event_direccion +","+ event_ciudad +"&region=es&key=AIzaSyD4QrXzHnloV9RRQsaqW9AqexiaW3XdvRw" );
     }
@@ -122,6 +124,10 @@ public class HTTPMethods {
     public void setDireccionFiltraje(String direccion){direccionFiltraje = direccion;}
 
     public void setCardNumber(String cNumber){CardNumber = cNumber;}
+
+    public void setIdfollow(Integer idf){idfollow = idf;}
+
+    public Integer getIdfollow(){return idfollow;}
 
     public List<Calendario> getCalendarios(){return calendarios;}
 
@@ -393,6 +399,12 @@ public class HTTPMethods {
             else if (peticion_id == 30){ // Estrella Damm me quiere patrocinar
                 httpPost.setHeader("token", token_user);
             }
+            else if (peticion_id == 32){ // POST seguir
+                httpPost.setHeader("token", token_user);
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("followed", idfollow.toString()));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
             httpResponse = httpclient.execute(httpPost);
             code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
@@ -544,7 +556,7 @@ public class HTTPMethods {
         @Override
         protected String doInBackground(String... urls) {
             if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31 || peticion_id == 99) return GET(urls[0]);
-            else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30) return POST(urls[0]);
+            else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30 || peticion_id == 32) return POST(urls[0]);
             else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26 || peticion_id == 28) return PUT(urls[0]);
             else return DELETE(urls[0]);
         }

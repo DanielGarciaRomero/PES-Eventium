@@ -71,7 +71,13 @@ public class PerfilFragment extends Fragment  {
         view.findViewById(R.id.followbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.contexto, "Has pulsado Follow", Toast.LENGTH_LONG).show();
+                HTTPMethods httpMethods = new HTTPMethods(32);
+                httpMethods.setToken_user(NavigationDrawerActivity.token);
+                httpMethods.setUser_id(NavigationDrawerActivity.myUserID);
+                httpMethods.setIdfollow(Integer.parseInt(idUsuario));
+                httpMethods.ejecutarHttpAsyncTask();
+                while (!httpMethods.getFinished()) ;
+                Toast.makeText(MainActivity.contexto, "Has seguido a " + username, Toast.LENGTH_LONG).show();
             }
         });
         view.findViewById(R.id.reportbutton).setOnClickListener(new View.OnClickListener() {
