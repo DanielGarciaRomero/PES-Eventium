@@ -51,6 +51,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
     public static ArrayList<Evento> events;
     public static ArrayList<Follow> follows;
+    public static ArrayList<Followers> followers;
     public static ArrayList<Calendario> calendarios;
     public static ArrayList<Calendario> calenSponsors;
 

@@ -246,8 +246,27 @@ public class PerfilFragment extends Fragment  {
                 }
         );
 
-        Integer numSeguidores = 0;
+        Integer numSeguidores;
+        HTTPMethods httpMethods8 = new HTTPMethods(34);
+        httpMethods8.setUser_id(Integer.parseInt(idUsuario));
+        httpMethods8.ejecutarHttpAsyncTask();
+        while (!httpMethods8.getFinished());
+        final List<Followers> list_followers = httpMethods8.getFollowers();
+        if (list_followers != null) {
+            numSeguidores = list_followers.size();
+        }
+        else numSeguidores = 0;
         seguidores.setText(Html.fromHtml("<b>" + "Seguidores: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+numSeguidores+"</Font></u>"));
+        seguidores.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        NavigationDrawerActivity.followers = (ArrayList) list_followers;
+                        MyDialogFragmentFollowers dialogFragment = new MyDialogFragmentFollowers();
+                        dialogFragment.show(getActivity().getFragmentManager(), "");
+                    }
+                }
+        );
 
         //Integer numEventosAsistidos = 0;
         //Obtengo el calendario de un user
