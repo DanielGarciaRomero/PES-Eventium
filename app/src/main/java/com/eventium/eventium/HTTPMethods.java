@@ -78,6 +78,8 @@ public class HTTPMethods {
 
     public static Double lat;
     public static Double lng;
+    public static List<InfoHotels> hotels;
+
 
     public HTTPMethods(Integer id){
         finished = false;
@@ -129,6 +131,8 @@ public class HTTPMethods {
         else if (peticion_id == 32) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //POST seguir a un usuario
         else if (peticion_id == 33) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //GET siguiendo
         else if (peticion_id == 34) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/followers"); //GET seguidores
+
+        else if (peticion_id == 98) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat+ "," + lng +"&radius=200&types=lodging&key=AIzaSyDvtgXOxun9Na6mmHRtaRb9rJKpgn2Z7Sw");
         else if (peticion_id == 99) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/geocode/json?address="+ event_direccion +","+ event_ciudad +"&region=es&key=AIzaSyD4QrXzHnloV9RRQsaqW9AqexiaW3XdvRw" );
     }
 
@@ -338,6 +342,7 @@ public class HTTPMethods {
             else if (peticion_id == 23) readJsonStreamComentarios(inputStream);
             else if (peticion_id == 33) readJsonStreamFollows(inputStream);
             else if (peticion_id == 34) readJsonStreamFollowers(inputStream);
+            else if (peticion_id == 98) readJsonHotels(inputStream);
             else if (peticion_id == 99) readJsonAddress(inputStream);
 
             // convert inputstream to string
@@ -346,7 +351,13 @@ public class HTTPMethods {
             else
                 result = "Did not work!";
 
-        } catch (Exception e) {
+        }
+        catch (JSONException e) {
+
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+        catch (Exception e) {
+
             Log.d("InputStream", e.getLocalizedMessage());
         }
 
@@ -572,7 +583,7 @@ public class HTTPMethods {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31 || peticion_id == 99 || peticion_id == 33 || peticion_id == 34)
+            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31 || peticion_id == 99 || peticion_id == 98 || peticion_id == 33 || peticion_id == 34)
                 return GET(urls[0]);
             else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30 || peticion_id == 32)
                 return POST(urls[0]);
@@ -641,6 +652,19 @@ public class HTTPMethods {
         }
     }
 
+    public static void readJsonHotels(InputStream in) throws IOException, JSONException {
+        //Nueva instancia JsonReader
+        //JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        String result = convertInputStreamToString(in);
+        leerRespHotels(result);
+        /*
+        try {
+            leerRespApi(reader);
+        } finally {
+            reader.close();
+        }
+        */
+    }
     public static void readJsonAddress(InputStream in) throws IOException {
         //Nueva instancia JsonReader
         //JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
@@ -779,6 +803,40 @@ public class HTTPMethods {
         }
         reader.endArray();
         return comentarios;
+    }
+
+    public static void leerRespHotels(String in) throws IOException, JSONException {
+
+
+            JSONObject reader = new JSONObject(in);
+            JSONArray res = reader.getJSONArray("results");
+           /*
+            for (int i = 0; i < res.length(); ++i){
+                JSONObject first = res.getJSONObject(i);
+                JSONObject aux = first.getJSONObject("geometry");
+                JSONObject aux2 = aux.getJSONObject("location");
+                Double lat2 = aux2.getDouble("lat");
+                Double lng2 = aux2.getDouble("lng");
+                String nhotel = first.getString("name");
+                String dhotel = first.getString("vicinity");
+                hotels.add(new InfoHotels(lat2,lng2,nhotel,dhotel));
+
+            }
+
+            for(int i = 0; i < hotels.size(); ++i){
+                Log.d("soy yo hotels", hotels.get(i).getLat() + " " +hotels.get(i).getLng() + " " +hotels.get(i).getDireccion() + " " + hotels.get(i).getName() );
+            }
+
+*/
+
+/*
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            Log.d("SOY YO ", name);
+        }
+        reader.endObject();
+        */
     }
 
     public static void leerRespApi(String in) throws IOException {

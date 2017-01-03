@@ -107,12 +107,17 @@ public class MostrarEventoFragment extends Fragment  {
                 httpMethods99.ejecutarHttpAsyncTask();
                 while (!httpMethods99.getFinished());
 
+                HTTPMethods httpMethods98 = new HTTPMethods(98);
+                httpMethods98.ejecutarHttpAsyncTask();
+                while (!httpMethods98.getFinished());
+
                 LatLng sydney = new LatLng(lat, lng);
                 googleMap.addMarker(new MarkerOptions().position(sydney).title(titulo.getText().toString()).snippet(daux + " , " + caux));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
 
             }
         });
