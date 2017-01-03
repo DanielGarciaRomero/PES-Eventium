@@ -806,13 +806,14 @@ public class HTTPMethods {
     }
 
     public static void leerRespHotels(String in) throws IOException, JSONException {
-
+            hotels = new ArrayList<>();
 
             JSONObject reader = new JSONObject(in);
             JSONArray res = reader.getJSONArray("results");
-           /*
+
             for (int i = 0; i < res.length(); ++i){
                 JSONObject first = res.getJSONObject(i);
+
                 JSONObject aux = first.getJSONObject("geometry");
                 JSONObject aux2 = aux.getJSONObject("location");
                 Double lat2 = aux2.getDouble("lat");
@@ -821,13 +822,14 @@ public class HTTPMethods {
                 String dhotel = first.getString("vicinity");
                 hotels.add(new InfoHotels(lat2,lng2,nhotel,dhotel));
 
+
             }
 
             for(int i = 0; i < hotels.size(); ++i){
                 Log.d("soy yo hotels", hotels.get(i).getLat() + " " +hotels.get(i).getLng() + " " +hotels.get(i).getDireccion() + " " + hotels.get(i).getName() );
             }
 
-*/
+
 
 /*
         reader.beginObject();
