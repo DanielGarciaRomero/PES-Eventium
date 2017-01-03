@@ -132,7 +132,7 @@ public class HTTPMethods {
         else if (peticion_id == 33) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //GET siguiendo
         else if (peticion_id == 34) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/followers"); //GET seguidores
 
-        else if (peticion_id == 98) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat+ "," + lng +"&radius=200&types=lodging&key=AIzaSyDvtgXOxun9Na6mmHRtaRb9rJKpgn2Z7Sw");
+        else if (peticion_id == 98) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat+ "," + lng +"&radius=1000&types=lodging&key=AIzaSyDvtgXOxun9Na6mmHRtaRb9rJKpgn2Z7Sw");
         else if (peticion_id == 99) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/geocode/json?address="+ event_direccion +","+ event_ciudad +"&region=es&key=AIzaSyD4QrXzHnloV9RRQsaqW9AqexiaW3XdvRw" );
     }
 
