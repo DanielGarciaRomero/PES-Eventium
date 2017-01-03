@@ -824,13 +824,6 @@ public class HTTPMethods {
 
 
             }
-
-            for(int i = 0; i < hotels.size(); ++i){
-                Log.d("soy yo hotels", hotels.get(i).getLat() + " " +hotels.get(i).getLng() + " " +hotels.get(i).getDireccion() + " " + hotels.get(i).getName() );
-            }
-
-
-
 /*
         reader.beginObject();
         while (reader.hasNext()) {

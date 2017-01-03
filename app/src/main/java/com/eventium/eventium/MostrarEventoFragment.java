@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.eventium.eventium.HTTPMethods.hotels;
 import static com.eventium.eventium.HTTPMethods.lat;
 import static com.eventium.eventium.HTTPMethods.lng;
 import static com.eventium.eventium.R.id.textView;
@@ -115,8 +116,15 @@ public class MostrarEventoFragment extends Fragment  {
                 googleMap.addMarker(new MarkerOptions().position(sydney).title(titulo.getText().toString()).snippet(daux + " , " + caux));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                //hoteles
+
+                for(int i = 0; i < hotels.size(); ++i){
+                    LatLng sydney2 = new LatLng(hotels.get(i).getLat(), hotels.get(i).getLng());
+                    googleMap.addMarker(new MarkerOptions().position(sydney2).title(hotels.get(i).getName()).snippet(hotels.get(i).getDireccion()));
+                }
 
 
             }
