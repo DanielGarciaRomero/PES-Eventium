@@ -38,6 +38,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.eventium.eventium.HTTPMethods.lat;
+import static com.eventium.eventium.HTTPMethods.lng;
 import static com.eventium.eventium.R.id.textView;
 
 /**
@@ -102,13 +104,13 @@ public class MostrarEventoFragment extends Fragment  {
                 httpMethods99.ejecutarHttpAsyncTask();
                 while (!httpMethods99.getFinished());
 
-                LatLng sydney = new LatLng(-34, 151);
+                LatLng sydney = new LatLng(lat, lng);
                 googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-/*
+
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                */
+
             }
         });
 

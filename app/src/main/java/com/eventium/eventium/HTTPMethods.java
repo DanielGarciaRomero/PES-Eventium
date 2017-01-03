@@ -15,6 +15,9 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,6 +75,9 @@ public class HTTPMethods {
     public static String money;
     public static String direccionFiltraje;
     public static Integer idfollow;
+
+    public static Double lat;
+    public static Double lng;
 
     public HTTPMethods(Integer id){
         finished = false;
@@ -637,12 +643,16 @@ public class HTTPMethods {
 
     public static void readJsonAddress(InputStream in) throws IOException {
         //Nueva instancia JsonReader
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        //JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        String result = convertInputStreamToString(in);
+        leerRespApi(result);
+        /*
         try {
             leerRespApi(reader);
         } finally {
             reader.close();
         }
+        */
     }
 
     public static void readJsonStreamUsuario(InputStream in) throws IOException {
@@ -771,15 +781,34 @@ public class HTTPMethods {
         return comentarios;
     }
 
-    public static void leerRespApi(JsonReader reader) throws IOException {
+    public static void leerRespApi(String in) throws IOException {
 
+        try {
+            JSONObject reader = new JSONObject(in);
+            JSONArray res = reader.getJSONArray("results");
+            for (int i = 0; i < res.length(); ++i){
+                Log.d("soy yo", "ENTRO FOR");
+                if(i == 0){
+                    JSONObject first = res.getJSONObject(0);
+                    JSONObject aux = first.getJSONObject("geometry");
+                    JSONObject aux2 = aux.getJSONObject("location");
+                    lat = aux2.getDouble("lat");
+                    lng = aux2.getDouble("lng");
 
+                }
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+/*
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
             Log.d("SOY YO ", name);
         }
         reader.endObject();
+        */
     }
 
 
