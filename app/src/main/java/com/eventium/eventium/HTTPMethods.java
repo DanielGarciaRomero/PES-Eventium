@@ -840,7 +840,7 @@ public class HTTPMethods {
             JSONObject reader = new JSONObject(in);
             JSONArray res = reader.getJSONArray("results");
             for (int i = 0; i < res.length(); ++i){
-                Log.d("soy yo", "ENTRO FOR");
+              //  Log.d("soy yo", "ENTRO FOR");
                 if(i == 0){
                     JSONObject first = res.getJSONObject(0);
                     JSONObject aux = first.getJSONObject("geometry");
