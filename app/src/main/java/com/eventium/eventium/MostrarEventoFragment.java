@@ -99,13 +99,16 @@ public class MostrarEventoFragment extends Fragment  {
                 HTTPMethods httpMethods99 = new HTTPMethods(99);
                 String daux = direccion.getText().toString().replace("Dirección: ", "");
                 String caux = ciudad.getText().toString().replace("Ciudad: ", "");
-                httpMethods99.setEvent_direccion(daux);
-                httpMethods99.setEvent_ciudad(caux);
+
+                String daux2 = daux.replace(" ", 	"%20");
+                String caux2 = caux.replace(" ", 	"%20");
+                httpMethods99.setEvent_direccion(daux2);
+                httpMethods99.setEvent_ciudad(caux2);
                 httpMethods99.ejecutarHttpAsyncTask();
                 while (!httpMethods99.getFinished());
 
                 LatLng sydney = new LatLng(lat, lng);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                googleMap.addMarker(new MarkerOptions().position(sydney).title(titulo.getText().toString()).snippet(daux + " , " + caux));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
