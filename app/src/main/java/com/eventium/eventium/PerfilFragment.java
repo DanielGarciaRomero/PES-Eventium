@@ -49,6 +49,7 @@ public class PerfilFragment extends Fragment  {
     TextView eventosOrganizados;
     //TextView opiniones;
     ImageView verified;
+    Button seguir;
     ImageView fotoPerfil;
     RatingBar reputacion;
     private String username;
@@ -56,6 +57,7 @@ public class PerfilFragment extends Fragment  {
     String categorias;
     ArrayList<Evento> eventos;
     ArrayList<Evento> eventos2;
+    Boolean sig;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -68,18 +70,7 @@ public class PerfilFragment extends Fragment  {
         username = bundle.getString("user");
         eventos = new ArrayList<>();
         eventos2 = new ArrayList<>();
-        view.findViewById(R.id.followbutton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HTTPMethods httpMethods = new HTTPMethods(32);
-                httpMethods.setToken_user(NavigationDrawerActivity.token);
-                httpMethods.setUser_id(NavigationDrawerActivity.myUserID);
-                httpMethods.setIdfollow(Integer.parseInt(idUsuario));
-                httpMethods.ejecutarHttpAsyncTask();
-                while (!httpMethods.getFinished()) ;
-                Toast.makeText(MainActivity.contexto, "Has seguido a " + username, Toast.LENGTH_LONG).show();
-            }
-        });
+
         view.findViewById(R.id.reportbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,6 +202,40 @@ public class PerfilFragment extends Fragment  {
                     break;
             }
         }
+
+        HTTPMethods httpMethods9 = new HTTPMethods(33);
+        httpMethods9.setUser_id(NavigationDrawerActivity.myUserID);
+        httpMethods9.ejecutarHttpAsyncTask();
+        while (!httpMethods9.getFinished());
+        final List<Follow> list_follows9 = httpMethods9.getFollows();
+        sig = false;
+        if (list_follows9 != null) {
+            for (int i = 0; i < list_follows9.size(); ++i) {
+                System.out.println("hola" + list_follows9.get(i).getFollowed());
+                System.out.println("adios" + idUsuario);
+                if (list_follows9.get(i).getFollowed().equals(Integer.parseInt(idUsuario))) sig = true;
+            }
+        }
+        seguir = (Button) view.findViewById(R.id.followbutton);
+        System.out.println(sig);
+        if (sig) seguir.setText("SIGUIENDO");
+        seguir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!sig){
+                    HTTPMethods httpMethods = new HTTPMethods(32);
+                    httpMethods.setToken_user(NavigationDrawerActivity.token);
+                    httpMethods.setUser_id(NavigationDrawerActivity.myUserID);
+                    httpMethods.setIdfollow(Integer.parseInt(idUsuario));
+                    httpMethods.ejecutarHttpAsyncTask();
+                    while (!httpMethods.getFinished()) ;
+                    Toast.makeText(MainActivity.contexto, "Has seguido a " + username, Toast.LENGTH_LONG).show();
+                    seguir.setText("SIGUIENDO");
+                    sig = true;
+                }
+            }
+        });
+
         //if (categorias.length() != 0) categorias = categorias.substring(0,categorias.length()-2);
         //else categorias = "Ninguna";
         //tematicas.setText("Temáticas preferidas: " + categorias);

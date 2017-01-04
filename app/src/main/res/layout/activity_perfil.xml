@@ -137,6 +137,7 @@
             android:layout_below="@+id/emailtext"
             android:layout_marginTop="60dp"
             android:textSize="12sp"
+            android:background="#56E394"
             android:layout_alignParentRight="true" />
 
         <Button
@@ -147,6 +148,7 @@
             android:textSize="12sp"
             android:layout_below="@+id/followbutton"
             android:layout_marginTop="5dp"
+            android:background="#56E394"
             android:layout_alignStart="@+id/followbutton" />
 
     </RelativeLayout>
