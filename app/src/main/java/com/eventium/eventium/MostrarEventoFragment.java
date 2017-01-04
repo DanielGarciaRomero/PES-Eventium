@@ -142,6 +142,24 @@ public class MostrarEventoFragment extends Fragment  {
         });
 
         final ToggleButton asistir = (ToggleButton) view.findViewById(R.id.botonAsistir);
+        //Obtengo el calendario de un user
+        HTTPMethods httpMethods9 = new HTTPMethods(8);
+        httpMethods9.setToken_user(NavigationDrawerActivity.token);
+        httpMethods9.setUser_id(NavigationDrawerActivity.myUserID);
+        httpMethods9.ejecutarHttpAsyncTask();
+        while (!httpMethods9.getFinished());
+        List<Calendario> list_calendario9 = httpMethods9.getCalendarios();
+        Boolean asistire = false;
+
+        if (list_calendario9 != null) {
+            for (int i = 0; i < list_calendario9.size(); ++i) {
+                Integer eid = list_calendario9.get(i).getEventid();
+                if (eid.equals(Integer.parseInt(eventID))) asistire = true;
+            }
+        }
+
+        if (asistire) asistir.setText("ASISTIRÉ");
+        else asistir.setText("NO ASISTIRÉ");
         asistir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //Obtengo el username con el token

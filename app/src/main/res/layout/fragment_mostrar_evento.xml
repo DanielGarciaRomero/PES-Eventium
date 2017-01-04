@@ -123,8 +123,8 @@
         <ToggleButton
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:textOff="No asistiré"
-            android:textOn="Asistiré"
+            android:textOff="NO ASISTIRÉ"
+            android:textOn="ASISTIRÉ"
             android:layout_below="@+id/direccionEvento"
             android:layout_marginTop="30dp"
             android:background="#56E394"
