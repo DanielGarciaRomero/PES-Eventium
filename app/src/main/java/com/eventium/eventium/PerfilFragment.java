@@ -18,11 +18,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +51,7 @@ public class PerfilFragment extends Fragment  {
     TextView eventosOrganizados;
     //TextView opiniones;
     ImageView verified;
-    Button seguir;
+    ToggleButton seguir;
     ImageView fotoPerfil;
     RatingBar reputacion;
     private String username;
@@ -211,31 +213,38 @@ public class PerfilFragment extends Fragment  {
         sig = false;
         if (list_follows9 != null) {
             for (int i = 0; i < list_follows9.size(); ++i) {
-                System.out.println("hola" + list_follows9.get(i).getFollowed());
-                System.out.println("adios" + idUsuario);
                 if (list_follows9.get(i).getFollowed().equals(Integer.parseInt(idUsuario))) sig = true;
             }
         }
-        seguir = (Button) view.findViewById(R.id.followbutton);
-        System.out.println(sig);
+        seguir = (ToggleButton) view.findViewById(R.id.followbutton);
         if (sig) seguir.setText("SIGUIENDO");
-        seguir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!sig){
-                    HTTPMethods httpMethods = new HTTPMethods(32);
-                    httpMethods.setToken_user(NavigationDrawerActivity.token);
-                    httpMethods.setUser_id(NavigationDrawerActivity.myUserID);
-                    httpMethods.setIdfollow(Integer.parseInt(idUsuario));
-                    httpMethods.ejecutarHttpAsyncTask();
-                    while (!httpMethods.getFinished()) ;
-                    Toast.makeText(MainActivity.contexto, "Has seguido a " + username, Toast.LENGTH_LONG).show();
-                    seguir.setText("SIGUIENDO");
-                    sig = true;
+        else seguir.setText("SEGUIR");
+        seguir.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //Seguir
+                    if (!sig) {
+                        HTTPMethods httpMethods = new HTTPMethods(32);
+                        httpMethods.setToken_user(NavigationDrawerActivity.token);
+                        httpMethods.setUser_id(NavigationDrawerActivity.myUserID);
+                        httpMethods.setIdfollow(Integer.parseInt(idUsuario));
+                        httpMethods.ejecutarHttpAsyncTask();
+                        while (!httpMethods.getFinished()) ;
+                        Toast.makeText(MainActivity.contexto, "Has seguido a " + username, Toast.LENGTH_LONG).show();
+                        sig = true;
+                    }
+                } else {
+                    //Dejar de seguir
+                    HTTPMethods httpMethods3 = new HTTPMethods(36);
+                    httpMethods3.setToken_user(NavigationDrawerActivity.token);
+                    httpMethods3.setUser_id(NavigationDrawerActivity.myUserID);
+                    httpMethods3.setIdfollow(Integer.parseInt(idUsuario));
+                    httpMethods3.ejecutarHttpAsyncTask();
+                    while (!httpMethods3.getFinished()) ;
+                    sig = false;
                 }
             }
         });
-
         //if (categorias.length() != 0) categorias = categorias.substring(0,categorias.length()-2);
         //else categorias = "Ninguna";
         //tematicas.setText("Temáticas preferidas: " + categorias);

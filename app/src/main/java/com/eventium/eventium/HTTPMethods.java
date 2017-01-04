@@ -133,6 +133,7 @@ public class HTTPMethods {
         else if (peticion_id == 33) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //GET siguiendo
         else if (peticion_id == 34) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/followers"); //GET seguidores
         else if (peticion_id == 35) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/valoration"); //POST valoracion
+        else if (peticion_id == 36) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows/" + idfollow.toString()); //DELETE dejar de seguir
 
         else if (peticion_id == 98) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat+ "," + lng +"&radius=1000&types=lodging&key=AIzaSyDvtgXOxun9Na6mmHRtaRb9rJKpgn2Z7Sw");
         else if (peticion_id == 99) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/geocode/json?address="+ event_direccion +","+ event_ciudad +"&region=es&key=AIzaSyD4QrXzHnloV9RRQsaqW9AqexiaW3XdvRw" );
@@ -557,6 +558,9 @@ public class HTTPMethods {
                 httpDelete.setHeader("token", token_user);
             }
             else if (peticion_id == 25){
+                httpDelete.setHeader("token", token_user);
+            }
+            else if (peticion_id == 36){
                 httpDelete.setHeader("token", token_user);
             }
             httpResponse = httpclient.execute(httpDelete);

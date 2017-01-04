@@ -128,7 +128,7 @@
             android:layout_below="@+id/asistidos"
             android:layout_alignStart="@+id/asistidos" />
 
-        <Button
+        <!--<Button
             android:text="Seguir"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -138,14 +138,29 @@
             android:layout_marginTop="60dp"
             android:textSize="12sp"
             android:background="#56E394"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true" />-->
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="SEGUIR"
+            android:textOn="SIGUIENDO"
+            android:layout_below="@+id/emailtext"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="60dp"
+            android:textSize="12sp"
+            android:background="#56E394"
+            android:layout_alignParentRight="true"
+            android:id="@+id/followbutton"
+            android:layout_toEndOf="@+id/tematicas" />
 
         <Button
             android:text="Reportar"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:id="@+id/reportbutton"
             android:textSize="12sp"
+            android:layout_marginRight="20dp"
             android:layout_below="@+id/followbutton"
             android:layout_marginTop="5dp"
             android:background="#56E394"
