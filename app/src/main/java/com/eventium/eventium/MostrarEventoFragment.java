@@ -1,9 +1,12 @@
 package com.eventium.eventium;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -32,6 +35,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -39,6 +43,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.eventium.eventium.HTTPMethods.hotels;
 import static com.eventium.eventium.HTTPMethods.lat;
 import static com.eventium.eventium.HTTPMethods.lng;
 import static com.eventium.eventium.R.id.textView;
@@ -55,6 +60,7 @@ public class MostrarEventoFragment extends Fragment  {
     private String username;
     MapView mMapView;
     private GoogleMap googleMap;
+    private Context context;
     public MostrarEventoFragment() {}
 
     @Override
@@ -111,12 +117,26 @@ public class MostrarEventoFragment extends Fragment  {
                 httpMethods99.ejecutarHttpAsyncTask();
                 while (!httpMethods99.getFinished());
 
+                HTTPMethods httpMethods98 = new HTTPMethods(98);
+                httpMethods98.ejecutarHttpAsyncTask();
+                while (!httpMethods98.getFinished());
+
                 LatLng sydney = new LatLng(lat, lng);
                 googleMap.addMarker(new MarkerOptions().position(sydney).title(titulo.getText().toString()).snippet(daux + " , " + caux));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                //hoteles
+
+                for(int i = 0; i < hotels.size(); ++i){
+                    Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.lodging71);
+                    largeIcon = Bitmap.createScaledBitmap(largeIcon,50,50,true);
+                    LatLng sydney2 = new LatLng(hotels.get(i).getLat(), hotels.get(i).getLng());
+                    googleMap.addMarker(new MarkerOptions().position(sydney2).title(hotels.get(i).getName()).snippet(hotels.get(i).getDireccion()).icon(BitmapDescriptorFactory.fromBitmap(largeIcon)));
+                }
+
 
             }
         });
