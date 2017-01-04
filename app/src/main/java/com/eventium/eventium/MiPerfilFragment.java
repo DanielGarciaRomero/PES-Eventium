@@ -125,6 +125,14 @@ public class MiPerfilFragment extends Fragment  {
 
         idUsuario = user.getId();
 
+        RatingBar puntuacion = (RatingBar) view.findViewById(R.id.ratingBar);
+        puntuacion.setStepSize(0.5f);
+        try {
+            puntuacion.setRating(Float.parseFloat(user.getValoracion()));
+        } catch (Exception e){
+            Toast.makeText(NavigationDrawerActivity.contexto, "Aun no tienes puntuación", Toast.LENGTH_LONG).show();
+        }
+
         name.setText(user.getUsername());
 
         mail.setText(Html.fromHtml("<b>" + "Email: " + "</b>" + user.getMail()));

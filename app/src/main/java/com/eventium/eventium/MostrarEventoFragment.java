@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -76,6 +77,9 @@ public class MostrarEventoFragment extends Fragment  {
         final TextView hora = (TextView) view.findViewById(R.id.horaEvento);
         final TextView precio = (TextView) view.findViewById(R.id.precioEvento);
         final TextView numOpinionestv = (TextView) view.findViewById(R.id.opinionesEvento);
+        final RatingBar puntuacion = (RatingBar) view.findViewById(R.id.ratingBar);
+        puntuacion.setStepSize(0.5f);
+        //boolean isVoted = false;
 
         mMapView = (MapView) view.findViewById(R.id.google);
         mMapView.onCreate(savedInstanceState);
@@ -198,12 +202,38 @@ public class MostrarEventoFragment extends Fragment  {
             }
         });
 
+        RatingBar.OnRatingBarChangeListener listener = new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+
+                String sRating = Integer.toString((int)puntuacion.getRating());
+                HTTPMethods httpMethods = new HTTPMethods(35);
+                httpMethods.setEvent_id(NavigationDrawerActivity.event_id);
+                httpMethods.setToken_user(NavigationDrawerActivity.token);
+                httpMethods.setEventPoints(sRating);
+                httpMethods.ejecutarHttpAsyncTask();
+                while (!httpMethods.getFinished());
+            }
+
+        };
+
+
         HTTPMethods httpMethods = new HTTPMethods(7);
         httpMethods.setEvent_id(eventID);
         httpMethods.ejecutarHttpAsyncTask();
         while (!httpMethods.getFinished());
         Evento event = httpMethods.getEvent();
         titulo.setText(event.getTitle());
+
+        try {
+            puntuacion.setRating(Float.parseFloat(event.getValoracion()));
+        } catch (Exception e){
+            Toast.makeText(NavigationDrawerActivity.contexto, "Este evento aun no tiene puntuación", Toast.LENGTH_LONG).show();
+        }
+
+
+        puntuacion.setOnRatingBarChangeListener(listener);
         String cat = event.getCategoria();
         switch (cat) {
             case "0":

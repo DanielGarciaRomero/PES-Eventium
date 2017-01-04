@@ -17,10 +17,11 @@ public class Evento {
     private String url;
     private String nreports; // anadido para el PUT de evento
     private Boolean destacado; // anadido para el PUT de evento
+    private String valoracion;
 
     public Evento(String title, String id, String organizerId, String ciudad, String pic, String precio,
         String fecha_ini, String fecha_fin, String hora_ini, String hora_fin, String categoria, String descripcion,
-                  String direccion, String url, String nreports, Boolean destacado) {
+                  String direccion, String url, String nreports, Boolean destacado, String valoracion) {
             this.title = title;
             this.id = id;
             this.organizerId = organizerId;
@@ -37,6 +38,7 @@ public class Evento {
             this.setUrl(url);
             this.setnReports(nreports);
             this.setDestacado(destacado);
+            this.setValoracion(valoracion);
     }
 
     public String getnReports() {return nreports;}
@@ -132,4 +134,8 @@ public class Evento {
     public String getUrl() { return url; }
 
     public void setUrl(String url) { this.url = url; }
+
+    public String getValoracion() { return valoracion; }
+
+    public void setValoracion(String valoracion) { this.valoracion = valoracion;}
 }

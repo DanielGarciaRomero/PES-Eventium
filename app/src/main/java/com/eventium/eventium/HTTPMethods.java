@@ -65,6 +65,7 @@ public class HTTPMethods {
     public static String event_url_entradas;
     public static String event_descripcion;
     public static String comentario;
+    public static String event_points;
 
     public static String token_user;
     public static String code;
@@ -129,6 +130,7 @@ public class HTTPMethods {
         else if (peticion_id == 32) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //POST seguir a un usuario
         else if (peticion_id == 33) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //GET siguiendo
         else if (peticion_id == 34) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/followers"); //GET seguidores
+        else if (peticion_id == 35) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/valoration"); //POST valoracion
         else if (peticion_id == 99) new HttpAsyncTask().execute("https://maps.googleapis.com/maps/api/geocode/json?address="+ event_direccion +","+ event_ciudad +"&region=es&key=AIzaSyD4QrXzHnloV9RRQsaqW9AqexiaW3XdvRw" );
     }
 
@@ -186,6 +188,8 @@ public class HTTPMethods {
     public void setComentario(String comment){ comentario = comment; }
 
     public void setnReports(String nrep){ nreports = nrep; }
+
+    public void setEventPoints(String ePoints) {event_points = ePoints; }
 
     public void setEvent_categoria(String categoria){
         switch (categoria) {
@@ -422,6 +426,12 @@ public class HTTPMethods {
                 nameValuePairs.add(new BasicNameValuePair("followed", idfollow.toString()));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             }
+            else if (peticion_id == 35) { // POST valoracion
+                httpPost.setHeader("token", token_user);
+                List nameValuePairs = new ArrayList();
+                nameValuePairs.add(new BasicNameValuePair("points", event_points));
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            }
             httpResponse = httpclient.execute(httpPost);
             code = httpResponse.getStatusLine().toString();
             // receive response as inputStream
@@ -574,7 +584,7 @@ public class HTTPMethods {
         protected String doInBackground(String... urls) {
             if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31 || peticion_id == 99 || peticion_id == 33 || peticion_id == 34)
                 return GET(urls[0]);
-            else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30 || peticion_id == 32)
+            else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30 || peticion_id == 32 ||peticion_id == 35)
                 return POST(urls[0]);
             else if ( (peticion_id >= 15 && peticion_id < 20) || peticion_id == 24 || peticion_id == 26 || peticion_id == 28) return PUT(urls[0]);
             else return DELETE(urls[0]);
@@ -823,6 +833,7 @@ public class HTTPMethods {
         Boolean isBanned = null;
         String ciudad = null;
         Integer nreports = null;
+        String valoracion = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -864,13 +875,22 @@ public class HTTPMethods {
                 case "nreports":
                     nreports = reader.nextInt();
                     break;
+                case "valoration":
+                    try {
+                        valoracion = reader.nextString();
+                    } catch (Exception e) {
+                        reader.nextNull();
+                        valoracion = null;
+                    } finally {
+                        break;
+                    }
                 default:
                     reader.skipValue();
                     break;
             }
         }
         reader.endObject();
-        return new Usuario(username, saldo, mail, password, pic, id, isVerified, isBanned, ciudad, nreports);
+        return new Usuario(username, saldo, mail, password, pic, id, isVerified, isBanned, ciudad, nreports, valoracion);
     }
 
     public static UsernameSponsor leerUsernameSponsor(JsonReader reader) throws IOException {
@@ -1008,6 +1028,7 @@ public class HTTPMethods {
         String url = null;
         String nreports = null; // anadido para el PUT de evento
         Boolean destacado = false; // anadido para el PUT de evento
+        String valoracion = null;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -1067,6 +1088,15 @@ public class HTTPMethods {
                 case "destacado":
                     destacado = reader.nextBoolean();
                     break;
+                case "valoration":
+                    try {
+                        valoracion = reader.nextString();
+                    } catch (Exception e) {
+                        reader.nextNull();
+                        valoracion = null;
+                    } finally {
+                        break;
+                    }
                 default:
                     reader.skipValue();
                     break;
@@ -1074,7 +1104,7 @@ public class HTTPMethods {
         }
         reader.endObject();
         return new Evento(title, id, organizerId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria,
-                descripcion, direccion, url, nreports, destacado);
+                descripcion, direccion, url, nreports, destacado, valoracion);
         //return new Evento(title, id, organizerId, ciudad, pic, precio, fecha_ini, fecha_fin, hora_ini, hora_fin, categoria, descripcion, direccion, url, nreports);
     }
 

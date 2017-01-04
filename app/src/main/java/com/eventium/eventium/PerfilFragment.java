@@ -141,6 +141,13 @@ public class PerfilFragment extends Fragment  {
         if(!user.getIsVerified()) {
             verified.setVisibility(View.INVISIBLE);
         }
+        RatingBar puntuacion = (RatingBar) view.findViewById(R.id.ratingBar);
+        puntuacion.setStepSize(0.5f);
+        try {
+            puntuacion.setRating(Float.parseFloat(user.getValoracion()));
+        } catch (Exception e){
+            Toast.makeText(NavigationDrawerActivity.contexto, "Este usuario aun no tiene puntuación", Toast.LENGTH_LONG).show();
+        }
 
         int idInt = Integer.parseInt(idUsuario);
         categorias = "";

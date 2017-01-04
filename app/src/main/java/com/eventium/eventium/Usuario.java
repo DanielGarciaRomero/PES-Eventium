@@ -11,9 +11,10 @@ public class Usuario {
     private Boolean isBanned;
     private String ciudad;
     private Integer nreports;
+    private String valoracion;
 
     public Usuario(String username, String saldo, String mail, String password, String pic, String id,
-                   Boolean isVerified, Boolean isBanned, String ciudad, Integer nreports) {
+                   Boolean isVerified, Boolean isBanned, String ciudad, Integer nreports, String valoracion) {
         this.username = username;
         this.saldo = saldo;
         this.mail = mail;
@@ -24,6 +25,7 @@ public class Usuario {
         this.isBanned = isBanned;
         this.ciudad = ciudad;
         this.nreports = nreports;
+        this.valoracion = valoracion;
     }
 
     public String getUsername() {
@@ -89,4 +91,8 @@ public class Usuario {
     public void setNreports(Integer nreports) {
         this.nreports = nreports;
     }
+
+    public String getValoracion() { return valoracion; }
+
+    public void setValoracion(String valoracion) { this.valoracion = valoracion;}
 }
