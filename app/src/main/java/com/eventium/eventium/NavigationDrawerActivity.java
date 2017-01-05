@@ -82,6 +82,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
     RatingBar minRatingBar, maxRatingBar;
     EditText etcity;
     TextView textFiltrar2, textCancelar2;
+    Fragment usersFrag;
 
     public void fromAnyWhereToVerEventos() {
         navigationView.getMenu().getItem(0).setChecked(true);
@@ -243,6 +244,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             //Toast.makeText(getBaseContext(), "Has clicado en Crear evento", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_usuarios) {
             fragment = new UsuariosFragment();
+            usersFrag = fragment;
             FragmentTransaction = true;
             //Toast.makeText(getBaseContext(), "Has clicado en Usuarios", Toast.LENGTH_LONG).show();
         } else if (id == R.id.nav_perfil) {
@@ -605,9 +607,19 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                     public void onClick(View v) {
                         int minRatingValue = (int) minRatingBar.getRating();
                         int maxRatingValue = (int) maxRatingBar.getRating();
-                        System.out.println("minRatingValue = " + minRatingValue);
-                        System.out.println("maxRatingValue = " + maxRatingValue);
-                        System.out.println("ciudad = " + etcity.getText().toString());
+                        String ciutat =  etcity.getText().toString();
+                        //System.out.println("minRatingValue = " + minRatingValue);
+                        //System.out.println("maxRatingValue = " + maxRatingValue);
+                        //System.out.println("ciudad = " + ciutat);
+                        //filtrar = true;
+                        direccionFiltraje = "http://10.4.41.168:5000/users?";
+                        direccionFiltraje += "estrellasMin=" + Integer.toString(minRatingValue);
+                        direccionFiltraje += "&estrellasMax=" + Integer.toString(maxRatingValue);
+                        if (!ciutat.equals("")) direccionFiltraje += "&ciudad=" + ciutat;
+                        System.out.println("direccionFiltraje = " + direccionFiltraje);
+                        FragmentManager fm = getSupportFragmentManager();
+                        UsuariosFragment fragmento = (UsuariosFragment)fm.findFragmentById(usersFrag.getId());
+                        fragmento.mostrarUsuariosFiltrados();
                         dialog.dismiss();
                     }
                 }

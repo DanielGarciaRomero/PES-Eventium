@@ -139,7 +139,7 @@ public class PerfilFragment extends Fragment  {
         try {
             puntuacion.setRating(Float.parseFloat(user.getValoracion()));
         } catch (Exception e){
-            Toast.makeText(NavigationDrawerActivity.contexto, "Este usuario aun no tiene puntuación", Toast.LENGTH_LONG).show();
+            //Toast.makeText(NavigationDrawerActivity.contexto, "Este usuario aun no tiene puntuación", Toast.LENGTH_LONG).show();
         }
 
         int idInt = Integer.parseInt(idUsuario);
@@ -321,7 +321,7 @@ public class PerfilFragment extends Fragment  {
         final Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
-        System.out.println("HOLA" + date.getTime());
+        //System.out.println("HOLA" + date.getTime());
 
         if (list_calendario != null) {
             for (int i = 0; i < list_calendario.size(); ++i) {

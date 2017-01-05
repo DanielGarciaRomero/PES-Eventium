@@ -130,7 +130,7 @@ public class MiPerfilFragment extends Fragment  {
         try {
             puntuacion.setRating(Float.parseFloat(user.getValoracion()));
         } catch (Exception e){
-            Toast.makeText(NavigationDrawerActivity.contexto, "Aun no tienes puntuación", Toast.LENGTH_LONG).show();
+            //Toast.makeText(NavigationDrawerActivity.contexto, "Aun no tienes puntuación", Toast.LENGTH_LONG).show();
         }
 
         name.setText(user.getUsername());
@@ -363,7 +363,7 @@ public class MiPerfilFragment extends Fragment  {
                     }
                 }
         );
-        //Integer numEventosAsistidos = 0;
+
         //Obtengo el calendario de un user
         HTTPMethods httpMethods3 = new HTTPMethods(8);
         httpMethods3.setToken_user(NavigationDrawerActivity.token);
@@ -420,7 +420,7 @@ public class MiPerfilFragment extends Fragment  {
                 if (list_events.get(i).getOrganizerId().equals(idUsuario)) eventos2.add(list_events.get(i));
             }
         }
-        //Integer numEventosOrganizados = 0;
+
         eventosOrganizados.setText(Html.fromHtml("<b>" + "Eventos organizados: " + "</b>" + "<u><FONT COLOR=\"#0055AA\" >"+eventos2.size()+"</Font></u>"));
         eventosOrganizados.setOnClickListener(
                 new View.OnClickListener() {
@@ -458,21 +458,6 @@ public class MiPerfilFragment extends Fragment  {
                     bm.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                     byte[] bb = bos.toByteArray();
                     encodedString = Base64.encodeToString(bb, Base64.DEFAULT);
-                    // PUT de /users/<id>
-                    /*
-                    HTTPMethods httpMethods = new HTTPMethods(16);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bm.compress(Bitmap.CompressFormat.JPEG, 50, bos);
-                    byte[] bb = bos.toByteArray();
-                    String encodedString = Base64.encodeToString(bb, Base64.DEFAULT);
-                    httpMethods.setPic(encodedString);
-                    httpMethods.setUser_id(Integer.parseInt(idUsuario));
-                    httpMethods.ejecutarHttpAsyncTask();
-                    while (!httpMethods.getFinished());
-                    NavigationDrawerActivity.change_image = true;
-                    NavigationDrawerActivity.userimage = bm;
-                    Toast.makeText(NavigationDrawerActivity.contexto, "Imagen modificada correctamente", Toast.LENGTH_LONG).show();
-                    */
                 }
             }
         }

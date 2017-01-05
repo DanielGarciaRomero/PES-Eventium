@@ -66,6 +66,28 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
 
     }
 
+    public void mostrarUsuariosFiltrados()
+    {
+        String direccionFiltraje = NavigationDrawerActivity.direccionFiltraje;
+        HTTPMethods httpMe41 = new HTTPMethods(41);
+        httpMe41.setDireccionFiltraje(direccionFiltraje);
+        httpMe41.ejecutarHttpAsyncTask();
+        while (!httpMe41.getFinished());
+        List<Usuario> list_users = httpMe41.getUsers();
+        mUserModel = new ArrayList<>();
+        if (list_users != null) {
+            for (int i = 0; i < list_users.size(); ++i) {
+                String encodedImage = list_users.get(i).getPic();
+                byte[] decodedImage = Base64.decode(encodedImage, Base64.DEFAULT);
+                Bitmap base64BitmapImage = BitmapFactory.decodeByteArray(decodedImage, 0, decodedImage.length);
+                mUserModel.add(new UserModel(base64BitmapImage, list_users.get(i).getUsername()));
+            }
+        }
+        adapter= new RVAdapter(false);
+        adapter.setRVU(mUserModel);
+        rv.setAdapter(adapter);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -102,7 +124,6 @@ public class UsuariosFragment extends Fragment implements SearchView.OnQueryText
                         fragmentTransaction.replace(R.id.contenedor_principal, fragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
-
                     }
 
                     @Override

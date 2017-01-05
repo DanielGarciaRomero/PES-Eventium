@@ -5,17 +5,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -55,6 +59,7 @@ import static com.eventium.eventium.R.id.textView;
 public class MostrarEventoFragment extends Fragment  {
     private String eventID;
     int numOpiniones;
+    Boolean votado;
     private String myUsername;
     private Boolean soySponsor;
     private String username;
@@ -240,6 +245,7 @@ public class MostrarEventoFragment extends Fragment  {
             }
         });
 
+        /*
         RatingBar.OnRatingBarChangeListener listener = new RatingBar.OnRatingBarChangeListener() {
 
             @Override
@@ -255,7 +261,45 @@ public class MostrarEventoFragment extends Fragment  {
             }
 
         };
+        */
 
+        HTTPMethods httpMet40 = new HTTPMethods(40);
+        httpMet40.setToken_user(NavigationDrawerActivity.token);
+        httpMet40.setEvent_id(eventID);
+        httpMet40.ejecutarHttpAsyncTask();
+        while (!httpMet40.getFinished());
+        String voted = httpMet40.getResultado();
+        //System.out.println(voted);
+        //System.out.println(voted.charAt(11));
+        if (voted.charAt(11) == 'T') votado = true;
+        else votado = false;
+
+        puntuacion.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    float touchPositionX = event.getX();
+                    float width = puntuacion.getWidth();
+                    float starsf = (touchPositionX / width) * 5.0f;
+                    int stars = (int) starsf + 1;
+                    //System.out.println("Estrellas seleccionadas = " + stars);
+                    if (votado) Toast.makeText(NavigationDrawerActivity.contexto, "Ya has votado este evento", Toast.LENGTH_LONG).show();
+                    else {
+                        HTTPMethods httpMethods = new HTTPMethods(35);
+                        httpMethods.setEvent_id(NavigationDrawerActivity.event_id);
+                        httpMethods.setToken_user(NavigationDrawerActivity.token);
+                        httpMethods.setEventPoints(Integer.toString(stars));
+                        httpMethods.ejecutarHttpAsyncTask();
+                        while (!httpMethods.getFinished());
+                        votado = true;
+                        puntuacion.setRating(stars);
+                        LayerDrawable layerDrawable = (LayerDrawable) puntuacion.getProgressDrawable();
+                        DrawableCompat.setTint(DrawableCompat.wrap(layerDrawable.getDrawable(2)), Color.rgb(35, 215, 117));
+                        Toast.makeText(NavigationDrawerActivity.contexto, "Has votado este evento", Toast.LENGTH_LONG).show();
+                    }
+                }
+                return true;
+            }
+        });
 
         HTTPMethods httpMethods = new HTTPMethods(7);
         httpMethods.setEvent_id(eventID);
@@ -267,11 +311,10 @@ public class MostrarEventoFragment extends Fragment  {
         try {
             puntuacion.setRating(Float.parseFloat(event.getValoracion()));
         } catch (Exception e){
-            Toast.makeText(NavigationDrawerActivity.contexto, "Este evento aun no tiene puntuación", Toast.LENGTH_LONG).show();
+            //Toast.makeText(NavigationDrawerActivity.contexto, "Este evento aun no tiene puntuación", Toast.LENGTH_LONG).show();
         }
 
-
-        puntuacion.setOnRatingBarChangeListener(listener);
+        //puntuacion.setOnRatingBarChangeListener(listener);
         String cat = event.getCategoria();
         switch (cat) {
             case "0":
@@ -316,12 +359,10 @@ public class MostrarEventoFragment extends Fragment  {
         byte[] decodedString = Base64.decode(event.getPic(), Base64.DEFAULT);
         Bitmap profilePic = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imagen.setImageBitmap(profilePic);
-        if (descripcion != null) descripcion.setText(Html.fromHtml("<b>" + "Descripción: " + "</b>" + event.getDescripcion()));
-        else descripcion.setText(Html.fromHtml("<b>" + "Descripción: " + "</b>" + "-"));
+        if (event.getDescripcion() != null) descripcion.setText(Html.fromHtml("<b>" + "Descripción: " + "</b>" + event.getDescripcion()));
+        else descripcion.setText(Html.fromHtml("<b>" + "Descripción: " + "</b>"));
         ciudad.setText(Html.fromHtml("<b>" + "Ciudad: " + "</b>" + event.getCiudad()));
-        String dir = event.getDireccion();
-        if (dir != null) direccion.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + event.getDireccion()));
-        else direccion.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + "-"));
+        direccion.setText(Html.fromHtml("<b>" + "Dirección: " + "</b>" + event.getDireccion()));
 
         String dataIni = event.getFecha_ini();
         String dataFi = event.getFecha_fin();

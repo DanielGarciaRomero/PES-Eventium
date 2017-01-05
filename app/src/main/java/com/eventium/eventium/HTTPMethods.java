@@ -88,10 +88,13 @@ public class HTTPMethods {
         destacado = "false";
         nreports = "0";
         peticion_id = id;
-        follows = null;
-        followers = null;
         event_id = "";
         comentarios = null;
+        users = null;
+        events = null;
+        calendarios = null;
+        follows = null;
+        followers = null;
     }
 
     public void ejecutarHttpAsyncTask(){
@@ -102,7 +105,7 @@ public class HTTPMethods {
         else if (peticion_id == 4) new HttpAsyncTask().execute("http://10.4.41.168:5000/me"); //get de mi username
         else if (peticion_id == 5) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //get categorias de un user
         else if (peticion_id == 6) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //get follows de un user
-        else if (peticion_id == 7) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //get de un evento
+        else if (peticion_id == 7) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id); //get de un evento
         else if (peticion_id == 8) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //get calendario de un user
         else if (peticion_id == 9) new HttpAsyncTask().execute(direccionFiltraje);
         else if (peticion_id == 21) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/recommended"); //get events recommendeds
@@ -112,23 +115,25 @@ public class HTTPMethods {
         else if (peticion_id == 12) new HttpAsyncTask().execute("http://10.4.41.168:5000/login"); //login
         else if (peticion_id == 13) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar"); //post de calendar - asistire
 
-        else if (peticion_id == 14) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //POST de un comentario
-        else if (peticion_id == 23) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/comments"); //GET de comentarios
-        else if (peticion_id == 24) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //PUT de un evento
-        else if (peticion_id == 30) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/sponsorize"); //Estrella Damm me quiere patrocinar
-        else if (peticion_id == 31) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/sponsors"); //GET de patrocinadores
+        else if (peticion_id == 14) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/comments"); //POST de un comentario
+        else if (peticion_id == 23) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/comments"); //GET de comentarios
+        else if (peticion_id == 24) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id); //PUT de un evento
+        else if (peticion_id == 30) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/sponsorize"); //Estrella Damm me quiere patrocinar
+        else if (peticion_id == 31) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/sponsors"); //GET de patrocinadores
+        else if (peticion_id == 40) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/valoration"); //GET para saber si ya he votado a event_id
+        else if (peticion_id == 41) new HttpAsyncTask().execute(direccionFiltraje);
 
-        else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //put de destacado
+        else if (peticion_id == 18) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id); //put de destacado
         else if (peticion_id == 17) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/wallet"); //put de saldo
         else if (peticion_id == 16) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString()); //PUT de USER
         else if (peticion_id == 15) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/categories"); //put categorias de un user
         else if (peticion_id == 20) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/calendar/" + event_id); //post de calendar - asistire
 
-        else if (peticion_id == 25) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString()); //DELETE de un evento
-        else if (peticion_id == 26) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/report"); //PUT de un report event
+        else if (peticion_id == 25) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id); //DELETE de un evento
+        else if (peticion_id == 26) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/report"); //PUT de un report event
         else if (peticion_id == 27) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/events"); //GET events organizados por el user id
         else if (peticion_id == 28) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/report"); //PUT de un report usuario
-        else if (peticion_id == 29) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id.toString() + "/attendees"); //PUT de un report usuario
+        else if (peticion_id == 29) new HttpAsyncTask().execute("http://10.4.41.168:5000/events/" + event_id + "/attendees"); //PUT de un report usuario
         else if (peticion_id == 32) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //POST seguir a un usuario
         else if (peticion_id == 33) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/follows"); //GET siguiendo
         else if (peticion_id == 34) new HttpAsyncTask().execute("http://10.4.41.168:5000/users/" + user_id.toString() + "/followers"); //GET seguidores
@@ -324,6 +329,10 @@ public class HTTPMethods {
                 httpGet.setHeader("token", token_user);
                 httpResponse = httpclient.execute(httpGet);
             }
+            else if (peticion_id == 40) {
+                httpGet.setHeader("token", token_user);
+                httpResponse = httpclient.execute(httpGet);
+            }
             else httpResponse = httpclient.execute(httpGet);
             code = httpResponse.getStatusLine().toString();
 
@@ -332,7 +341,7 @@ public class HTTPMethods {
 
             //resultado_json = inputStream;
             if (peticion_id == 1) readJsonStreamUsuario(inputStream);
-            else if (peticion_id < 3 ) readJsonStreamUsuarios(inputStream);
+            else if (peticion_id < 3 || peticion_id == 41) readJsonStreamUsuarios(inputStream);
             else if (peticion_id == 3) readJsonStreamEventos(inputStream);
             else if (peticion_id == 4) readJsonStreamUsernameSponsor(inputStream);
 
@@ -597,7 +606,8 @@ public class HTTPMethods {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31 || peticion_id == 99 || peticion_id == 98 || peticion_id == 33 || peticion_id == 34)
+            if (peticion_id < 10 || peticion_id == 21 || peticion_id == 22 || peticion_id == 23 || peticion_id == 27 || peticion_id == 29 || peticion_id == 31
+                    || peticion_id == 99 || peticion_id == 98 || peticion_id == 33 || peticion_id == 34 || peticion_id == 40 || peticion_id == 41)
                 return GET(urls[0]);
             else if ( (peticion_id >= 10 && peticion_id < 15) || peticion_id == 30 || peticion_id == 32 ||peticion_id == 35)
                 return POST(urls[0]);
