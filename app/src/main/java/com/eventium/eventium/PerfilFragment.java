@@ -230,7 +230,7 @@ public class PerfilFragment extends Fragment  {
                         httpMethods.setIdfollow(Integer.parseInt(idUsuario));
                         httpMethods.ejecutarHttpAsyncTask();
                         while (!httpMethods.getFinished()) ;
-                        Toast.makeText(MainActivity.contexto, "Has seguido a " + username, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(MainActivity.contexto, "Has seguido a " + username, Toast.LENGTH_LONG).show();
                         sig = true;
                     }
                 } else {
