@@ -616,7 +616,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                         direccionFiltraje += "estrellasMin=" + Integer.toString(minRatingValue);
                         direccionFiltraje += "&estrellasMax=" + Integer.toString(maxRatingValue);
                         if (!ciutat.equals("")) direccionFiltraje += "&ciudad=" + ciutat;
-                        System.out.println("direccionFiltraje = " + direccionFiltraje);
+                        //System.out.println("direccionFiltraje = " + direccionFiltraje);
                         FragmentManager fm = getSupportFragmentManager();
                         UsuariosFragment fragmento = (UsuariosFragment)fm.findFragmentById(usersFrag.getId());
                         fragmento.mostrarUsuariosFiltrados();

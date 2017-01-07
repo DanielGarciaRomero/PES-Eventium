@@ -375,7 +375,7 @@ public class MiPerfilFragment extends Fragment  {
         final Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
-        System.out.println("HOLA" + date.getTime());
+        //System.out.println("HOLA" + date.getTime());
 
         if (list_calendario != null) {
             for (int i = 0; i < list_calendario.size(); ++i) {
