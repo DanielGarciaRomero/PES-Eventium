@@ -187,19 +187,19 @@ public class PerfilFragment extends Fragment  {
                     categorias += "Musical, ";
                     ++numCategorias;
                     break;
-                case "8":
+                case "9":
                     categorias += "Político, ";
                     ++numCategorias;
                     break;
-                case "9":
+                case "10":
                     categorias += "Teatral, ";
                     ++numCategorias;
                     break;
-                case "10":
+                case "11":
                     categorias += "Tecnológico y científico, ";
                     ++numCategorias;
                     break;
-                case "11":
+                case "8":
                     categorias += "Otros, ";
                     ++numCategorias;
                     break;
