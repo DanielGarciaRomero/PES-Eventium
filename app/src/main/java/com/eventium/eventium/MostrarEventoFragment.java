@@ -321,7 +321,7 @@ public class MostrarEventoFragment extends Fragment  {
                 cat = "Artístico";
                 break;
             case "1":
-                cat = "Automobilístico, ";
+                cat = "Automobilístico";
                 break;
             case "2":
                 cat = "Cinematográfico";
@@ -341,16 +341,16 @@ public class MostrarEventoFragment extends Fragment  {
             case "7":
                 cat = "Musical";
                 break;
-            case "8":
+            case "9":
                 cat = "Político";
                 break;
-            case "9":
+            case "10":
                 cat = "Teatral";
                 break;
-            case "10":
+            case "11":
                 cat = "Tecnológico y científico";
                 break;
-            case "11":
+            case "8":
                 cat = "Otros";
                 break;
         }

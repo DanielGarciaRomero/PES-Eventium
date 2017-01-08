@@ -140,8 +140,8 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
         array_spinner = new String[12];
         array_spinner[0]="Artistico"; array_spinner[1]="Automobilistico"; array_spinner[2]="Cinematografico";
         array_spinner[3]="Deportivo"; array_spinner[4]="Gastronomico"; array_spinner[5]="Literario";
-        array_spinner[6]="Moda"; array_spinner[7]="Musical"; array_spinner[8]="Politico";
-        array_spinner[9]="Teatral"; array_spinner[10]="Tecnologico y cientifico"; array_spinner[11]="Otros";
+        array_spinner[6]="Moda"; array_spinner[7]="Musical"; array_spinner[9]="Politico";
+        array_spinner[10]="Teatral"; array_spinner[11]="Tecnologico y cientifico"; array_spinner[8]="Otros";
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, array_spinner);
         categoria.setAdapter(adapter);
         if (event.getCategoria().equals("0")) categoria.setSelection(0);

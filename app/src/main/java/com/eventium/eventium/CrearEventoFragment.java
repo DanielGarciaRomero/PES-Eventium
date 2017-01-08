@@ -230,6 +230,7 @@ public class CrearEventoFragment extends Fragment implements DatePickerDialog.On
         crear_evento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //System.out.println("Categoria crear evento: " + categoria.getSelectedItem().toString());
                 //Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado en crear evento", Toast.LENGTH_LONG).show();
                 if (titulo.getText().toString().equals("") || entradas.getText().toString().equals("")
                         || ciudad.getText().toString().equals("") || direccion.getText().toString().equals("")

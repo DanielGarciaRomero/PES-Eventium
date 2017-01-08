@@ -89,6 +89,7 @@ public class PerfilFragment extends Fragment  {
                     httpMethods.setEvent_id(idUsuario);
                     httpMethods.ejecutarHttpAsyncTask();
                     while (!httpMethods.getFinished()) ;
+                    Toast.makeText(NavigationDrawerActivity.contexto, "Has reportado a este usuario", Toast.LENGTH_LONG).show();
                     //if (user.getNreports().equals(4)) {
                     //   ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
                     //}

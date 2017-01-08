@@ -228,16 +228,16 @@ public class HTTPMethods {
                 event_categoria = 7;
                 break;
             case "Politico":
-                event_categoria = 8;
-                break;
-            case "Teatral":
                 event_categoria = 9;
                 break;
-            case "Tecnologico y cientifico":
+            case "Teatral":
                 event_categoria = 10;
                 break;
-            case "Otros":
+            case "Tecnologico y cientifico":
                 event_categoria = 11;
+                break;
+            case "Otros":
+                event_categoria = 8;
                 break;
         }
     }

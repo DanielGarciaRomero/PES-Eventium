@@ -28,10 +28,10 @@
         <item>Literario</item>
         <item>Moda</item>
         <item>Musical</item>
+        <item>Otros</item>
         <item>Politico</item>
         <item>Teatral</item>
         <item>Tecnologico y cientifico</item>
-        <item>Otros</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
