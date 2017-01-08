@@ -303,7 +303,7 @@ public class EditarEventoFragment extends Fragment implements DatePickerDialog.O
                                 else httpMet.setDestacado("false");
                                 httpMet.ejecutarHttpAsyncTask();
                                 while (!httpMet.getFinished());
-                                Toast.makeText(MainActivity.contexto, "Evento modificado correctamente", Toast.LENGTH_LONG).show();
+                                Toast.makeText(NavigationDrawerActivity.contexto, "Evento modificado correctamente", Toast.LENGTH_LONG).show();
                                 ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
                             }
                         }

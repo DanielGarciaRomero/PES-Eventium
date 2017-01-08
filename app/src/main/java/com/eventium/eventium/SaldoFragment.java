@@ -39,43 +39,54 @@ public class SaldoFragment extends Fragment {
                     Toast.makeText(NavigationDrawerActivity.contexto, "No puedes dejar ningún campo en blanco", Toast.LENGTH_LONG).show();
                 else {
                     //Obtengo el username con el token
+                    /*
                     HTTPMethods httpMethods1 = new HTTPMethods(4);
                     httpMethods1.setToken_user(NavigationDrawerActivity.token);
                     httpMethods1.ejecutarHttpAsyncTask();
                     while (!httpMethods1.getFinished());
                     UsernameSponsor us = httpMethods1.getUsernameSponsor();
                     String username = us.getUsername();
+                    */
                     //String username = httpMethods1.getResultado();
                     //username = username.substring(14, username.length() - 2);
 
                     //Obtengo el usuario con el username
+                    /*
                     HTTPMethods httpMethods2 = new HTTPMethods(1);
                     httpMethods2.setUsername(username);
                     httpMethods2.ejecutarHttpAsyncTask();
                     while (!httpMethods2.getFinished());
                     Usuario user = httpMethods2.getUser();
+                    */
 
                     HTTPMethods httpMethods = new HTTPMethods(17);
                     httpMethods.setCardNumber(numtarjeta.getText().toString());
                     httpMethods.setCvc(cvc.getText().toString());
                     httpMethods.setMoney(saldo.getText().toString());
                     httpMethods.setToken_user(NavigationDrawerActivity.token);
-                    httpMethods.setUser_id(Integer.parseInt(user.getId()));
+                    //httpMethods.setUser_id(Integer.parseInt(user.getId()));
+                    httpMethods.setUser_id(NavigationDrawerActivity.myUserID);
                     httpMethods.ejecutarHttpAsyncTask();
                     while (!httpMethods.getFinished());
 
                     NavigationDrawerActivity.change_saldo = true;
 
                     //Tengo que obtener el nuevo saldo
+                    /*
                     HTTPMethods httpMethods3 = new HTTPMethods(1);
                     httpMethods3.setUsername(username);
                     httpMethods3.ejecutarHttpAsyncTask();
                     while (!httpMethods3.getFinished());
                     user = httpMethods3.getUser();
-
-                    NavigationDrawerActivity.usersaldo = user.getSaldo();
+                    */
+                    //NavigationDrawerActivity.usersaldo = user.getSaldo();
+                    String saldoIntroducido = saldo.getText().toString();
+                    String currentSaldo = NavigationDrawerActivity.usersaldo;
+                    Integer nuevoSaldo = Integer.valueOf(currentSaldo) + Integer.valueOf(saldoIntroducido);
+                    NavigationDrawerActivity.usersaldo = Integer.toString(nuevoSaldo);
 
                     ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
+                    Toast.makeText(NavigationDrawerActivity.contexto, "Saldo actualizado correctamente", Toast.LENGTH_LONG).show();
                 }
                 //Toast.makeText(NavigationDrawerActivity.contexto, "Has pulsado realizar ingreso", Toast.LENGTH_LONG).show();
             }

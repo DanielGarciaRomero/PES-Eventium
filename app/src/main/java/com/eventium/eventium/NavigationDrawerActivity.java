@@ -159,9 +159,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                         if (change_image) {
                             RoundImage roundedImage = new RoundImage(userimage);
                             nav_userimage.setImageDrawable(roundedImage);
+                            change_image = false;
                         }
                         if (change_saldo) {
                             nav_usersaldo.setText("Saldo : " + usersaldo +  " €");
+                            change_saldo = false;
                         }
                     }
         };
@@ -192,13 +194,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
         myUserID = Integer.parseInt(user.getId());
         myUsername = user.getUsername();
+        usersaldo = user.getSaldo();
 
         TextView nav_username = (TextView) hView.findViewById(R.id.textViewNaviDrawer1);
         nav_username.setText(user.getUsername());
         TextView nav_useremail = (TextView) hView.findViewById(R.id.textViewNaviDrawer2);
         nav_useremail.setText(user.getMail());
         nav_usersaldo = (TextView) hView.findViewById(R.id.textViewNaviDrawer3);
-        nav_usersaldo.setText("Saldo : " + user.getSaldo() +  " €");
+        nav_usersaldo.setText("Saldo : " + usersaldo +  " €");
         nav_userimage = (ImageView) hView.findViewById(R.id.imageViewNaviDrawer);
         String nav_userpic = user.getPic();
         byte[] decodedImage = Base64.decode(nav_userpic, Base64.DEFAULT);

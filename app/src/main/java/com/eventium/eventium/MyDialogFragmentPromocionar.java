@@ -50,13 +50,14 @@ public class MyDialogFragmentPromocionar extends DialogFragment {
         textPromocionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(NavigationDrawerActivity.token);
+                //System.out.println(NavigationDrawerActivity.token);
 
                 String saldo;
                 Integer numtarjeta = 11111111;
                 Integer cvc = 111;
 
                 //Restarme el dinero
+                /*
                 HTTPMethods httpMethods1 = new HTTPMethods(4);
                 httpMethods1.setToken_user(NavigationDrawerActivity.token);
                 httpMethods1.ejecutarHttpAsyncTask();
@@ -65,29 +66,28 @@ public class MyDialogFragmentPromocionar extends DialogFragment {
                 String username = us.getUsername();
                 //String username = httpMethods1.getResultado();
                 //username = username.substring(14, username.length() - 2);
-
                 HTTPMethods httpMethods2 = new HTTPMethods(1);
                 httpMethods2.setUsername(username);
                 httpMethods2.ejecutarHttpAsyncTask();
                 while (!httpMethods2.getFinished());
                 Usuario user = httpMethods2.getUser();
-
                 saldo = user.getSaldo();
+                */
+                saldo = NavigationDrawerActivity.usersaldo;
                 Integer aux = 0;
 
                 if (radioplatino.isChecked()) {
-                    aux = -190;
+                    aux = -15;
                 }
                 else if (radiooro.isChecked()) {
-                    aux = -3;
+                    aux = -5;
                 }
                 else if (radioplata.isChecked()) {
                     aux = -1;
                 }
 
-                if ((aux*(-1)) > Integer.parseInt(saldo)) {
-                    //dismiss();
-                    Toast.makeText(MainActivity.contexto, "No tienes saldo suficiente para este plan de promoción", Toast.LENGTH_LONG).show();
+                if ((aux*(-1)) > Integer.valueOf(saldo)) {
+                    Toast.makeText(NavigationDrawerActivity.contexto, "No tienes saldo suficiente para este plan de promoción", Toast.LENGTH_LONG).show();
                 }
                 else {
                     //Peticion para promocionar un evento
@@ -103,23 +103,27 @@ public class MyDialogFragmentPromocionar extends DialogFragment {
                     httpMethods3.setCvc(cvc.toString());
                     httpMethods3.setMoney(aux.toString());
                     httpMethods3.setToken_user(NavigationDrawerActivity.token);
-                    httpMethods3.setUser_id(Integer.parseInt(user.getId()));
+                    //httpMethods3.setUser_id(Integer.parseInt(user.getId()));
+                    httpMethods3.setUser_id(NavigationDrawerActivity.myUserID);
                     httpMethods3.ejecutarHttpAsyncTask();
-                    while (!httpMethods3.getFinished()) ;
+                    while (!httpMethods3.getFinished());
 
                     NavigationDrawerActivity.change_saldo = true;
-
                     //Tengo que obtener el nuevo saldo
+                    /*
                     HTTPMethods httpMethods4 = new HTTPMethods(1);
                     httpMethods4.setUsername(username);
                     httpMethods4.ejecutarHttpAsyncTask();
                     while (!httpMethods4.getFinished()) ;
                     user = httpMethods4.getUser();
-
-                    NavigationDrawerActivity.usersaldo = user.getSaldo();
+                    */
+                    //NavigationDrawerActivity.usersaldo = user.getSaldo();
+                    Integer nuevoSaldo = Integer.valueOf(saldo) - (aux*(-1));
+                    NavigationDrawerActivity.usersaldo = Integer.toString(nuevoSaldo);
 
                     ((NavigationDrawerActivity) getActivity()).fromAnyWhereToVerEventos();
                     dismiss();
+                    Toast.makeText(NavigationDrawerActivity.contexto, "Has promocionado este evento", Toast.LENGTH_LONG).show();
                 }
             }
         });
