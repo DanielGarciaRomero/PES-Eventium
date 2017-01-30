@@ -1,6 +1,17 @@
 # PES-Eventium #
 
-API 18: Android 4.3.1 4.7" WXGA (1280 x 720 xhdpi)
+Aplicació mòbil que facilita l'assistència a activitats de lleure (culturals, esportives, ...) als aficionats i seguidors d'equips o grups.
+
+Versió d’Android >= 4.3 i < 6.0
+
+Robert Almar
+Daniel García
+Alvaro Martínez
+Abel Menor
+Eric Mourin
+Adrian Rambal
+
+Nota: 8,8
 
 ![](http://i.imgur.com/pgBSjjK.png)
 ![](http://i.imgur.com/QE6QwMj.png)
@@ -13,3 +24,4 @@ API 18: Android 4.3.1 4.7" WXGA (1280 x 720 xhdpi)
 ![](http://i.imgur.com/BMO78St.png)
 ![](http://i.imgur.com/SR8ozTJ.png)
 ![](http://i.imgur.com/Z988jIM.png)
+![](http://i.imgur.com/cmOZwWf.png)
