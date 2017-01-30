@@ -4,12 +4,17 @@ Aplicació mòbil que facilita l'assistència a activitats de lleure (culturals,
 
 Versió d’Android >= 4.3 i < 6.0
 
-Robert Almar
-Daniel García
-Alvaro Martínez
-Abel Menor
-Eric Mourin
-Adrian Rambal
+[Robert Almar](https://github.com/rodergas)
+
+[Daniel García](https://github.com/DanielGarciaRomero)
+
+[Alvaro Martínez](https://github.com/alvaroma94)
+
+[Abel Menor](https://github.com/abelmenor)
+
+[Eric Mourin](https://github.com/Aridez)
+
+[Adrian Rambal](https://github.com/link-adri)
 
 Nota: 8,8
 
